@@ -16,7 +16,8 @@ import beans.MenuBean;
 @Service
 public class MenuReader {
     synchronized public MenuBean read() throws Exception {
-        final String emlPath = "C:/Users/CER3190252/Documents/cantine";
+
+        final String emlPath = System.getProperty("user.home");
         File dir = new File(emlPath);
         FileFilter fileFilter = new RegexFileFilter("^.*eml$");
         File[] files = dir.listFiles(fileFilter);
