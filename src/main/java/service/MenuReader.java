@@ -48,14 +48,22 @@ public class MenuReader {
         trtd = new String[trs.size()][];
         for (int i = 0; i < trs.size(); i++) {
             Elements tds = trs.get(i).select("td");
-            trtd[i] = new String[tds.size()];
+
+            trtd[i] = new String[6];
             for (int j = 0; j < tds.size(); j++) {
-                // if (tds.size() == 6 )
                 trtd[i][j] = tds.get(j).text();
-                // else
-                // trtd[i][j] = "";
             }
+
+            // Cas du colspan des grillades
+            if (i == 4 || i == 5 || i == 6 || i == 7) {
+                trtd[i][2] = trtd[i][1];
+                trtd[i][3] = trtd[i][1];
+                trtd[i][4] = trtd[i][1];
+                trtd[i][5] = trtd[i][1];
+            }
+
         }
+
         return trtd;
     }
 }
