@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>Hello jQuery</title>
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+
+<link href="cantine.css" rel="stylesheet" type="text/css" />
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8"
+	src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<!-- DataTables -->
+<script type="text/javascript" charset="utf8"
+	src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+<script>
+	var semaine;
+	$(document).ready(function() {
+		$.ajax({
+			url : "/menu"
+		}).then(function(data) {
+			semaine = data.semaine;
+			$('.semaine').append(data.semaine);
+			// 			$.each(data.plats, function(key, value) { 
+			// 				$('.plats').append(key + ' -> ' + value + '<br>');
+			// 			});
+
+			$('.table').dataTable({
+				"data" : data.plats,
+				"columns" : [ {
+					"title" : "1"
+				}, {
+					"title" : "2"
+				}, {
+					"title" : "3"
+				}, {
+					"title" : "4"
+				}, {
+					"title" : "5"
+				}, {
+					"title" : "6"
+				} ]
+			});
+
+						var table = $('.table').DataTable();
+			$('.table tbody').on('click', 'td', function() {
+				if ($(this).hasClass('cell_selected')) {
+					$(this).removeClass('cell_selected');
+// 					alert(table.cells( ".cell_selected" ).data().length);
+					$.each(table.cells( ".cell_selected" ).data(), function(key,value) { 
+						alert(value);
+									});
+					
+					
+				} else {
+					$(this).addClass('cell_selected');
+					$.each(table.cells( ".cell_selected" ).data(), function(key,value) { 
+						alert(value);
+									});
+				}
+			});
+
+
+		});
+
+	});
+
+	function email() {
+		var sMailTo = "mailto:";
+		var sBody = "Génial";
+		sMailTo += escape("alexis.krier@cirso.fr") + "?subject="
+				+ escape("choix: " + semaine) + "&body=" + escape(sBody);
+		window.location.href = sMailTo;
+	}
+</script>
+</head>
+<body>
+	<h2>Hello Cantine!</h2>
+	<div>
+		<p class="semaine"></p>
+		<p class="plats">
+			The content is <br>
+		</p>
+		<p>
+		<table class="table"></table>
+		</p>
+	</div>
+	<button onClick='email()'>Envoyer</button>
+</body>
+</html>

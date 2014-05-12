@@ -1,0 +1,7 @@
+table.display tr.even td.cell_selected {
+	background-color: #B0BED9;
+}
+
+table.display tr.odd td.cell_selected {
+	background-color: #9FAFD1;
+}
