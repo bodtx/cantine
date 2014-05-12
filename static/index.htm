@@ -28,35 +28,35 @@
 			$('.table').dataTable({
 				"data" : data.plats,
 				"columns" : [ {
-					"title" : "1"
+					"title" : ""
 				}, {
-					"title" : "2"
+					"title" : data.plats[0][1]
 				}, {
-					"title" : "3"
+					"title" : data.plats[0][2]
 				}, {
-					"title" : "4"
+					"title" : data.plats[0][3]
 				}, {
-					"title" : "5"
+					"title" : data.plats[0][4]
 				}, {
-					"title" : "6"
+					"title" : data.plats[0][5]
 				} ]
 			});
 
 						var table = $('.table').DataTable();
 			$('.table tbody').on('click', 'td', function() {
+				console.debug("ligne"+table.cell(this).index().row+ " column "+table.cell(this).index().column);
 				if ($(this).hasClass('cell_selected')) {
 					$(this).removeClass('cell_selected');
-// 					alert(table.cells( ".cell_selected" ).data().length);
-					$.each(table.cells( ".cell_selected" ).data(), function(key,value) { 
-						alert(value);
-									});
+// 					$.each(table.cells( ".cell_selected" ).data(), function(key,value) { 
+// 						alert(value);
+// 									});
 					
 					
 				} else {
 					$(this).addClass('cell_selected');
-					$.each(table.cells( ".cell_selected" ).data(), function(key,value) { 
-						alert(value);
-									});
+// 					$.each(table.cells( ".cell_selected" ).data(), function(key,value) { 
+// 						alert(value);
+// 									});
 				}
 			});
 
@@ -66,8 +66,15 @@
 	});
 
 	function email() {
+		var sBody = "";
+		var table = $('.table').DataTable();
+		cells = table.cells( ".cell_selected" );
+		$.each(table.cells( ".cell_selected" )[0], function(key, value) { 
+			console.debug(value);
+			sBody = sBody +"\nNuméro jour "+table.cell(this).index().column+" plat "+table.cell(this).data();
+						});
+		console.debug(sBody);
 		var sMailTo = "mailto:";
-		var sBody = "Génial";
 		sMailTo += escape("alexis.krier@cirso.fr") + "?subject="
 				+ escape("choix: " + semaine) + "&body=" + escape(sBody);
 		window.location.href = sMailTo;
