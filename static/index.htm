@@ -15,10 +15,12 @@
 	src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
 <script>
 	var semaine;
+	var plats;
 	$(document).ready(function() {
 		$.ajax({
 			url : "/menu"
 		}).then(function(data) {
+			plats=data.plats;
 			semaine = data.semaine;
 			$('.semaine').append(data.semaine);
 			// 			$.each(data.plats, function(key, value) { 
@@ -66,13 +68,20 @@
 	});
 
 	function email() {
-		var sBody = "";
+		var sBody;
 		var table = $('.table').DataTable();
 		cells = table.cells( ".cell_selected" );
+		var platsMail = [];
+		for (var i = 1; i < 6; i++) { 
+			platsMail[i] = plats[0][i];
+		}
 		$.each(table.cells( ".cell_selected" )[0], function(key, value) { 
-			console.debug(value);
-			sBody = sBody +"\nNuméro jour "+table.cell(this).index().column+" plat "+table.cell(this).data();
+			console.debug("\nNuméro jour "+plats[0][table.cell(this).index().column]+" plat "+table.cell(this).data());
+			platsMail[table.cell(this).index().column] = platsMail[table.cell(this).index().column] + " " + table.cell(this).data();
 						});
+		
+		
+		sBody = platsMail.join("\n");
 		console.debug(sBody);
 		var sMailTo = "mailto:";
 		sMailTo += escape("alexis.krier@cirso.fr") + "?subject="
