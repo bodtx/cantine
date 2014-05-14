@@ -62,20 +62,20 @@
 	});
 
 	function email() {
-		var sBody;
+		var sBody="Bonjour voici mon choix\n";
 		var table = $('.table').DataTable();
 		cells = table.cells( ".cell_selected" );
 		var platsMail = [];
 		for (var i = 1; i < 6; i++) { 
-			platsMail[i-1] = header[i]+":    ";
+			platsMail[i-1] = "\n"+header[i]+":    ";
 		}
 		$.each(table.cells( ".cell_selected" ).eq(0), function(cellIdx, i) { 
 			console.debug("\nNuméro jour "+header[this.column]+" plat "+table.cell(this.row,this.column).data());
-			platsMail[this.column-1] = platsMail[this.column-1] + " " + table.cell(this.row,this.column).data() +" --- ";
+			platsMail[this.column-1] += " " + table.cell(this.row,this.column).data() +" --- ";
 						});
 		
 		
-		sBody = platsMail.join("\n");
+		sBody += platsMail.join("\n")+"\n\nMerci";
 		console.debug(sBody);
 		var sMailTo = "mailto:";
 		sMailTo += escape("alexis.krier@cirso.fr") + "?subject="

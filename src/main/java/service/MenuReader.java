@@ -5,6 +5,7 @@ import java.io.FileFilter;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.RegexFileFilter;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -57,15 +58,23 @@ public class MenuReader {
                 trtd[i][j] = tds.get(j).text();
             }
 
-            // Cas du colspan des grillades
-            if (i == 4 || i == 5 || i == 6 || i == 7) {
+            // Cas du colspan des grillades + lignes vident
+            switch (i) {
+            case 4:
+            case 5:
+            case 6:
+            case 7:
                 trtd[i][2] = trtd[i][1];
                 trtd[i][3] = trtd[i][1];
                 trtd[i][4] = trtd[i][1];
                 trtd[i][5] = trtd[i][1];
+                break;
+
             }
 
         }
+
+        trtd = ArrayUtils.removeAll(trtd, 3, 8);
 
         return trtd;
     }
