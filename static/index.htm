@@ -15,32 +15,34 @@
 	src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
 <script>
 	var semaine;
-	var plats;
+	var plats,header;
 	$(document).ready(function() {
 		$.ajax({
 			url : "/menu"
 		}).then(function(data) {
-			plats=data.plats;
+			header=data.plats[0];
+			data.plats.splice(0,1);
+			plats = data.plats;
 			semaine = data.semaine;
 			$('.semaine').append(data.semaine);
-			// 			$.each(data.plats, function(key, value) { 
-			// 				$('.plats').append(key + ' -> ' + value + '<br>');
-			// 			});
 
 			$('.table').dataTable({
-				"data" : data.plats,
+				"data" : plats,
+				paging: false,
+				searching: false,
+				ordering:  false,
 				"columns" : [ {
 					"title" : ""
 				}, {
-					"title" : data.plats[0][1]
+					"title" : header[1]
 				}, {
-					"title" : data.plats[0][2]
+					"title" : header[2]
 				}, {
-					"title" : data.plats[0][3]
+					"title" : header[3]
 				}, {
-					"title" : data.plats[0][4]
+					"title" : header[4]
 				}, {
-					"title" : data.plats[0][5]
+					"title" : header[5]
 				} ]
 			});
 
@@ -49,16 +51,8 @@
 				console.debug("ligne"+table.cell(this).index().row+ " column "+table.cell(this).index().column);
 				if ($(this).hasClass('cell_selected')) {
 					$(this).removeClass('cell_selected');
-// 					$.each(table.cells( ".cell_selected" ).data(), function(key,value) { 
-// 						alert(value);
-// 									});
-					
-					
 				} else {
 					$(this).addClass('cell_selected');
-// 					$.each(table.cells( ".cell_selected" ).data(), function(key,value) { 
-// 						alert(value);
-// 									});
 				}
 			});
 
@@ -73,11 +67,11 @@
 		cells = table.cells( ".cell_selected" );
 		var platsMail = [];
 		for (var i = 1; i < 6; i++) { 
-			platsMail[i] = plats[0][i];
+			platsMail[i-1] = header[i]+":    ";
 		}
-		$.each(table.cells( ".cell_selected" )[0], function(key, value) { 
-			console.debug("\nNuméro jour "+plats[0][table.cell(this).index().column]+" plat "+table.cell(this).data());
-			platsMail[table.cell(this).index().column] = platsMail[table.cell(this).index().column] + " " + table.cell(this).data();
+		$.each(table.cells( ".cell_selected" ).eq(0), function(cellIdx, i) { 
+			console.debug("\nNuméro jour "+header[this.column]+" plat "+table.cell(this.row,this.column).data());
+			platsMail[this.column-1] = platsMail[this.column-1] + " " + table.cell(this.row,this.column).data() +" --- ";
 						});
 		
 		
