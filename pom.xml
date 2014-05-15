@@ -2,7 +2,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.cirso</groupId>
     <artifactId>cantine</artifactId>
-    <packaging>war</packaging>
+    <!-- war for tomcat -->
+    <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>cantine Maven Webapp</name>
     <url>http://maven.apache.org</url>
@@ -22,6 +23,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- uncomment for tomcat deploy -->
+
+        <!-- <dependency> -->
+        <!-- <groupId>org.springframework.boot</groupId> -->
+        <!-- <artifactId>spring-boot-starter-tomcat</artifactId> -->
+        <!-- <scope>provided</scope> -->
+        <!-- </dependency> -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -42,12 +50,30 @@
 
 
 
-    <!-- Package as an executable jar -->
     <build>
+    <!-- move resources to src/main/webapp for a war deployment -->
+        <resources>
+            <resource>
+                <directory>.</directory>
+                <includes>
+                    <include>static/*.*</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
+            <!-- Package as an executable jar comment for tomcat deploy -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
