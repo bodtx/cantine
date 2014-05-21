@@ -23,6 +23,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <!-- uncomment for tomcat deploy -->
 
         <!-- <dependency> -->
@@ -51,15 +60,7 @@
 
 
     <build>
-    <!-- move resources to src/main/webapp for a war deployment -->
-        <resources>
-            <resource>
-                <directory>.</directory>
-                <includes>
-                    <include>static/*.*</include>
-                </includes>
-            </resource>
-        </resources>
+        <!-- move resources to src/main/webapp for a war deployment -->
         <plugins>
             <!-- Package as an executable jar comment for tomcat deploy -->
             <plugin>
