@@ -3,21 +3,22 @@
 <title>Hello cantine!</title>
 <!-- DataTables CSS -->
 <link rel="stylesheet" type="text/css"
-	href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+	href="css/jquery.dataTables.min.css">
 
-<link href="cantine.css" rel="stylesheet" type="text/css" />
+<link href="css/cantine.css" rel="stylesheet" type="text/css" />
 <!-- jQuery -->
 <script type="text/javascript" charset="utf8"
-	src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+	src="js/jquery-1.11.1.js"></script>
 
 <!-- DataTables -->
 <script type="text/javascript" charset="utf8"
-	src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+	src="js/jquery.dataTables.js"></script>
 	
 <script src="js/jquery.cookie.js"></script>
 <script>
 	var semaine; 
 	var plats, header;
+	var platsMail = [];
 	$(document)
 			.ready(
 					
@@ -93,12 +94,12 @@
 		var sBody = "Bonjour voici mon choix\n";
 		var table = $('.table').DataTable();
 		cells = table.cells(".cell_selected");
-		var platsMail = [];
+		
 		for ( var i = 1; i < 6; i++) {
 			platsMail[i - 1] = "\n" + header[i] + ":    ";
 		}
 		$.each(table.cells(".cell_selected").eq(0), function(cellIdx, i) {
-			console.debug("\nNuméro jour " + header[this.column] + " plat "
+			console.debug("\nNumï¿½ro jour " + header[this.column] + " plat "
 					+ table.cell(this.row, this.column).data());
 			platsMail[this.column - 1] += " "
 					+ table.cell(this.row, this.column).data() + " --- ";
@@ -109,21 +110,29 @@
 		var sMailTo = "mailto:";
 		sMailTo += escape("alexis.krier@cirso.fr") + "?subject="
 				+ escape("choix: " + semaine) + "&body=" + escape(sBody);
-		window.location.href = sMailTo;
+// 		window.location.href = sMailTo;
 	}
 
 	function setUser() {
 		$.cookie('nom', $(".nom").val(), { expires: 365 });
-// 		$.ajax({
-// 			url : "setUtilisateur/"+$(".nom").val(),
-// 			type : 'PUT',
-// 			success : function(result) {
-// 				$("#name").html(result);
-// 			}
-// 		});
+		$.ajax({
+	         type: "POST",
+	         contentType: "application/json; charset=utf-8",
+	         url:  "menu",
+	         data: JSON.stringify({"id":"1","ip":"123"}),//JSON.stringify(platsMail),
+	         dataType: "json",
+	         error: function(data){
+	              alert("fail");
+	         },
+	         success: function(data){
+	              alert("success");
+	         }
+	         });
+		
+		
 	} 
 	
-	$(".nom")=$.cookie('the_cookie');
+	$(".nom").val($.cookie('the_cookie'));
 </script>
 </head> 
 <body>
@@ -134,8 +143,8 @@
 		<p>
 		<table class="table"></table>
 		</p>
-		<input placeholder="Nom" class="nom"></input>
+		<input placeholder="Nom" class="nom"/>
 	</div>
-	<button onClick='email();setUser()'>Générer le mail</button>
+	<button onClick='email();setUser()'>GÃ©nÃ©rer le mail</button>
 </body>
 </html>
