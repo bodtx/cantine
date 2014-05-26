@@ -1,6 +1,8 @@
 package cantine.db;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,8 +32,9 @@ public class Choix implements Serializable {
 
     @Column(nullable = false)
     private String ip;
+    
 
-    @Override
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
