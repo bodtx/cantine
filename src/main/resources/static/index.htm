@@ -21,14 +21,12 @@
 	var platsMail = [];
 	$(document)
 			.ready(
-					
-					
 					function() {
 						$(".nom").val($.cookie('nom'));
 						$.ajax({
 									url : "menu"
 								})
-								.then(
+								.done(
 										function(data) {
 											header = data.plats[0];
 											data.plats.splice(0, 1);
@@ -99,7 +97,7 @@
 			platsMail[i - 1] = "\n" + header[i] + ":    ";
 		}
 		$.each(table.cells(".cell_selected").eq(0), function(cellIdx, i) {
-			console.debug("\nNumï¿½ro jour " + header[this.column] + " plat "
+			console.debug("\nNumero jour " + header[this.column] + " plat "
 					+ table.cell(this.row, this.column).data());
 			platsMail[this.column - 1] += " "
 					+ table.cell(this.row, this.column).data() + " --- ";
@@ -110,29 +108,35 @@
 		var sMailTo = "mailto:";
 		sMailTo += escape("alexis.krier@cirso.fr") + "?subject="
 				+ escape("choix: " + semaine) + "&body=" + escape(sBody);
-// 		window.location.href = sMailTo;
+		window.location.href = sMailTo;
 	}
 
-	function setUser() {
+	function setUserChoix() {
 		$.cookie('nom', $(".nom").val(), { expires: 365 });
+		var now=new Date();
+		var choix = {
+				nom:$(".nom").val(),
+				date:now.getTime(),
+				plats:[]
+		}
+		j=0;
+		$.each($('.table').DataTable().cells(".cell_selected").eq(0), function(cellIdx, i) {
+			choix.plats[j++] = $('.table').DataTable().cell(this.row, this.column).data();
+		});
+		
 		$.ajax({
-	         type: "POST",
-	         contentType: "application/json; charset=utf-8",
-	         url:  "menu",
-	         data: JSON.stringify({"id":"1","ip":"123"}),//JSON.stringify(platsMail),
-	         dataType: "json",
-	         error: function(data){
-	              alert("fail");
-	         },
-	         success: function(data){
-	              alert("success");
-	         }
-	         });
-		
-		
+			  type: "POST",
+			  headers: {          
+	                 Accept : "application/json",         
+	                "Content-Type": "application/json"   
+	  		},
+			  url: "choix",
+			  data: JSON.stringify(choix),
+			  success:email(),
+			  dataType: "json"
+			});
 	} 
 	
-	$(".nom").val($.cookie('the_cookie'));
 </script>
 </head> 
 <body>
@@ -145,6 +149,6 @@
 		</p>
 		<input placeholder="Nom" class="nom"/>
 	</div>
-	<button onClick='email();setUser()'>GÃ©nÃ©rer le mail</button>
+	<button onClick='setUserChoix();'>Générer le mail</button>
 </body>
 </html>

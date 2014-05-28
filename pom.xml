@@ -32,6 +32,10 @@
             <artifactId>hsqldb</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-webmvc</artifactId>
+        </dependency>
         <!-- uncomment for tomcat deploy -->
 
         <!-- <dependency> -->
