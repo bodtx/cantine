@@ -30,6 +30,7 @@ public class MenuReader {
             fileToString = StringUtils.remove(fileToString, "=" + StringUtils.CR);
             fileToString = StringUtils.remove(fileToString, StringUtils.LF);
             fileToString = StringUtils.replace(fileToString, "=E9", "é");
+            fileToString = StringUtils.replace(fileToString, "=E8", "é");
             fileToString = StringUtils.replace(fileToString, "=E0", "à");
             fileToString = StringUtils.replace(fileToString, "=F4", "ô");
             fileToString = StringUtils.replace(fileToString, "=EA", "ê");
