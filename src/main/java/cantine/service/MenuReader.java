@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import cantine.beans.MenuBean;
 
-
 @Service
 public class MenuReader {
     synchronized public MenuBean read() throws Exception {
@@ -31,11 +30,11 @@ public class MenuReader {
             fileToString = StringUtils.remove(fileToString, "=" + StringUtils.CR);
             fileToString = StringUtils.remove(fileToString, StringUtils.LF);
             fileToString = StringUtils.replace(fileToString, "=E9", "é");
+            fileToString = StringUtils.replace(fileToString, "=E8", "é");
             fileToString = StringUtils.replace(fileToString, "=E0", "à");
             fileToString = StringUtils.replace(fileToString, "=F4", "ô");
             fileToString = StringUtils.replace(fileToString, "=EA", "ê");
             fileToString = StringUtils.replace(fileToString, "=E7", "ç");
-            
             menuBean.setSemaine(files[0].getName());
             String[][] trtd = readTable(fileToString);
             menuBean.setPlats(trtd);

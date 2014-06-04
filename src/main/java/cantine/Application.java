@@ -1,15 +1,18 @@
 package cantine;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
 @Configuration
+@EnableJpaRepositories
+@Import(RepositoryRestMvcConfiguration.class)
 @EnableAutoConfiguration
 @ComponentScan
 public class Application extends SpringBootServletInitializer {
@@ -23,14 +26,5 @@ public class Application extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(applicationClass);
-    }
-}
-
-@RestController
-class GreetingController {
-
-    @RequestMapping("/hello/{name}")
-    String hello(@PathVariable String name) {
-        return "Hello, " + name + "!";
     }
 }
