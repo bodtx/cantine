@@ -6,16 +6,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cantine.beans.BadgeuseBean;
+import cantine.service.BadgeuseReader;
+
 
 @RestController
 public class Badgeuse {
 
+	@Autowired
+	BadgeuseReader badgeuseReader;
 
+    @RequestMapping(value="/badgeInfo")
+    @ResponseBody
+    BadgeuseBean badgeInfo() throws Exception {
+    	return badgeuseReader.getBadgeInfos();
+    }
+	
     @RequestMapping(value="/heure")
     @ResponseBody
-    String home(@RequestParam(value = "heure") String heure) throws Exception {
-    	
-        return heure;
+    BadgeuseBean home(@RequestParam(value = "heure") String heure) throws Exception {
+    	return badgeuseReader.read();
     }
 
 }

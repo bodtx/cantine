@@ -50,8 +50,13 @@ myApp.factory('menuService', function($http) {
 myApp.controller('MenuCtrl', function($scope, menuService) {
 menuService.getMenu().then(function(menu) {
 	
+	var platsMail = [];
+	var semaine; 
+	var header;
+	
 	// ligne des jours de la semaine
 	$scope.jours = menu.plats[0];
+	header = menu.plats[0];
 	var lundi =  menu.plats[0][1];
 	var mardi =  menu.plats[0][2];
 	var mercredi =  menu.plats[0][3];
@@ -62,6 +67,7 @@ menuService.getMenu().then(function(menu) {
 	menu.plats.splice(0,1);
 	$scope.plats = menu.plats;
 	$scope.semaine = menu.semaine;
+	semaine = menu.semaine;
 	
 	
 	$('.semaine').append(menu.semaine);
@@ -97,12 +103,66 @@ menuService.getMenu().then(function(menu) {
 	});
 	
 	
+	function email() {
+		var sBody = "Bonjour voici mon choix\n";
+		var table = $('.table').DataTable();
+		cells = table.cells(".cell_selected");
+		
+		for ( var i = 1; i < 6; i++) {
+			platsMail[i - 1] = "\n" + header[i] + ":    ";
+		}
+		$.each(table.cells(".cell_selected").eq(0), function(cellIdx, i) {
+			console.debug("\nNumero jour " + header[this.column] + " plat "
+					+ table.cell(this.row, this.column).data());
+			platsMail[this.column - 1] += " "
+					+ table.cell(this.row, this.column).data() + " --- ";
+		});
+
+		sBody += platsMail.join("\n") + "\n\nMerci";
+		console.debug(sBody);
+		var sMailTo = "mailto:";
+		sMailTo += escape("mg133@ansamble.fr") + "?subject="
+				+ escape("choix: " + semaine) + "&body=" + escape(sBody);
+		window.location.href = sMailTo;
+	}
+
+	$scope.setUserChoix = function () {
+		$.cookie('nom', $(".nom").val(), { expires: 365 });
+		var now=new Date();
+		var choix = {
+				nom:$(".nom").val(),
+				date:now.getTime(),
+				plats:[]
+		}
+		j=0;
+		$.each($('.table').DataTable().cells(".cell_selected").eq(0), function(cellIdx, i) {
+			choix.plats[j++] = $('.table').DataTable().cell(this.row, this.column).data();
+		});
+		
+		$.ajax({
+			  type: "POST",
+			  headers: {          
+	                 Accept : "application/json",         
+	                "Content-Type": "application/json"   
+	  		},
+			  url: "choix",
+			  data: JSON.stringify(choix),
+			  success:email(),
+			  dataType: "json"
+			});
+	} 
+	
+	
 	
 	
 });
 
 
+
+
 });
+
+
 
 
 
