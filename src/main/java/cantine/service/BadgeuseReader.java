@@ -39,8 +39,8 @@ public class BadgeuseReader {
 		HttpPost httpPost = new HttpPost(
 				"http://gtabadge.rh.recouv/webquartzacq/acq/badge.do");
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-		nvps.add(new BasicNameValuePair("USERID", "CER3100444"));
-		nvps.add(new BasicNameValuePair("PASSWORD", "AuriDij974"));
+		nvps.add(new BasicNameValuePair("USERID", "CER31xxx"));
+		nvps.add(new BasicNameValuePair("PASSWORD", "xxx"));
 		nvps.add(new BasicNameValuePair("Cpts", "Afficher+compteurs"));
 		nvps.add(new BasicNameValuePair("Connexion", "y"));
 		nvps.add(new BasicNameValuePair("DECALHOR", "-120"));
