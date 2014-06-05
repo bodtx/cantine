@@ -2,7 +2,7 @@ var myApp = angular.module('Badgeuse',[]);
 
 //controleur Hello
 myApp.controller('HelloCtrl',['$scope', function ($scope) {
-    $scope.yourName = 'Aurelien';
+    $scope.yourName = 'NameToDo';
 }]);
 
 
