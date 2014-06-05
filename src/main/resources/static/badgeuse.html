@@ -1,26 +1,26 @@
 <!doctype html>
 <html ng-app="Badgeuse">
-  <head>
-	    <script src="js/common/angular.min.js"></script>
-	     <script src="js/badgeuse/badgeuse.js"></script>
-	     
-  </head>
-  
-  <body>
-  
-    <div ng-controller="HelloCtrl">
-      <h1>Bonjour {{yourName}}</h1>
-    </div>
-    
+<head>
+    <script src="js/common/angular.min.js"></script>
+    <script src="js/badgeuse/badgeuse.js"></script>
 
-	<div ng-controller="heureCtrl">
-	  {{nbTentativeConnexion}}<br>
-	  {{presenceAujourdhui}} <br>
-      {{resteAFaireAujourdhui}} <br>
-      {{tpsRecupereAujourdhui}} <br>
-      {{tpsTotalCummuleAujourdhui}} <br>
-      {{simulationDepart}}
-    </div>
-	
-  </body>
+</head>
+
+<body>
+
+<div ng-controller="HelloCtrl">
+    <h1>Bonjour {{yourName}}</h1>
+</div>
+
+
+<div ng-controller="heureCtrl">
+    {{nbTentativeConnexion}}<br>
+    {{presenceAujourdhui}} <br>
+    {{resteAFaireAujourdhui}} <br>
+    {{tpsRecupereAujourdhui}} <br>
+    {{tpsTotalCummuleAujourdhui}} <br>
+    {{simulationDepart}}
+</div>
+
+</body>
 </html>

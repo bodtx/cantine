@@ -1,8 +1,6 @@
 package cantine.service;
 
-import java.io.File;
-import java.io.FileFilter;
-
+import cantine.beans.MenuBean;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.apache.commons.lang3.ArrayUtils;
@@ -12,7 +10,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import cantine.beans.MenuBean;
+import java.io.File;
+import java.io.FileFilter;
 
 @Service
 public class MenuReader {

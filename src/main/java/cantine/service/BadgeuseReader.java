@@ -1,13 +1,7 @@
 package cantine.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.StringTokenizer;
-
+import cantine.beans.BadgeuseBean;
+import cantine.utils.Constantes;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -23,8 +17,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import cantine.beans.BadgeuseBean;
-import cantine.utils.Constantes;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 public class BadgeuseReader {
