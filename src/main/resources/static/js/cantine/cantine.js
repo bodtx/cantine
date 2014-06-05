@@ -136,7 +136,11 @@ menuService.getMenu().then(function(menu) {
 		}
 		j=0;
 		$.each($('.table').DataTable().cells(".cell_selected").eq(0), function(cellIdx, i) {
-			choix.plats[j++] = $('.table').DataTable().cell(this.row, this.column).data();
+			var plat= {
+				nom:$('.table').DataTable().cell(this.row, this.column).data(),
+				accompagnement:true
+			}
+			choix.plats[j++] = plat;
 		});
 		
 		$.ajax({
@@ -145,7 +149,7 @@ menuService.getMenu().then(function(menu) {
 	                 Accept : "application/json",         
 	                "Content-Type": "application/json"   
 	  		},
-			  url: "choix",
+			  url: "menu",
 			  data: JSON.stringify(choix),
 			  success:email(),
 			  dataType: "json"

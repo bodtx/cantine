@@ -17,4 +17,7 @@ hs_err_pid*
 .tern-project
 cantine.lck
 cantine.log
+cantine.properties
+cantine.script
+cantineLogger.log
 target/
