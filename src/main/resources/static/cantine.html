@@ -1,0 +1,58 @@
+<!doctype html>
+<html ng-app="Cantine">
+<head>
+<script src="js/common/angular.min.js"></script>
+<script src="js/common/jquery-2.1.1.js"></script>
+<script src="js/common/jquery.dataTables.js"></script>
+<script src="js/cantine/cantine.js"></script>
+
+<link rel="stylesheet" href="css/common/jquery.dataTables.min.css">
+
+<link rel="stylesheet" href="css/cantine.css">
+
+<script src="js/jquery.cookie.js"></script>
+
+</head>
+
+<body>
+
+	<div ng-controller="HelloCtrl">
+		<h1>Bonjour moi {{yourName}}</h1>
+	</div>
+
+
+	<div ng-controller="CopainCtrl">
+		<h2>Total Personne: {{getTotalPersonne()}}</h2>
+		<ul>
+			<li ng-repeat="personne in personnes"><input type="checkbox"
+				ng-model="personne.inscrit"> <span
+				class="inscrit-{{personne.inscrit}}">{{personne.nom}}</span></li>
+		</ul>
+
+		<form class="form-horizontal">
+			<input type="text" ng-model="formPersonneNom">
+			<button class="btn-primary" ng-click="addPersonne()">add</button>
+		</form>
+
+	</div>
+
+
+
+	<div ng-controller="MenuCtrl">
+		<p class="semaine"></p>
+		<p class="plats">
+			The content is <br>
+		</p>
+		<table class="table"></table>
+		<input placeholder="Nom" class="nom"/>
+<!-- 		<button onClick='setUserChoix();'>Générer le mail</button> -->
+		<button ng-click="setUserChoix()">
+		  Mail
+		</button>
+	</div>
+	
+	
+
+
+</body>
+</html>

@@ -5,3 +5,9 @@ table.table tr.even td.cell_selected {
 table.table tr.odd td.cell_selected {
 	background-color: #9FAFD1;
 }
+
+.inscrit-false {
+	text-decoration: line-through;
+	color: red;
+}
+
