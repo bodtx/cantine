@@ -19,6 +19,7 @@ public class BadgeuseBean {
     String resteAfaireAujourdhui;
     String tpsRecupereAujourdhui;
     String tpsTotalCummuleAujourdhui;
+    String simulationDepart;
 
 	public String getPresenceBadgeJour() {
 		return presenceBadgeJour;
@@ -115,6 +116,14 @@ public class BadgeuseBean {
 
 	public void setNbTentativeConnexion(int nbTentativeConnexion) {
 		this.nbTentativeConnexion = nbTentativeConnexion;
+	}
+
+	public String getSimulationDepart() {
+		return simulationDepart;
+	}
+
+	public void setSimulationDepart(String simulationDepart) {
+		this.simulationDepart = simulationDepart;
 	}
 
 

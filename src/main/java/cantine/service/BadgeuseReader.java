@@ -128,14 +128,13 @@ public class BadgeuseReader {
 		}
 		
 		//traitement badge Infos
-		//presenceAujourd'hui :
-		// - si c'est paire, on a autant d'entre que de sortie, on prend directement la présence badgé du jour
-		// - sinon presence Badgée du jour + période (dernière entrée à maintenant)
 		
+		//presenceAujourd'hui :
 		String presenceAujourdhui="";
 		String resteAfaireAujourdhui="";
 		String tpsRecupereAujourdhui="";
 		String tpsTotalCummuleAujourdhui="";
+		String simulationDepart="";
 		
 		//recuperation de la presence badgée du jour
 		String pbj = b.getPresenceBadgeJour();
@@ -161,8 +160,10 @@ public class BadgeuseReader {
 		
 		int nbMouvement = b.getMouvements().length;
 		if(nbMouvement>0){
+			//  si nb mouvement pair, on a autant d'entre que de sortie, on prend directement la présence badgé du jour
 			if(nbMouvement % 2==0){
 				presenceAujourdhui = pbjHeure.toString()+"h"+pbjMin.toString();
+			// sinon presence Badgée du jour + période (dernière entrée à maintenant)
 			}else{
 				//recupéraion de la dernière heure d'entrée
 				String derniereEntree="";
@@ -178,50 +179,66 @@ public class BadgeuseReader {
 				}
 				
 				//Calcul de la présence 
-				Calendar  c = new GregorianCalendar();
-				c.add(Calendar.HOUR, -deHeure);
-				c.add(Calendar.MINUTE, -deMin);
-				c.add(Calendar.HOUR, pbjHeure);
-				c.add(Calendar.MINUTE, pbjMin);
-				presenceAujourdhui = c.get(Calendar.HOUR)+"h"+c.get(Calendar.MINUTE);
+				Calendar  calPresence = new GregorianCalendar();
+				calPresence.add(Calendar.HOUR, -deHeure);
+				calPresence.add(Calendar.MINUTE, -deMin);
+				calPresence.add(Calendar.HOUR, pbjHeure);
+				calPresence.add(Calendar.MINUTE, pbjMin);
+				presenceAujourdhui = calPresence.get(Calendar.HOUR)+"h"+calPresence.get(Calendar.MINUTE);
 				
-				//Calcul du reste à faire et du tps récupéré Aujourd'hui
-				// si j'ai déjà fait 7h48
-				if(c.get(Calendar.HOUR)>Constantes.HEURE_OBLIGATOIRE || 
-						(c.get(Calendar.HOUR)==Constantes.HEURE_OBLIGATOIRE && c.get(Calendar.MINUTE)>Constantes.MIN_OBLIGATOIRE)){
-					Calendar c3 = new GregorianCalendar();
-					c3.set(Calendar.AM_PM, Calendar.AM);
-					c3.set(Calendar.HOUR, Constantes.HEURE_OBLIGATOIRE);
-					c3.set(Calendar.MINUTE, Constantes.MIN_OBLIGATOIRE);
-					c.add(Calendar.HOUR, -c3.get(Calendar.HOUR));
-					c.add(Calendar.MINUTE, -c3.get(Calendar.MINUTE));
-					tpsRecupereAujourdhui= c.get(Calendar.HOUR)+"h"+c.get(Calendar.MINUTE);
+				// si j'ai fait plus 7h48
+				if(calPresence.get(Calendar.HOUR)>Constantes.HEURE_OBLIGATOIRE || 
+						(calPresence.get(Calendar.HOUR)==Constantes.HEURE_OBLIGATOIRE && calPresence.get(Calendar.MINUTE)>Constantes.MIN_OBLIGATOIRE)){
 					
+					//tps récupéré Aujourd'hui : presence - 7h48
+					Calendar calObligatoire = new GregorianCalendar();
+					calObligatoire.set(Calendar.AM_PM, Calendar.AM);
+					calObligatoire.set(Calendar.HOUR, Constantes.HEURE_OBLIGATOIRE);
+					calObligatoire.set(Calendar.MINUTE, Constantes.MIN_OBLIGATOIRE);
+					Calendar calTpsRecupereAujourdhui = new GregorianCalendar();
+					calTpsRecupereAujourdhui.set(Calendar.HOUR, calPresence.get(Calendar.HOUR));
+					calTpsRecupereAujourdhui.set(Calendar.MINUTE, calPresence.get(Calendar.MINUTE));
+					calTpsRecupereAujourdhui.add(Calendar.HOUR, -calObligatoire.get(Calendar.HOUR));
+					calTpsRecupereAujourdhui.add(Calendar.MINUTE, -calObligatoire.get(Calendar.MINUTE));
+					tpsRecupereAujourdhui= calTpsRecupereAujourdhui.get(Calendar.HOUR)+"h"+calTpsRecupereAujourdhui.get(Calendar.MINUTE);
 					
-					//calcul du tps total cummulé aujourd'hui
-					Calendar c4 = new GregorianCalendar();
-					c4.set(Calendar.AM_PM, Calendar.AM);
-					c4.set(Calendar.HOUR, dccvHeure);
-					c4.set(Calendar.MINUTE, dccvMin);
-					c4.add(Calendar.HOUR, c.get(Calendar.HOUR));
-					c4.add(Calendar.MINUTE, c.get(Calendar.MINUTE));
-					tpsTotalCummuleAujourdhui=c4.get(Calendar.HOUR)+"h"+c4.get(Calendar.MINUTE);
+					//calcul du tps total cummulé aujourd'hui : tps cummulé de la veille + tps récupéré Aujourd'hui
+					Calendar calTpsTotalCumule = new GregorianCalendar();
+					calTpsTotalCumule.set(Calendar.AM_PM, Calendar.AM);
+					calTpsTotalCumule.set(Calendar.HOUR, dccvHeure);
+					calTpsTotalCumule.set(Calendar.MINUTE, dccvMin);
+					calTpsTotalCumule.add(Calendar.HOUR, calTpsRecupereAujourdhui.get(Calendar.HOUR));
+					calTpsTotalCumule.add(Calendar.MINUTE, calTpsRecupereAujourdhui.get(Calendar.MINUTE));
+					tpsTotalCummuleAujourdhui=calTpsTotalCumule.get(Calendar.HOUR)+"h"+calTpsTotalCumule.get(Calendar.MINUTE);
 					
-				}else{
-					Calendar c2 = new GregorianCalendar();
-					c2.set(Calendar.AM_PM, Calendar.AM);
-					c2.set(Calendar.HOUR, Constantes.HEURE_OBLIGATOIRE);
-					c2.set(Calendar.MINUTE, Constantes.MIN_OBLIGATOIRE);
-					c2.add(Calendar.HOUR, -c.get(Calendar.HOUR));
-					c2.add(Calendar.MINUTE, -c.get(Calendar.MINUTE));
-					resteAfaireAujourdhui= c2.get(Calendar.HOUR)+"h"+c2.get(Calendar.MINUTE);
+				}else{ // si j'ai fait moins de 7h48
 					
-					//calcul du tps total cummulé aujourd'hui
-					Calendar c4 = new GregorianCalendar();
-					c4.set(Calendar.AM_PM, Calendar.AM);
-					c4.set(Calendar.HOUR, dccvHeure);
-					c4.set(Calendar.MINUTE, dccvMin);
-					tpsTotalCummuleAujourdhui=c4.get(Calendar.HOUR)+"h"+c4.get(Calendar.MINUTE);
+					//reste à faire aujourd'hui : 7h48 - presence
+					Calendar calResteAFaire = new GregorianCalendar();
+					calResteAFaire.set(Calendar.AM_PM, Calendar.AM);
+					calResteAFaire.set(Calendar.HOUR, Constantes.HEURE_OBLIGATOIRE);
+					calResteAFaire.set(Calendar.MINUTE, Constantes.MIN_OBLIGATOIRE);
+					calResteAFaire.add(Calendar.HOUR, -calPresence.get(Calendar.HOUR));
+					calResteAFaire.add(Calendar.MINUTE, -calPresence.get(Calendar.MINUTE));
+					resteAfaireAujourdhui= calResteAFaire.get(Calendar.HOUR)+"h"+calResteAFaire.get(Calendar.MINUTE);
+					
+					//tps total cummulé aujourd'hui : tps cummulé de la veille 
+					Calendar calTpsTotalCummuleVeille = new GregorianCalendar();
+					calTpsTotalCummuleVeille.set(Calendar.AM_PM, Calendar.AM);
+					calTpsTotalCummuleVeille.set(Calendar.HOUR, dccvHeure);
+					calTpsTotalCummuleVeille.set(Calendar.MINUTE, dccvMin);
+					tpsTotalCummuleAujourdhui=calTpsTotalCummuleVeille.get(Calendar.HOUR)+"h"+calTpsTotalCummuleVeille.get(Calendar.MINUTE);
+					
+					//simulation départ : 7h48 - la presence - tps cummulé veille
+					Calendar calSimulationDepart = new GregorianCalendar();
+					calSimulationDepart.set(Calendar.AM_PM, Calendar.AM);
+					calSimulationDepart.set(Calendar.HOUR, Constantes.HEURE_OBLIGATOIRE);
+					calSimulationDepart.set(Calendar.MINUTE, Constantes.MIN_OBLIGATOIRE);
+					calSimulationDepart.add(Calendar.HOUR, -calPresence.get(Calendar.HOUR));
+					calSimulationDepart.add(Calendar.MINUTE, -calPresence.get(Calendar.MINUTE));
+					calSimulationDepart.add(Calendar.HOUR, -calTpsTotalCummuleVeille.get(Calendar.HOUR));
+					calSimulationDepart.add(Calendar.MINUTE, -calTpsTotalCummuleVeille.get(Calendar.MINUTE));
+					simulationDepart=calSimulationDepart.get(Calendar.HOUR)+"h"+calSimulationDepart.get(Calendar.MINUTE);;
 				}
 			}
 		}
@@ -230,6 +247,7 @@ public class BadgeuseReader {
 		b.setResteAfaireAujourdhui(resteAfaireAujourdhui);
 		b.setTpsRecupereAujourdhui(tpsRecupereAujourdhui);
 		b.setTpsTotalCummuleAujourdhui(tpsTotalCummuleAujourdhui);
+		b.setSimulationDepart(simulationDepart);
 		
 		return b;
 	}
