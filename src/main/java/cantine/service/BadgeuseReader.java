@@ -39,8 +39,8 @@ public class BadgeuseReader {
 		HttpPost httpPost = new HttpPost(
 				"http://gtabadge.rh.recouv/webquartzacq/acq/badge.do");
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-		nvps.add(new BasicNameValuePair("USERID", "CER31xxx"));
-		nvps.add(new BasicNameValuePair("PASSWORD", "xxx"));
+		nvps.add(new BasicNameValuePair("USERID", "CER3100444"));
+		nvps.add(new BasicNameValuePair("PASSWORD", "AuriDij974"));
 		nvps.add(new BasicNameValuePair("Cpts", "Afficher+compteurs"));
 		nvps.add(new BasicNameValuePair("Connexion", "y"));
 		nvps.add(new BasicNameValuePair("DECALHOR", "-120"));
@@ -51,8 +51,10 @@ public class BadgeuseReader {
 		BadgeuseBean b = new BadgeuseBean();
 
 		boolean connexionok = false;
+		
+		int nbTentative = 0;
 
-		while (!connexionok) {
+		while (!connexionok && nbTentative<100) {
 			response2 = httpclient.execute(httpPost);
 
 			// System.out.println(response2.getStatusLine());
@@ -101,10 +103,14 @@ public class BadgeuseReader {
 				b.setDCPeriodique(trtd2[5][1]);
 
 				EntityUtils.consume(entity2);
+			}else{
+				nbTentative++;
 			}
 
 		}
 		response2.close();
+		
+		b.setNbTentativeConnexion(nbTentative);
 
 		return b;
 	}
@@ -129,6 +135,7 @@ public class BadgeuseReader {
 		String presenceAujourdhui="";
 		String resteAfaireAujourdhui="";
 		String tpsRecupereAujourdhui="";
+		String tpsTotalCummuleAujourdhui="";
 		
 		//recuperation de la presence badgée du jour
 		String pbj = b.getPresenceBadgeJour();
@@ -141,6 +148,16 @@ public class BadgeuseReader {
 			pbjMin= new Integer((String) st.nextElement());
 		}
 		
+		//recuperation du temps cummulé
+		String dccv = b.getDCCumuleVeille();
+		StringTokenizer st3 = new StringTokenizer(dccv, ".");
+		Integer dccvHeure=0;
+		Integer dccvMin=0;
+		
+		while (st3.hasMoreElements()) {
+			dccvHeure =  new Integer((String) st3.nextElement());
+			dccvMin= new Integer((String) st3.nextElement());
+		}
 		
 		int nbMouvement = b.getMouvements().length;
 		if(nbMouvement>0){
@@ -169,7 +186,7 @@ public class BadgeuseReader {
 				presenceAujourdhui = c.get(Calendar.HOUR)+"h"+c.get(Calendar.MINUTE);
 				
 				//Calcul du reste à faire et du tps récupéré Aujourd'hui
-				//j'ai déjà 7h48
+				// si j'ai déjà fait 7h48
 				if(c.get(Calendar.HOUR)>Constantes.HEURE_OBLIGATOIRE || 
 						(c.get(Calendar.HOUR)==Constantes.HEURE_OBLIGATOIRE && c.get(Calendar.MINUTE)>Constantes.MIN_OBLIGATOIRE)){
 					Calendar c3 = new GregorianCalendar();
@@ -179,6 +196,17 @@ public class BadgeuseReader {
 					c.add(Calendar.HOUR, -c3.get(Calendar.HOUR));
 					c.add(Calendar.MINUTE, -c3.get(Calendar.MINUTE));
 					tpsRecupereAujourdhui= c.get(Calendar.HOUR)+"h"+c.get(Calendar.MINUTE);
+					
+					
+					//calcul du tps total cummulé aujourd'hui
+					Calendar c4 = new GregorianCalendar();
+					c4.set(Calendar.AM_PM, Calendar.AM);
+					c4.set(Calendar.HOUR, dccvHeure);
+					c4.set(Calendar.MINUTE, dccvMin);
+					c4.add(Calendar.HOUR, c.get(Calendar.HOUR));
+					c4.add(Calendar.MINUTE, c.get(Calendar.MINUTE));
+					tpsTotalCummuleAujourdhui=c4.get(Calendar.HOUR)+"h"+c4.get(Calendar.MINUTE);
+					
 				}else{
 					Calendar c2 = new GregorianCalendar();
 					c2.set(Calendar.AM_PM, Calendar.AM);
@@ -187,6 +215,13 @@ public class BadgeuseReader {
 					c2.add(Calendar.HOUR, -c.get(Calendar.HOUR));
 					c2.add(Calendar.MINUTE, -c.get(Calendar.MINUTE));
 					resteAfaireAujourdhui= c2.get(Calendar.HOUR)+"h"+c2.get(Calendar.MINUTE);
+					
+					//calcul du tps total cummulé aujourd'hui
+					Calendar c4 = new GregorianCalendar();
+					c4.set(Calendar.AM_PM, Calendar.AM);
+					c4.set(Calendar.HOUR, dccvHeure);
+					c4.set(Calendar.MINUTE, dccvMin);
+					tpsTotalCummuleAujourdhui=c4.get(Calendar.HOUR)+"h"+c4.get(Calendar.MINUTE);
 				}
 			}
 		}
@@ -194,6 +229,7 @@ public class BadgeuseReader {
 		b.setPresenceAujourdhui(presenceAujourdhui);
 		b.setResteAfaireAujourdhui(resteAfaireAujourdhui);
 		b.setTpsRecupereAujourdhui(tpsRecupereAujourdhui);
+		b.setTpsTotalCummuleAujourdhui(tpsTotalCummuleAujourdhui);
 		
 		return b;
 	}

@@ -3,6 +3,8 @@ package cantine.beans;
 
 public class BadgeuseBean {
     
+	int nbTentativeConnexion;
+	
 	//Données brutes
 	String presenceBadgeJour;
     String DCJour;
@@ -16,6 +18,7 @@ public class BadgeuseBean {
     String presenceAujourdhui;
     String resteAfaireAujourdhui;
     String tpsRecupereAujourdhui;
+    String tpsTotalCummuleAujourdhui;
 
 	public String getPresenceBadgeJour() {
 		return presenceBadgeJour;
@@ -97,7 +100,23 @@ public class BadgeuseBean {
 	public void setTpsRecupereAujourdhui(String tpsRecupereAujourdhui) {
 		this.tpsRecupereAujourdhui = tpsRecupereAujourdhui;
 	}
-	
+
+	public String getTpsTotalCummuleAujourdhui() {
+		return tpsTotalCummuleAujourdhui;
+	}
+
+	public void setTpsTotalCummuleAujourdhui(String tpsTotalCummuleAujourdhui) {
+		this.tpsTotalCummuleAujourdhui = tpsTotalCummuleAujourdhui;
+	}
+
+	public int getNbTentativeConnexion() {
+		return nbTentativeConnexion;
+	}
+
+	public void setNbTentativeConnexion(int nbTentativeConnexion) {
+		this.nbTentativeConnexion = nbTentativeConnexion;
+	}
+
 
 	
 	

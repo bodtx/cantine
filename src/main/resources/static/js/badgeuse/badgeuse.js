@@ -40,6 +40,8 @@ myApp.controller('heureCtrl', function($scope, badgeInfoService) {
 		$scope.presenceAujourdhui = badgeInfo.presenceAujourdhui;
 		$scope.resteAFaireAujourdhui = badgeInfo.resteAfaireAujourdhui;
 		$scope.tpsRecupereAujourdhui = badgeInfo.tpsRecupereAujourdhui;
+		$scope.tpsTotalCummuleAujourdhui = badgeInfo.tpsTotalCummuleAujourdhui;
+		$scope.nbTentativeConnexion = badgeInfo.nbTentativeConnexion;
 	});
 
 });
