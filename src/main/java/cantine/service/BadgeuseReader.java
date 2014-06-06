@@ -109,6 +109,7 @@ public class BadgeuseReader {
 		return b;
 	}
 
+	//TODO tout revoir car problème quand on a des heures négatives....
 	public BadgeuseBean getBadgeInfos() {
 		BadgeuseBean b = null;
 		try {
@@ -223,15 +224,19 @@ public class BadgeuseReader {
 					calTpsTotalCummuleVeille.set(Calendar.MINUTE, dccvMin);
 					tpsTotalCummuleAujourdhui=calTpsTotalCummuleVeille.get(Calendar.HOUR)+"h"+calTpsTotalCummuleVeille.get(Calendar.MINUTE);
 					
-					//simulation départ : 7h48 - la presence - tps cummulé veille
+					
+					//simulation départ :  la presence + tps cummulé veille - 7h48
 					Calendar calSimulationDepart = new GregorianCalendar();
 					calSimulationDepart.set(Calendar.AM_PM, Calendar.AM);
-					calSimulationDepart.set(Calendar.HOUR, Constantes.HEURE_OBLIGATOIRE);
-					calSimulationDepart.set(Calendar.MINUTE, Constantes.MIN_OBLIGATOIRE);
-					calSimulationDepart.add(Calendar.HOUR, -calPresence.get(Calendar.HOUR));
-					calSimulationDepart.add(Calendar.MINUTE, -calPresence.get(Calendar.MINUTE));
-					calSimulationDepart.add(Calendar.HOUR, -calTpsTotalCummuleVeille.get(Calendar.HOUR));
-					calSimulationDepart.add(Calendar.MINUTE, -calTpsTotalCummuleVeille.get(Calendar.MINUTE));
+					calSimulationDepart.set(Calendar.HOUR, calPresence.get(Calendar.HOUR));
+					calSimulationDepart.set(Calendar.MINUTE, calPresence.get(Calendar.MINUTE));
+					System.out.println(calSimulationDepart.getTime());
+					calSimulationDepart.add(Calendar.HOUR, calTpsTotalCummuleVeille.get(Calendar.HOUR));
+					calSimulationDepart.add(Calendar.MINUTE, calTpsTotalCummuleVeille.get(Calendar.MINUTE));
+					System.out.println(calSimulationDepart.getTime());
+					calSimulationDepart.add(Calendar.HOUR, -Constantes.HEURE_OBLIGATOIRE);
+					calSimulationDepart.add(Calendar.MINUTE, -Constantes.MIN_OBLIGATOIRE);
+					System.out.println(calSimulationDepart.getTime());
 					simulationDepart=calSimulationDepart.get(Calendar.HOUR)+"h"+calSimulationDepart.get(Calendar.MINUTE);;
 				}
 			}
