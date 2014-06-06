@@ -55,6 +55,7 @@ myApp.factory('menuService', function($http) {
 myApp.controller('MenuCtrl', function($scope, menuService) {
 	menuService.getMenu().then(
 			function(menu) {
+				$(".nom").val($.cookie('nom'));
 
 				var platsMail = [];
 				var semaine;
