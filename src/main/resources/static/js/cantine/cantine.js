@@ -105,16 +105,7 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 						function() {
 							//la première colonne ne peut pas etre selectionnée
 							if (table.cell(this).index().column > 0) {
-//								verifChoix(this);
-								console.debug("ligne"
-										+ table.cell(this).index().row
-										+ " column "
-										+ table.cell(this).index().column);
-								if ($(this).hasClass('cell_selected')) {
-									$(this).removeClass('cell_selected');
-								} else {
-									$(this).addClass('cell_selected');
-								}
+								verifChoix(this);
 							}
 						});
 
@@ -122,42 +113,48 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 				function verifChoix(td){
 					var ligne=table.cell(td).index().row;
 					var colonne = table.cell(td).index().column;
-					//si c'est la viande
+					//si c'est la viande, on a qu'un choix possible
 					if(ligne <6){
 						//on deselectionne les autres viandes
 						for (var int = 0; int < 6; int++) {
-							if(table.cell(int, colonne).hasClass('cell_selected'));
-								$(this).removeClass('cell_selected');
+							if($(table.cell(int, colonne).node()).hasClass('cell_selected')){
+								$(table.cell(int, colonne).node()).removeClass('cell_selected');
+							}
 						}
 						//on selectionne la nouvelle
-						td.addClass('cell_selected');
+						$(td).addClass('cell_selected');
 					}
-					//si c'est l'accompagnement
+					
+					//si c'est l'accompagnement, aucun test
 					else{
-						// 2 max
+						if ($(td).hasClass('cell_selected')) {
+							$(td).removeClass('cell_selected');
+						} else {
+							$(td).addClass('cell_selected');
+						}
 					}
 				}
 				
 				// méthode qui prépare le mail
-				function email() {
+				function email(nom) {
 					var sBody = "Bonjour voici mon choix\n";
 					var table = $('.table').DataTable();
 					cells = table.cells(".cell_selected");
 
-					for (var i = 1; i < 6; i++) {
-						platsMail[i - 1] = "\n" + header[i] + ":    ";
-					}
-					$.each(table.cells(".cell_selected").eq(0), function(
-							cellIdx, i) {
-						console.debug("\nNumero jour " + header[this.column]
-								+ " plat "
-								+ table.cell(this.row, this.column).data());
+                    // on affiche que les jours ou on a choisis un repas
+                    $.each(table.cells(".cell_selected").eq(0), function() {
+                        platsMail[this.column - 1] = "\n" + header[this.column] + ":    ";
+                    });
+
+                    //on affecte les plats au bon jour
+					$.each(table.cells(".cell_selected").eq(0), function() {
 						platsMail[this.column - 1] += " "
 								+ table.cell(this.row, this.column).data()
 								+ " --- ";
 					});
 
-					sBody += platsMail.join("\n") + "\n\nMerci";
+					sBody += platsMail.join("\n") + "\n\nMerci"  + "\n" + nom;
+
 					console.debug(sBody);
 					var sMailTo = "mailto:";
 					sMailTo += escape("mg133@ansamble.fr") + "?subject="
@@ -166,10 +163,10 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 					window.location.href = sMailTo;
 				}
 
-				// methode appeler lorsqu'on appuie sur le bouon mail
+				// methode appeler lorsqu'on appuie sur le bouton mail
 				// 1. enregiste le choix du plat
 				// 2. appelle de la méthode mail en cas de succes
-				$scope.setUserChoix = function() {
+				$scope.setUserChoix = function(nom) {
 					$.cookie('nom', $(".nom").val(), {
 						expires : 365
 					});
@@ -181,7 +178,7 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 					}
 					j = 0;
 					$.each($('.table').DataTable().cells(".cell_selected")
-							.eq(0), function(cellIdx, i) {
+							.eq(0), function() {
 						choix.plats[j++] = $('.table').DataTable().cell(
 								this.row, this.column).data();
 					});
@@ -194,7 +191,7 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 						},
 						url : "choix",
 						data : JSON.stringify(choix),
-						success : email(),
+						success : email(nom),
 						dataType : "json"
 					});
 				}

@@ -28,13 +28,13 @@ public class BadgeuseReader {
 	 * @throws IOException
 	 * @throws ClientProtocolException
 	 */
-	public BadgeuseBean read() throws ClientProtocolException, IOException {
+	public BadgeuseBean read(String login, String mdp) throws ClientProtocolException, IOException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost(
 				"http://gtabadge.rh.recouv/webquartzacq/acq/badge.do");
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-		nvps.add(new BasicNameValuePair("USERID", "CER3100444"));
-		nvps.add(new BasicNameValuePair("PASSWORD", "AuriDij974"));
+		nvps.add(new BasicNameValuePair("USERID", login));
+		nvps.add(new BasicNameValuePair("PASSWORD", mdp));
 		nvps.add(new BasicNameValuePair("Cpts", "Afficher+compteurs"));
 		nvps.add(new BasicNameValuePair("Connexion", "y"));
 		nvps.add(new BasicNameValuePair("DECALHOR", "-120"));
@@ -109,10 +109,11 @@ public class BadgeuseReader {
 		return b;
 	}
 
-	public BadgeuseBean getBadgeInfos() {
+	//TODO tout revoir car problème quand on a des heures négatives....
+	public BadgeuseBean getBadgeInfos(String login, String mdp) {
 		BadgeuseBean b = null;
 		try {
-			b = read();
+			b = read(login, mdp);
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -223,15 +224,19 @@ public class BadgeuseReader {
 					calTpsTotalCummuleVeille.set(Calendar.MINUTE, dccvMin);
 					tpsTotalCummuleAujourdhui=calTpsTotalCummuleVeille.get(Calendar.HOUR)+"h"+calTpsTotalCummuleVeille.get(Calendar.MINUTE);
 					
-					//simulation départ : 7h48 - la presence - tps cummulé veille
+					
+					//simulation départ :  la presence + tps cummulé veille - 7h48
 					Calendar calSimulationDepart = new GregorianCalendar();
 					calSimulationDepart.set(Calendar.AM_PM, Calendar.AM);
-					calSimulationDepart.set(Calendar.HOUR, Constantes.HEURE_OBLIGATOIRE);
-					calSimulationDepart.set(Calendar.MINUTE, Constantes.MIN_OBLIGATOIRE);
-					calSimulationDepart.add(Calendar.HOUR, -calPresence.get(Calendar.HOUR));
-					calSimulationDepart.add(Calendar.MINUTE, -calPresence.get(Calendar.MINUTE));
-					calSimulationDepart.add(Calendar.HOUR, -calTpsTotalCummuleVeille.get(Calendar.HOUR));
-					calSimulationDepart.add(Calendar.MINUTE, -calTpsTotalCummuleVeille.get(Calendar.MINUTE));
+					calSimulationDepart.set(Calendar.HOUR, calPresence.get(Calendar.HOUR));
+					calSimulationDepart.set(Calendar.MINUTE, calPresence.get(Calendar.MINUTE));
+					System.out.println(calSimulationDepart.getTime());
+					calSimulationDepart.add(Calendar.HOUR, calTpsTotalCummuleVeille.get(Calendar.HOUR));
+					calSimulationDepart.add(Calendar.MINUTE, calTpsTotalCummuleVeille.get(Calendar.MINUTE));
+					System.out.println(calSimulationDepart.getTime());
+					calSimulationDepart.add(Calendar.HOUR, -Constantes.HEURE_OBLIGATOIRE);
+					calSimulationDepart.add(Calendar.MINUTE, -Constantes.MIN_OBLIGATOIRE);
+					System.out.println(calSimulationDepart.getTime());
 					simulationDepart=calSimulationDepart.get(Calendar.HOUR)+"h"+calSimulationDepart.get(Calendar.MINUTE);;
 				}
 			}
