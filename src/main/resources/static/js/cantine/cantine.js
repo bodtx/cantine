@@ -136,24 +136,25 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 				}
 				
 				// méthode qui prépare le mail
-				function email() {
+				function email(nom) {
 					var sBody = "Bonjour voici mon choix\n";
 					var table = $('.table').DataTable();
 					cells = table.cells(".cell_selected");
 
-					for (var i = 1; i < 6; i++) {
-						platsMail[i - 1] = "\n" + header[i] + ":    ";
-					}
+                    // on affiche que les jours ou on a choisis un repas
+                    $.each(table.cells(".cell_selected").eq(0), function() {
+                        platsMail[this.column - 1] = "\n" + header[this.column] + ":    ";
+                    });
+
+                    //on affecte les plats au bon jour
 					$.each(table.cells(".cell_selected").eq(0), function() {
-						console.debug("\nNumero jour " + header[this.column]
-								+ " plat "
-								+ table.cell(this.row, this.column).data());
 						platsMail[this.column - 1] += " "
 								+ table.cell(this.row, this.column).data()
 								+ " --- ";
 					});
 
-					sBody += platsMail.join("\n") + "\n\nMerci";
+					sBody += platsMail.join("\n") + "\n\nMerci"  + "\n" + nom;
+
 					console.debug(sBody);
 					var sMailTo = "mailto:";
 					sMailTo += escape("mg133@ansamble.fr") + "?subject="
@@ -165,7 +166,7 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 				// methode appeler lorsqu'on appuie sur le bouton mail
 				// 1. enregiste le choix du plat
 				// 2. appelle de la méthode mail en cas de succes
-				$scope.setUserChoix = function() {
+				$scope.setUserChoix = function(nom) {
 					$.cookie('nom', $(".nom").val(), {
 						expires : 365
 					});
@@ -190,7 +191,7 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 						},
 						url : "choix",
 						data : JSON.stringify(choix),
-						success : email(),
+						success : email(nom),
 						dataType : "json"
 					});
 				}

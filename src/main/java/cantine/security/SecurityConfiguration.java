@@ -67,5 +67,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             userDetailsService.createUser(userDetails);
         }
+
     }
 }
