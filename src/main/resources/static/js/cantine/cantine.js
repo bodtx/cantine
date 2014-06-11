@@ -144,8 +144,7 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 					for (var i = 1; i < 6; i++) {
 						platsMail[i - 1] = "\n" + header[i] + ":    ";
 					}
-					$.each(table.cells(".cell_selected").eq(0), function(
-							cellIdx, i) {
+					$.each(table.cells(".cell_selected").eq(0), function() {
 						console.debug("\nNumero jour " + header[this.column]
 								+ " plat "
 								+ table.cell(this.row, this.column).data());
@@ -178,7 +177,7 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 					}
 					j = 0;
 					$.each($('.table').DataTable().cells(".cell_selected")
-							.eq(0), function(cellIdx, i) {
+							.eq(0), function() {
 						choix.plats[j++] = $('.table').DataTable().cell(
 								this.row, this.column).data();
 					});
