@@ -43,7 +43,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();
+    	auth.eraseCredentials(false);
+    	JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();
         userDetailsService.setDataSource(datasource);
         PasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -54,6 +55,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
             authorities.add(new SimpleGrantedAuthority("USER"));
             User userDetails = new User("user", encoder.encode("password"), authorities);
+
+            userDetailsService.createUser(userDetails);
+        }
+        
+        //aurélien
+        if(!userDetailsService.userExists("CER3100444")) {
+            List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+            authorities.add(new SimpleGrantedAuthority("USER"));
+            User userDetails = new User("CER3100444", encoder.encode("AuriDij974"), authorities);
 
             userDetailsService.createUser(userDetails);
         }

@@ -1,24 +1,41 @@
 var myApp = angular.module('Badgeuse',[]);
 
-//controleur Hello
-myApp.controller('HelloCtrl',['$scope', function ($scope) {
-    $scope.yourName = 'NameToDo';
-}]);
 
-
-//menu service
-myApp.factory('badgeuseService', function($http) {
+//userName service
+myApp.factory('userNameService', function($http) {
 	   return {
-	        getHeure: function(h) {
+		   getUserName: function() {
 	             //return the promise directly.
-	             return $http.get('/heure?heure='+ h)
-	                       .then(function(result) {
-	                            //resolve the promise as the data
+	             return $http.get('/userName').then(function(result) {
 	                            return result.data;
 	                        });
 	        }
 	   }
 	});
+
+//controleur Hello
+myApp.controller('HelloCtrl', function ($scope, userNameService) {
+	
+	userNameService.getUserName().then(function(username) {
+		$scope.yourName = username;
+	});
+	
+});
+
+
+////menu service
+//myApp.factory('badgeuseService', function($http) {
+//	   return {
+//	        getHeure: function(h) {
+//	             //return the promise directly.
+//	             return $http.get('/heure?heure='+ h)
+//	                       .then(function(result) {
+//	                            //resolve the promise as the data
+//	                            return result.data;
+//	                        });
+//	        }
+//	   }
+//	});
 
 //badgeInfo service
 myApp.factory('badgeInfoService', function($http) {
