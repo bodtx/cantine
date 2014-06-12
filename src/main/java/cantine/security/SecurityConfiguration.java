@@ -50,23 +50,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
         auth.jdbcAuthentication().dataSource(datasource);
-
-        if(!userDetailsService.userExists("user")) {
-            List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-            authorities.add(new SimpleGrantedAuthority("USER"));
-            User userDetails = new User("user", encoder.encode("password"), authorities);
-
-            userDetailsService.createUser(userDetails);
-        }
-        
-        //aurélien
-        if(!userDetailsService.userExists("CER3100444")) {
-            List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-            authorities.add(new SimpleGrantedAuthority("USER"));
-            User userDetails = new User("CER3100444", encoder.encode("AuriDij974"), authorities);
-
-            userDetailsService.createUser(userDetails);
-        }
-
     }
 }
