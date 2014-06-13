@@ -1,23 +1,58 @@
 var myApp = angular.module('Cantine', []);
 
-// controleur Hello
-myApp.controller('HelloCtrl', [ '$scope', function($scope) {
-	$scope.yourName = 'Aurelien';
-} ]);
+//TODO factoriser ce service
+//userName service
+myApp.factory('userNameService', function($http) {
+	   return {
+		   getUserName: function() {
+	             return $http.get('/userName').then(function(result) {
+	                            return result.data;
+	                        });
+	        }
+	   }
+	});
+
+//controleur Hello
+myApp.controller('HelloCtrl', function ($scope, userNameService) {
+
+	userNameService.getUserName().then(function(username) {
+		$scope.yourName = username;
+	});
+
+});
+
+
+//copain Service
+myApp.factory('copainService', function($http){
+    return {
+        getCopains: function() {
+            return $http.get('/copains').then(
+                function(result) {
+                    return result.data;
+            });
+        }
+    }
+});
+
+
 
 // Ajout d'autres personnes
-myApp.controller('CopainCtrl', [ '$scope', function($scope) {
+myApp.controller('CopainCtrl', function($scope, copainService) {
 
-	$scope.personnes = [ {
-		nom : 'DIJOUX',
-		inscrit : true
-	}, {
-		nom : 'KRIER',
-		inscrit : false
-	}, {
-		nom : 'PATBOC',
-		inscrit : true
-	} ];
+//	$scope.personnes = [ {
+//		nom : 'DIJOUX',
+//		inscrit : true
+//	}, {
+//		nom : 'KRIER',
+//		inscrit : false
+//	}, {
+//		nom : 'PATBOC',
+//		inscrit : true
+//	} ];
+
+    copainService.getCopains().then(function(copains) {
+        $scope.personnes = copains;
+    });
 
 	$scope.getTotalPersonne = function() {
 		var count = 0;
@@ -36,7 +71,7 @@ myApp.controller('CopainCtrl', [ '$scope', function($scope) {
 		$scope.formPersonneNom = '';
 	};
 
-} ]);
+});
 
 // menu service
 myApp.factory('menuService', function($http) {

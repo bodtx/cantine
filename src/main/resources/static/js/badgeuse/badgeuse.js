@@ -5,7 +5,6 @@ var myApp = angular.module('Badgeuse',[]);
 myApp.factory('userNameService', function($http) {
 	   return {
 		   getUserName: function() {
-	             //return the promise directly.
 	             return $http.get('/userName').then(function(result) {
 	                            return result.data;
 	                        });
