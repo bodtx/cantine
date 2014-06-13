@@ -113,16 +113,25 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 				function verifChoix(td){
 					var ligne=table.cell(td).index().row;
 					var colonne = table.cell(td).index().column;
+					//permet de savoir si la cellule est selectionnée
+					var dejaCoche = false;
 					//si c'est la viande, on a qu'un choix possible
 					if(ligne <6){
 						//on deselectionne les autres viandes
 						for (var int = 0; int < 6; int++) {
 							if($(table.cell(int, colonne).node()).hasClass('cell_selected')){
 								$(table.cell(int, colonne).node()).removeClass('cell_selected');
+								//si c'est la cellule sélectionnée a déjà était choisie
+								if(int==ligne){
+								    dejaCoche=true;
+								}
 							}
 						}
-						//on selectionne la nouvelle
-						$(td).addClass('cell_selected');
+						//on selectionne la nouvelle si elle n'avait pas était choisit
+						if(dejaCoche==false){
+						    $(td).addClass('cell_selected');
+						}
+
 					}
 					
 					//si c'est l'accompagnement, aucun test
@@ -137,7 +146,7 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 				
 				// méthode qui prépare le mail
 				function email(nom) {
-					var sBody = "Bonjour voici mon choix\n";
+					var sBody = "Bonjour, \n\nvoici mon choix :\n";
 					var table = $('.table').DataTable();
 					cells = table.cells(".cell_selected");
 
@@ -153,9 +162,16 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 								+ " --- ";
 					});
 
-					sBody += platsMail.join("\n") + "\n\nMerci"  + "\n" + nom;
+                    // on affiche les plats choisis par jour
+                    platsMail.forEach(function(y)
+                             {
+                                // supression des " --- " en fin de ligne
+                                sBody += y.substring(0,y.length-5);;
+                             }
+                             );
+					sBody +=  "\n\nMerci"  + "\n" + nom;
 
-					console.debug(sBody);
+                    //envoie du mail
 					var sMailTo = "mailto:";
 					sMailTo += escape("mg133@ansamble.fr") + "?subject="
 							+ escape("choix: " + semaine) + "&body="
