@@ -1,9 +1,11 @@
 package cantine.controller;
 
+import cantine.beans.CopainBean;
 import cantine.beans.MenuBean;
 import cantine.db.Choix;
 import cantine.db.Plat;
 import cantine.service.MenuReader;
+import cantine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,9 @@ public class Menu {
 
     @Autowired
     MenuReader menuReader;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     ChoixRestRepository choixRepo;
@@ -47,6 +52,14 @@ public class Menu {
         }
         choixRepo.save(choix);
     }
+
+
+    @RequestMapping(value="/copains", method = RequestMethod.GET)
+    @ResponseBody
+    CopainBean[] getCopains() throws Exception {
+        return userService.getCopains();
+    }
+
 
     @RequestMapping(value = "/menutest", method = RequestMethod.GET)
     @ResponseBody

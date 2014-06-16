@@ -24,7 +24,6 @@ import java.util.*;
 public class BadgeuseReader {
 
 	/**
-	 * @param args
 	 * @throws IOException
 	 * @throws ClientProtocolException
 	 */
@@ -132,7 +131,7 @@ public class BadgeuseReader {
 		String simulationDepart="";
 		
 		//recuperation de la presence badgée du jour
-		String pbj = b.getPresenceBadgeJour();
+        String pbj = b.getPresenceBadgeJour();
 		StringTokenizer st = new StringTokenizer(pbj, ".");
 		Integer pbjHeure=0;
 		Integer pbjMin=0;
@@ -161,8 +160,7 @@ public class BadgeuseReader {
 			// sinon presence Badgée du jour + période (dernière entrée à maintenant)
 			}else{
 				//recupéraion de la dernière heure d'entrée
-				String derniereEntree="";
-				derniereEntree = b.getMouvements()[nbMouvement-1][1];
+				String derniereEntree = b.getMouvements()[nbMouvement-1][1];
 				
 				StringTokenizer st2 = new StringTokenizer(derniereEntree, ".");
 				Integer deHeure=0;
@@ -237,7 +235,7 @@ public class BadgeuseReader {
 					calSimulationDepart.add(Calendar.HOUR, -Constantes.HEURE_OBLIGATOIRE);
 					calSimulationDepart.add(Calendar.MINUTE, -Constantes.MIN_OBLIGATOIRE);
 					System.out.println(calSimulationDepart.getTime());
-					simulationDepart=calSimulationDepart.get(Calendar.HOUR)+"h"+calSimulationDepart.get(Calendar.MINUTE);;
+					simulationDepart=calSimulationDepart.get(Calendar.HOUR)+"h"+calSimulationDepart.get(Calendar.MINUTE);
 				}
 			}
 		}
