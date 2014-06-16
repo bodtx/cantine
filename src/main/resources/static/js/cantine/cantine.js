@@ -39,17 +39,6 @@ myApp.factory('copainService', function($http){
 // Ajout d'autres personnes
 myApp.controller('CopainCtrl', function($scope, copainService) {
 
-//	$scope.personnes = [ {
-//		nom : 'DIJOUX',
-//		inscrit : true
-//	}, {
-//		nom : 'KRIER',
-//		inscrit : false
-//	}, {
-//		nom : 'PATBOC',
-//		inscrit : true
-//	} ];
-
     copainService.getCopains().then(function(copains) {
         $scope.personnes = copains;
     });

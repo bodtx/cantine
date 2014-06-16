@@ -37,14 +37,14 @@ public class Menu {
 
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     @ResponseBody
-    MenuBean getMenu() throws Exception {
+    public MenuBean getMenu() throws Exception {
         return menuReader.read();
     }
 
     @RequestMapping(value = "/menu", method = RequestMethod.POST)
     @ResponseBody
     @Transactional
-    void setChoix(@RequestBody Choix choix) throws Exception {
+    public void setChoix(@RequestBody Choix choix) throws Exception {
 
         final Set<Plat> plats = choix.getPlats();
         for (Plat plat : plats) {
