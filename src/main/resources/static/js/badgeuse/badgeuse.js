@@ -50,6 +50,7 @@ myApp.factory('badgeInfoService', function($http) {
 	});
 
 
+//TODO utiliser les ng-show?
 //calcule badgeuse
 myApp.controller('heureCtrl', function($scope, badgeInfoService) {
 	badgeInfoService.getBadgeInfo().then(function(badgeInfo) {

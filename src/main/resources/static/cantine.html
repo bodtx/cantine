@@ -22,12 +22,13 @@
 	</div>
 
 
-	<div ng-controller="CopainCtrl">
+	<div ng-controller="MenuCtrl">
 		<h2>Total Personne: {{getTotalPersonne()}}</h2>
 		<ul>
-			<li ng-repeat="personne in personnes"><input type="checkbox"
-				ng-model="personne.inscrit"> <span
-				class="inscrit-{{personne.inscrit}}">{{personne.nom}}</span></li>
+			<li ng-repeat="personne in personnes">
+                <input type="checkbox" ng-model="personne.inscrit">
+                <span class="inscrit-{{personne.inscrit}}">{{personne.nom}}</span>
+            </li>
 		</ul>
 
 		<form class="form-horizontal">
@@ -35,15 +36,11 @@
 			<button class="btn-primary" ng-click="addPersonne()">add</button>
 		</form>
 
-	</div>
 
-
-
-	<div ng-controller="MenuCtrl">
 		<p class="semaine"></p>
 		<table class="table"></table>
 		<input placeholder="Nom" class="nom" />
-		<button ng-click="setUserChoix('toto')">Mail</button>
+		<button ng-click="setUserChoix('')">Mail</button>
 	</div>
 
 

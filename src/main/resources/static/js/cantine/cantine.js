@@ -14,7 +14,6 @@ myApp.factory('userNameService', function($http) {
 
 //controleur Hello
 myApp.controller('HelloCtrl', function ($scope, userNameService) {
-
 	userNameService.getUserName().then(function(username) {
 		$scope.yourName = username;
 	});
@@ -35,9 +34,21 @@ myApp.factory('copainService', function($http){
 });
 
 
+// menu service
+myApp.factory('menuService', function($http) {
+	return {
+		getMenu : function() {
+			// return the promise directly.
+			return $http.get('/menu').then(function(result) {
+				// resolve the promise as the data
+				return result.data;
+			});
+		}
+	}
+});
 
-// Ajout d'autres personnes
-myApp.controller('CopainCtrl', function($scope, copainService) {
+// conroller qui affiche le menu
+myApp.controller('MenuCtrl', function($scope, menuService, copainService) {
 
     copainService.getCopains().then(function(copains) {
         $scope.personnes = copains;
@@ -60,23 +71,6 @@ myApp.controller('CopainCtrl', function($scope, copainService) {
 		$scope.formPersonneNom = '';
 	};
 
-});
-
-// menu service
-myApp.factory('menuService', function($http) {
-	return {
-		getMenu : function() {
-			// return the promise directly.
-			return $http.get('/menu').then(function(result) {
-				// resolve the promise as the data
-				return result.data;
-			});
-		}
-	}
-});
-
-// conroller qui affiche le menu
-myApp.controller('MenuCtrl', function($scope, menuService) {
 	menuService.getMenu().then(
 			function(menu) {
 				$(".nom").val($.cookie('nom'));
