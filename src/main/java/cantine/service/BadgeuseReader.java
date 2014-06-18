@@ -61,7 +61,7 @@ public class BadgeuseReader {
 			Elements tables = doc.getElementsByClass("acqArray");
 			if (tables.size() > 0) {
 				connexionok = true;
-				// premier tableau de la badgeuse
+				// premier tableau de la controllers
 				Elements trs = tables.get(0).select("tr");
 				trtd = new String[trs.size()][];
 				for (int i = 0; i < trs.size(); i++) {
@@ -75,7 +75,7 @@ public class BadgeuseReader {
 
 				b.setMouvements(trtd);
 
-				// 2eme tableau de la badgeuse
+				// 2eme tableau de la controllers
 				Elements trs2 = tables.get(2).select("tr");
 				String[][] trtd2 = null;
 				trtd2 = new String[trs2.size()][];

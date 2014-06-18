@@ -1,6 +1,5 @@
 var myApp = angular.module('Badgeuse',[]);
 
-
 //userName service
 myApp.factory('userNameService', function($http) {
 	   return {
@@ -21,20 +20,6 @@ myApp.controller('HelloCtrl', function ($scope, userNameService) {
 	
 });
 
-
-////menu service
-//myApp.factory('badgeuseService', function($http) {
-//	   return {
-//	        getHeure: function(h) {
-//	             //return the promise directly.
-//	             return $http.get('/heure?heure='+ h)
-//	                       .then(function(result) {
-//	                            //resolve the promise as the data
-//	                            return result.data;
-//	                        });
-//	        }
-//	   }
-//	});
 
 //badgeInfo service
 myApp.factory('badgeInfoService', function($http) {

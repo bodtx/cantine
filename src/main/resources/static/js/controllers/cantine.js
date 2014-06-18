@@ -1,16 +1,4 @@
-var myApp = angular.module('Cantine', []);
-
 //TODO factoriser ce service
-//userName service
-myApp.factory('userNameService', function($http) {
-	   return {
-		   getUserName: function() {
-	             return $http.get('/userName').then(function(result) {
-	                            return result.data;
-	                        });
-	        }
-	   }
-	});
 
 //controleur Hello
 myApp.controller('HelloCtrl', function ($scope, userNameService) {
@@ -70,6 +58,27 @@ myApp.controller('MenuCtrl', function($scope, menuService, copainService) {
 		});
 		$scope.formPersonneNom = '';
 	};
+
+    $scope.counter = new Array();
+    $scope.change = function(nom, inscritOld) {
+    //on veut le rajouter dans la liste
+    if(inscritOld=='false'){
+        //on le rajoute s'il n'est pas déjà dans la liste
+        if($scope.counter.indexOf(nom)<0){
+          $scope.counter.push(nom);
+        }
+     }
+    //on veut le sortir de la liste
+    if(inscritOld=='true'){
+        //on l'enleve s'il est dans la liste
+        if($scope.counter.indexOf(nom)>-1){
+          $scope.counter.remove($scope.counter.indexOf(nom));
+        }
+    }
+    };
+
+
+
 
 	menuService.getMenu().then(
 			function(menu) {

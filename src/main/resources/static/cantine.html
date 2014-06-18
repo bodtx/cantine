@@ -1,15 +1,24 @@
 <!doctype html>
-<html ng-app="Cantine">
+<html ng-app="ILikeCirso">
 <meta charset="utf-8">
 <head>
+
+    <!--Framework-->
 <script src="js/common/angular.min.js"></script>
 <script src="js/common/jquery-2.1.1.js"></script>
 <script src="js/common/jquery.dataTables.js"></script>
 <script src="js/common/jquery.cookie.js"></script>
-<script src="js/cantine/cantine.js"></script>
 
+    <!--JS interne-->
+<script src="js/iLikeCirso.js"></script>
+<script src="js/common/utils.js"></script>
+<script src="js/services/userNameService.js"></script>
+
+<script src="js/controllers/cantine.js"></script>
+
+
+    <!--CSS-->
 <link rel="stylesheet" href="css/common/jquery.dataTables.min.css">
-
 <link rel="stylesheet" href="css/cantine.css">
 
 
@@ -26,10 +35,12 @@
 		<h2>Total Personne: {{getTotalPersonne()}}</h2>
 		<ul>
 			<li ng-repeat="personne in personnes">
-                <input type="checkbox" ng-model="personne.inscrit">
+                <input type="checkbox" ng-model="personne.inscrit" ng-change="change('{{personne.nom}}', '{{personne.inscrit}}')">
                 <span class="inscrit-{{personne.inscrit}}">{{personne.nom}}</span>
             </li>
 		</ul>
+
+        {{counter}}
 
 		<form class="form-horizontal">
 			<input type="text" ng-model="formPersonneNom">
