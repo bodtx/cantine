@@ -40,9 +40,8 @@ public class Menu {
     public MenuBean getMenu() throws Exception {
         return menuReader.read();
     }
-
+    
     @RequestMapping(value = "/menu", method = RequestMethod.POST)
-    @ResponseBody
     @Transactional
     public void setChoix(@RequestBody Choix choix) throws Exception {
 

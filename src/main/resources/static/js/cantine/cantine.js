@@ -1,4 +1,5 @@
 var myApp = angular.module('Cantine', []);
+var csrf;
 
 //TODO factoriser ce service
 //userName service
@@ -67,8 +68,9 @@ myApp.factory('menuService', function($http) {
 	return {
 		getMenu : function() {
 			// return the promise directly.
-			return $http.get('/menu').then(function(result) {
+		return $http.get('/menu').then(function(result) {
 				// resolve the promise as the data
+				csrf = result.headers("X-CSRF-TOKEN");
 				return result.data;
 			});
 		}
@@ -219,17 +221,19 @@ myApp.controller('MenuCtrl', function($scope, menuService) {
 					j = 0;
 					$.each($('.table').DataTable().cells(".cell_selected")
 							.eq(0), function() {
-						choix.plats[j++] = $('.table').DataTable().cell(
-								this.row, this.column).data();
+						choix.plats[j++] = {"nom":$('.table').DataTable().cell(
+								this.row, this.column).data(),"accompagnement":true};
+								
 					});
 
 					$.ajax({
 						type : "POST",
 						headers : {
 							Accept : "application/json",
-							"Content-Type" : "application/json"
+							"Content-Type" : "application/json",
+							"X-CSRF-TOKEN" : csrf
 						},
-						url : "choix",
+						url : "menu",
 						data : JSON.stringify(choix),
 						success : email(nom),
 						dataType : "json"
