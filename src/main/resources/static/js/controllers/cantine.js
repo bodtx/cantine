@@ -9,31 +9,6 @@ myApp.controller('HelloCtrl', function ($scope, userNameService) {
 });
 
 
-//copain Service
-myApp.factory('copainService', function($http){
-    return {
-        getCopains: function() {
-            return $http.get('/copains').then(
-                function(result) {
-                    return result.data;
-            });
-        }
-    }
-});
-
-
-// menu service
-myApp.factory('menuService', function($http) {
-	return {
-		getMenu : function() {
-			// return the promise directly.
-			return $http.get('/menu').then(function(result) {
-				// resolve the promise as the data
-				return result.data;
-			});
-		}
-	}
-});
 
 // conroller qui affiche le menu
 myApp.controller('MenuCtrl', function($scope, menuService, copainService) {
@@ -76,8 +51,6 @@ myApp.controller('MenuCtrl', function($scope, menuService, copainService) {
         }
     }
     };
-
-
 
 
 	menuService.getMenu().then(
