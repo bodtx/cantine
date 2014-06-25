@@ -42,7 +42,6 @@ public class Menu {
     }
 
     @RequestMapping(value = "/menu", method = RequestMethod.POST)
-    @ResponseBody
     @Transactional
     public void setChoix(@RequestBody Choix choix) throws Exception {
 

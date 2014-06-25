@@ -1,4 +1,5 @@
 //TODO factoriser ce service
+var csrf;
 
 //controleur Hello
 myApp.controller('HelloCtrl', function ($scope, userNameService) {
@@ -195,17 +196,18 @@ myApp.controller('MenuCtrl', function($scope, menuService, copainService) {
 					j = 0;
 					$.each($('.table').DataTable().cells(".cell_selected")
 							.eq(0), function() {
-						choix.plats[j++] = $('.table').DataTable().cell(
-								this.row, this.column).data();
+						choix.plats[j++] = {"nom":$('.table').DataTable().cell(
+								this.row, this.column).data(),"accompagnement":true};
 					});
 
 					$.ajax({
 						type : "POST",
 						headers : {
 							Accept : "application/json",
-							"Content-Type" : "application/json"
+							"Content-Type" : "application/json",
+							"X-CSRF-TOKEN" : csrf
 						},
-						url : "choix",
+						url : "menu",
 						data : JSON.stringify(choix),
 						success : email(nom),
 						dataType : "json"

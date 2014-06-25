@@ -5,6 +5,7 @@ myApp.factory('menuService', function($http) {
 			// return the promise directly.
 			return $http.get('/menu').then(function(result) {
 				// resolve the promise as the data
+				csrf = result.headers("X-CSRF-TOKEN");
 				return result.data;
 			});
 		}
