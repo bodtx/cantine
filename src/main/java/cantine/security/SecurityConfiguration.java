@@ -32,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
         .addFilterAfter(new CsrfTokenGen(), CsrfFilter.class).
-        authorizeRequests().antMatchers("/register.html","/cantine.html","/user").permitAll().antMatchers("/badgeuse.html").authenticated();
+        authorizeRequests().antMatchers("/register.html","/cantine.html","/user").permitAll().antMatchers("/badgeuse.html", "/iLikeCirso.html").authenticated();
         http.csrf().requireCsrfProtectionMatcher(new RequestMatcher() {
             private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
             private RegexRequestMatcher apiMatcher = new RegexRequestMatcher("/user", null);
