@@ -196,8 +196,12 @@ myApp.controller('MenuCtrl', function($scope, menuService, copainService) {
 					j = 0;
 					$.each($('.table').DataTable().cells(".cell_selected")
 							.eq(0), function() {
+						isAccompagnement=false;
+						if( 5 < this.row &&  this.row <10)
+							isAccompagnement=true;
+							
 						choix.plats[j++] = {"nom":$('.table').DataTable().cell(
-								this.row, this.column).data(),"accompagnement":true};
+								this.row, this.column).data(),"accompagnement":isAccompagnement};
 					});
 
 					$.ajax({
