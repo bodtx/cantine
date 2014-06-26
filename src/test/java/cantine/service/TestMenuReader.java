@@ -3,6 +3,8 @@ package cantine.service;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import cantine.service.MenuReader;
 
@@ -18,7 +20,9 @@ public class TestMenuReader {
 
     @Test
     public final void testRead() throws Exception {
-        new MenuReader().read();
+//        new MenuReader().read();
+    	PasswordEncoder encoder = new BCryptPasswordEncoder();
+    	System.out.println(encoder.encode("flavor"));
     }
 
 }
