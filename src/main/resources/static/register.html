@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<head>
+<script src="js/common/jquery-2.1.1.js"></script>
+<script language=javascript>
+
+$(document).ready(function(){
+    $("#submit").click(function() {
+user = new Object(); 
+user.username = $("#username").val();
+user.password = $("#password").val();
+         $.ajax({
+						type : "POST",
+						headers : {
+							Accept : "application/json,",
+							"Content-Type" : "application/json",
+						},
+						url : "user",
+						data : JSON.stringify(user) ,
+						success: $("#mess").text("inscription ok"),
+						error:function(XMLHttpRequest, textStatus, errorThrown) { 
+                    			alert("Status: " + textStatus); 
+                    		  },
+					});
+    });
+});
+
+
+</script>
+
+</head>
+
+<body>
+ID CER :<input type=text id="username"/><br>
+Mot de passe Anaïs :<input type=password id="password"/><br>
+<button id="submit">Inscription</button>
+<div style="color:#0000FF" id="mess"></div>
+</body>
+</html>
