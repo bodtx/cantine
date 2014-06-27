@@ -1,18 +1,12 @@
 //TODO factoriser ce service
 var csrf;
 
-//controleur Hello
-myApp.controller('HelloCtrl', function ($scope, userNameService) {
-	userNameService.getUserName().then(function(username) {
-		$scope.yourName = username;
-	});
-
-});
 
 
+var menuControllers  = angular.module('menuControllers', []);
 
 // conroller qui affiche le menu
-myApp.controller('MenuCtrl', function($scope, menuService, copainService) {
+menuControllers.controller('MenuCtrl', function($scope, menuService, copainService) {
 
     copainService.getCopains().then(function(copains) {
         $scope.personnes = copains;

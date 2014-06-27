@@ -1,43 +1,9 @@
-var myApp = angular.module('Badgeuse',[]);
 
-//userName service
-myApp.factory('userNameService', function($http) {
-	   return {
-		   getUserName: function() {
-	             return $http.get('/userName').then(function(result) {
-	                            return result.data;
-	                        });
-	        }
-	   }
-	});
-
-//controleur Hello
-myApp.controller('HelloCtrl', function ($scope, userNameService) {
-	
-	userNameService.getUserName().then(function(username) {
-		$scope.yourName = username;
-	});
-	
-});
-
-
-//badgeInfo service
-myApp.factory('badgeInfoService', function($http) {
-	   return {
-	        getBadgeInfo: function() {
-	             return $http.get('badgeInfo')
-	                       .then(function(result) {
-	                            //resolve the promise as the data
-	                            return result.data;
-	                        });
-	        }
-	   }
-	});
-
+var badgeuseControllers  = angular.module('badgeuseControllers', []);
 
 //TODO utiliser les ng-show?
 //calcule badgeuse
-myApp.controller('heureCtrl', function($scope, badgeInfoService) {
+badgeuseControllers.controller('HeureCtrl', function($scope, badgeInfoService) {
 	badgeInfoService.getBadgeInfo().then(function(badgeInfo) {
 		$scope.nbTentativeConnexion ="Tu as gagné " + badgeInfo.nbTentativeConnexion + " clics" ;
 		$scope.presenceAujourdhui ="Aujourd'hui j'ai fait : " + badgeInfo.presenceAujourdhui;

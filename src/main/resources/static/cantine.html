@@ -1,39 +1,6 @@
-<!doctype html>
-<html ng-app="ILikeCirso">
-<meta charset="utf-8">
-<head>
-
-    <!--Framework-->
-<script src="js/common/angular.min.js"></script>
-<script src="js/common/jquery-2.1.1.js"></script>
-<script src="js/common/jquery.dataTables.js"></script>
-<script src="js/common/jquery.cookie.js"></script>
-
-    <!--JS interne-->
-<script src="js/iLikeCirso.js"></script>
-<script src="js/common/utils.js"></script>
-<script src="js/services/userNameService.js"></script>
-<script src="js/services/copainService.js"></script>
-<script src="js/services/menuService.js"></script>
-
-<script src="js/controllers/cantine.js"></script>
 
 
-    <!--CSS-->
-<link rel="stylesheet" href="css/common/jquery.dataTables.min.css">
-<link rel="stylesheet" href="css/cantine.css">
-
-
-</head>
-
-<body>
-
-	<div ng-controller="HelloCtrl">
-		<h1>Bonjour {{yourName}}</h1>
-	</div>
-
-
-	<div ng-controller="MenuCtrl">
+	<div>
 		<h2>Total Personne: {{getTotalPersonne()}}</h2>
 		<ul>
 			<li ng-repeat="personne in personnes">
@@ -56,8 +23,3 @@
 		<button ng-click="setUserChoix('')">Mail</button>
 	</div>
 
-
-
-
-</body>
-</html>
