@@ -108,6 +108,32 @@ public class BadgeuseReader {
 		return b;
 	}
 
+    /**
+     * Vérifie si l'utilisateur a bien badgé
+     * @param login
+     * @param mdp
+     * @return
+     */
+    public BadgeuseBean asTuBadge(String login, String mdp) {
+        BadgeuseBean b = null;
+        try {
+            b = read(login, mdp);
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        // si le nombre de mouvements est pair, il manque un badge d'entrée
+        if(b.getMouvements()==null || b.getMouvements().length==0 || b.getMouvements().length%2 !=0){
+            b.setAstuBadge(true);
+        }
+
+        return b;
+    }
+
 	//TODO tout revoir car problème quand on a des heures négatives....
 	public BadgeuseBean getBadgeInfos(String login, String mdp) {
 		BadgeuseBean b = null;

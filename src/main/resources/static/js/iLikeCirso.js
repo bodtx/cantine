@@ -1,4 +1,4 @@
-var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menuControllers', 'badgeuseControllers','ui.bootstrap']);
+var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menuControllers', 'menuDuJourControllers', 'badgeuseControllers','ui.bootstrap']);
 
 
 
@@ -22,6 +22,10 @@ myApp.config(['$routeProvider',
         when('/cantine', {
                     templateUrl: 'cantine.html',
                     controller: 'MenuCtrl'
+                }).
+        when('/menuDuJour', {
+                    templateUrl: 'menuDuJour.html',
+                    controller: 'MenuDuJourCtrl'
                 }).
         when('/badgeuse', {
                     templateUrl: 'badgeuse.html',

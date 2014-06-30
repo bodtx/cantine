@@ -1,5 +1,35 @@
 <div>
-    <a href="#/cantine" class="btn btn-primary btn-lg active" role="button">cantine</a>
 
-    <a href="#/badgeuse" class="btn btn-success btn-lg active" role="button">badgeuse</a>
+    <!-- As tu badgé -->
+    <div ng-show="!asTuBadge" class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <strong>Warning!</strong> Tu n'as pas badgé.
+    </div>
+
+     <!--Café gratuit-->
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <strong>Cool!</strong> T'as un café gratos!!!!
+    </div>
+
+     <!--PsNext-->
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <strong>C'est vendredi</strong> Fais ton PsNext!!!!
+    </div>
+
+    <div class="jumbotron">
+        <h1>Veux tu manger à la cantine?</h1>
+        <p>Voici le plat du jour ...</p>
+        <p><a href="#/menuDuJour" class="btn btn-primary btn-lg" role="button">Menu du jour</a></p>
+        <p><a href="#/cantine" class="btn btn-primary btn-lg" role="button">Cantine</a></p>
+    </div>
+
+
 </div>

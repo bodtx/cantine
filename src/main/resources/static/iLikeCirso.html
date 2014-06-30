@@ -20,6 +20,7 @@
     <script src="js/controllers/accueil.js"></script>
     <script src="js/controllers/badgeuse.js"></script>
     <script src="js/controllers/cantine.js"></script>
+    <script src="js/controllers/menuDuJour.js"></script>
 
     <!-- Services-->
     <script src="js/services/userNameService.js"></script>
@@ -40,12 +41,36 @@
 <body>
 
 <div class="bg-info" ng-controller="BjrCtrl">
-    {{hello}}
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#/accueil">I <span class="glyphicon glyphicon-heart"></span> Cirso</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#/badgeuse">Badgeuse</a></li>
+                <li><a href="#/cantine">Cantine</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"> {{hello}}</a></li>
+                <li><a href="/logout">Deconnecter</a></li>
+                <li><a href="/parametre"><span class="glyphicon glyphicon-cog"></span></a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
 </div>
 
     <br>
 
-    <div ng-view></div>
+    <!--partie dynamique de l'appli-->
+    <div style="width: 80%; margin-left: auto; margin-right: auto; " ng-view></div>
 
 </body>
 </html>

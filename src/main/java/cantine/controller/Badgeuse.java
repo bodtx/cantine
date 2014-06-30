@@ -26,6 +26,14 @@ public class Badgeuse {
     	String mdp = userService.getPassWord();
     	return badgeuseReader.getBadgeInfos(login, mdp);
     }
+
+    @RequestMapping(value="/asTuBadge")
+    @ResponseBody
+    BadgeuseBean asTuBadge() throws Exception {
+        String login = userService.getUserName();
+        String mdp = userService.getPassWord();
+        return badgeuseReader.asTuBadge(login, mdp);
+    }
     
     @RequestMapping(value="/userName")
     @ResponseBody

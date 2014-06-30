@@ -21,6 +21,17 @@ public class BadgeuseBean {
     String tpsTotalCummuleAujourdhui;
     String simulationDepart;
 
+    boolean astuBadge = false;
+
+
+    public boolean isAstuBadge() {
+        return astuBadge;
+    }
+
+    public void setAstuBadge(boolean astuBadge) {
+        this.astuBadge = astuBadge;
+    }
+
 	public String getPresenceBadgeJour() {
 		return presenceBadgeJour;
 	}

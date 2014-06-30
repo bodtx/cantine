@@ -4,7 +4,18 @@ myApp.factory('badgeInfoService', function($http) {
 	        getBadgeInfo: function() {
 	             return $http.get('badgeInfo')
 	                       .then(function(result) {
-	                            //resolve the promise as the data
+	                            return result.data;
+	                        });
+	        }
+	   }
+	});
+
+
+myApp.factory('asTuBadgeService', function($http) {
+	   return {
+	        asTuBadge: function() {
+	             return $http.get('asTuBadge')
+	                       .then(function(result) {
 	                            return result.data;
 	                        });
 	        }
