@@ -11,3 +11,4 @@ table.table tr.odd td.cell_selected {
 	color: red;
 }
 
+[ng\:cloak], [ng-cloak], .ng-cloak { display: none !important; }

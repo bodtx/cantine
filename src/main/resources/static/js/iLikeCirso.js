@@ -1,4 +1,4 @@
-var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menuControllers', 'menuDuJourControllers', 'badgeuseControllers','ui.bootstrap']);
+var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menuControllers', 'menuDuJourControllers', 'badgeuseControllers','ui.bootstrap','iLikeCirsoAnimations']);
 
 
 

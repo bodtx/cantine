@@ -1,23 +1,23 @@
 
-
+    <!--TODO Inscription plusieurs personnes -->
 	<div>
-		<h2>Total Personne: {{getTotalPersonne()}}</h2>
-		<ul>
-			<li ng-repeat="personne in personnes">
-                <input type="checkbox" ng-model="personne.inscrit" ng-change="change('{{personne.nom}}', '{{personne.inscrit}}')">
-                <span class="inscrit-{{personne.inscrit}}">{{personne.nom}}</span>
-            </li>
-		</ul>
+		<!--<h2>Total Personne: {{getTotalPersonne()}}</h2>-->
+		<!--<ul>-->
+			<!--<li ng-repeat="personne in personnes">-->
+                <!--<input type="checkbox" ng-model="personne.inscrit" ng-change="change('{{personne.nom}}', '{{personne.inscrit}}')">-->
+                <!--<span class="inscrit-{{personne.inscrit}}">{{personne.nom}}</span>-->
+            <!--</li>-->
+		<!--</ul>-->
 
-        {{counter}}
+        <!--{{counter}}-->
 
-		<form class="form-horizontal">
-			<input type="text" ng-model="formPersonneNom">
-			<button class="btn-primary" ng-click="addPersonne()">add</button>
-		</form>
+		<!--<form class="form-horizontal">-->
+			<!--<input type="text" ng-model="formPersonneNom">-->
+			<!--<button class="btn-primary" ng-click="addPersonne()">add</button>-->
+		<!--</form>-->
 
 
-		<p class="semaine"></p>
+		<h2 class="semaine"></h2>
 		<table class="table"></table>
 		<input placeholder="Nom" class="nom" />
 		<button ng-click="setUserChoix('')">Mail</button>

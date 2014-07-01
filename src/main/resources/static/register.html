@@ -3,6 +3,8 @@
 <meta charset="utf-8">
 <head>
 <script src="js/common/jquery-2.1.1.js"></script>
+<link rel="stylesheet" href="css/common/bootstrap.css">
+<link rel="stylesheet" href="css/signin.css">
 <script language=javascript>
 
 $(document).ready(function(){
@@ -31,10 +33,25 @@ user.password = $("#password").val();
 
 </head>
 
+<!--<body>-->
+<!--ID CER :<input type=text id="username"/><br>-->
+<!--Mot de passe Anaïs :<input type=password id="password"/><br>-->
+<!--<button id="submit">Inscription</button>-->
+<!--<div style="color:#0000FF" id="mess"></div>-->
+<!--</body>-->
+
 <body>
-ID CER :<input type=text id="username"/><br>
-Mot de passe Anaïs :<input type=password id="password"/><br>
-<button id="submit">Inscription</button>
-<div style="color:#0000FF" id="mess"></div>
+<div class="container">
+
+    <form class="form-signin" role="form">
+        <h2 class="form-signin-heading">Connectez-vous</h2>
+        <input type="text" id="username" class="form-control" placeholder="ID CER" required="" autofocus=""/>
+        <input type="password" id="password" class="form-control" placeholder="Mot de passe Anaïs" required=""/>
+        <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
+    </form>
+
+</div>
 </body>
+
+
 </html>
