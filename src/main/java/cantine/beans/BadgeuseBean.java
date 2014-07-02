@@ -17,9 +17,12 @@ public class BadgeuseBean {
     boolean astuBadge = false;
 
     private String cleanDuration(String s) {
-        String tmp = s.replace("PT", "");
-        if (tmp.startsWith("-")) {
-            return "-" + StringUtils.remove(tmp, "-").toLowerCase();
+        String tmp="";
+        if (s!=null) {
+            tmp = s.replace("PT", "");
+            if (tmp.startsWith("-")) {
+                return "-" + StringUtils.remove(tmp, "-").toLowerCase();
+            }
         }
         return tmp;
 
