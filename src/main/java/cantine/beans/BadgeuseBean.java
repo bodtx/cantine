@@ -24,7 +24,7 @@ public class BadgeuseBean {
                 return "-" + StringUtils.remove(tmp, "-").toLowerCase();
             }
         }
-        return tmp;
+        return tmp.toLowerCase();
 
     }
 
