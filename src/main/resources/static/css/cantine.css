@@ -1,3 +1,12 @@
+/*
+  Allow angular.js to be loaded in body, hiding cloaked elements until
+  templates compile.  The !important is important given that there may be
+  other selectors that are more specific or come later and might alter display.
+ */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
 table.table tr.even td.cell_selected {
 	background-color: #B0BED9;
 }
@@ -10,5 +19,3 @@ table.table tr.odd td.cell_selected {
 	text-decoration: line-through;
 	color: red;
 }
-
-[ng\:cloak], [ng-cloak], .ng-cloak { display: none !important; }

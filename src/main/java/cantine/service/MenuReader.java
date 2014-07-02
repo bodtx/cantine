@@ -1,9 +1,6 @@
 package cantine.service;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.util.StringTokenizer;
-
+import cantine.beans.MenuBean;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.apache.commons.lang3.ArrayUtils;
@@ -13,61 +10,64 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import cantine.beans.MenuBean;
+import java.io.File;
+import java.io.FileFilter;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @Service
 public class MenuReader {
 	synchronized public MenuBean read() throws Exception {
 
-		final String emlPath = System.getProperty("user.home");
-		File dir = new File(emlPath);
-		FileFilter fileFilter = new RegexFileFilter("^.*eml$");
-		File[] files = dir.listFiles(fileFilter);
-		final MenuBean menuBean = new MenuBean();
-		if (files.length != 1) {
-			throw new Exception(
-					"il devrait y avoir un fichier .eml dans le répertoire "
-							+ emlPath);
-		} else {
-			String fileToString = FileUtils.readFileToString(files[0]);
-			fileToString = StringUtils.remove(fileToString, "="
-					+ StringUtils.CR);
-			fileToString = StringUtils.remove(fileToString, StringUtils.LF);
-			fileToString = StringUtils.replace(fileToString, "=E9", "é");
-			fileToString = StringUtils.replace(fileToString, "=E8", "é");
-			fileToString = StringUtils.replace(fileToString, "=E0", "à");
-			fileToString = StringUtils.replace(fileToString, "=F4", "ô");
-			fileToString = StringUtils.replace(fileToString, "=EA", "ê");
-			fileToString = StringUtils.replace(fileToString, "=E7", "ç");
-			menuBean.setSemaine(files[0].getName().substring(12,
-					files[0].getName().length() - 4));
-			String[][] trtd = readMenu(fileToString);
-			menuBean.setPlats(trtd);
-		}
-		return menuBean;
+        final String emlPath = System.getProperty("user.home");
+        File dir = new File(emlPath);
+        FileFilter fileFilter = new RegexFileFilter("^.*eml$");
+        File[] files = dir.listFiles(fileFilter);
+        final MenuBean menuBean = new MenuBean();
+        if (files.length != 1) {
+            throw new Exception(
+                    "il devrait y avoir un fichier .eml dans le répertoire "
+                            + emlPath);
+        } else {
+            String fileToString = FileUtils.readFileToString(files[0]);
+            fileToString = StringUtils.remove(fileToString, "="
+                    + StringUtils.CR);
+            fileToString = StringUtils.remove(fileToString, StringUtils.LF);
+            fileToString = StringUtils.replace(fileToString, "=E9", "é");
+            fileToString = StringUtils.replace(fileToString, "=E8", "é");
+            fileToString = StringUtils.replace(fileToString, "=E0", "à");
+            fileToString = StringUtils.replace(fileToString, "=F4", "ô");
+            fileToString = StringUtils.replace(fileToString, "=EA", "ê");
+            fileToString = StringUtils.replace(fileToString, "=E7", "ç");
+            menuBean.setSemaine(files[0].getName().substring(12,
+                    files[0].getName().length() - 4));
+            String[][] trtd = readMenu(fileToString);
+            menuBean.setPlats(trtd);
+        }
+        return menuBean;
 
-	}
+    }
 
-	/**
-	 * @param fileToString
-	 * @return
-	 */
-	public String[][] readSalade(String fileToString) {
-		String[][] trtd = null;
-		Document doc = Jsoup.parse(fileToString);
-		Elements tables = doc.select("table");
-		Elements trs = tables.get(1).select("tr");
-		trtd = new String[trs.size()][];
-		for (int i = 0; i < trs.size(); i++) {
-			Elements tds = trs.get(i).select("td");
 
-			trtd[i] = new String[tds.size()];
-			for (int j = 0; j < tds.size(); j++) {
-				trtd[i][j] = tds.get(j).text();
-			}
-		}
-		return trtd;
-	}
+
+    synchronized public String[] menuDuJour() throws Exception {
+
+        MenuBean menu = read();
+
+        Calendar calendar = Calendar.getInstance();
+        int aujourdhui = calendar.get(Calendar.DAY_OF_WEEK);
+
+        int nbPlats = menu.getPlats().length;
+        String[] menuDujour = new String[nbPlats];
+
+        for(int i = 0; i< nbPlats; i++){
+            menuDujour[i]= menu.getPlats()[i][aujourdhui-1];
+        }
+
+        return menuDujour;
+
+    }
+
 
 	/**
 	 * @param fileToString

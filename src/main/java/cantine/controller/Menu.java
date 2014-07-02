@@ -2,21 +2,16 @@ package cantine.controller;
 
 import cantine.beans.CopainBean;
 import cantine.beans.MenuBean;
-import cantine.beans.User;
 import cantine.db.Choix;
 import cantine.db.Plat;
 import cantine.service.MenuReader;
 import cantine.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
@@ -37,13 +32,16 @@ public class Menu {
     @PersistenceContext
     EntityManager em;
 
-    // @Autowired
-    // PlatsRepository platRepo;
-
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     @ResponseBody
     public MenuBean getMenu() throws Exception {
         return menuReader.read();
+    }
+
+    @RequestMapping(value = "/menuDuJour", method = RequestMethod.GET)
+    @ResponseBody
+    public String[] getMenuDuJour() throws Exception {
+        return menuReader.menuDuJour();
     }
 
     @RequestMapping(value = "/menu", method = RequestMethod.POST)
@@ -57,21 +55,6 @@ public class Menu {
         choixRepo.save(choix);
     }
     
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    @Transactional
-    public void setUser(@RequestBody User user) throws Exception {
-
-        Query queryUser = em.createNativeQuery("insert into users values (?,?,true)");
-        queryUser.setParameter(1, user.username);
-        queryUser.setParameter(2, new BCryptPasswordEncoder().encode(user.password));
-        queryUser.executeUpdate();
-        
-        Query queryAuth = em.createNativeQuery("insert into authorities values (?,'USER')");
-        queryAuth.setParameter(1, user.username);
-        queryAuth.executeUpdate();
-    }
-
-
     @RequestMapping(value="/copains", method = RequestMethod.GET)
     @ResponseBody
     CopainBean[] getCopains() throws Exception {

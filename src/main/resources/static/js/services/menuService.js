@@ -11,3 +11,17 @@ myApp.factory('menuService', function($http) {
 		}
 	}
 });
+
+// menu service
+myApp.factory('menuDuJourService', function($http) {
+	return {
+		getMenuDuJour : function() {
+			// return the promise directly.
+			return $http.get('/menuDuJour').then(function(result) {
+				// resolve the promise as the data
+				csrf = result.headers("X-CSRF-TOKEN");
+				return result.data;
+			});
+		}
+	}
+});
