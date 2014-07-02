@@ -24,7 +24,7 @@ myApp.config(['$routeProvider',
                     controller: 'MenuCtrl'
                 }).
         when('/menuDuJour', {
-                    templateUrl: 'menuDuJour.html',
+                    templateUrl: 'mdj.html',
                     controller: 'MenuDuJourCtrl'
                 }).
         when('/badgeuse', {
