@@ -1,19 +1,12 @@
 package cantine.beans;
 
 
+import org.apache.commons.lang3.StringUtils;
+
 public class BadgeuseBean {
-    
-	int nbTentativeConnexion;
-	
-	//Données brutes
-	String presenceBadgeJour;
-    String DCJour;
-    String DCCumuleVeille;
-    String DCCumule;
-    String DCPeriodeVeille;
-    String DCPeriodique;
-    String[][] mouvements;
-    
+
+    int nbTentativeConnexion;
+
     //Données valorisées
     String presenceAujourdhui;
     String resteAfaireAujourdhui;
@@ -23,6 +16,14 @@ public class BadgeuseBean {
 
     boolean astuBadge = false;
 
+    private String cleanDuration(String s) {
+        String tmp = s.replace("PT", "");
+        if (tmp.startsWith("-")) {
+            return "-" + StringUtils.remove(tmp, "-").toLowerCase();
+        }
+        return tmp;
+
+    }
 
     public boolean isAstuBadge() {
         return astuBadge;
@@ -32,112 +33,53 @@ public class BadgeuseBean {
         this.astuBadge = astuBadge;
     }
 
-	public String getPresenceBadgeJour() {
-		return presenceBadgeJour;
-	}
+    public String getPresenceAujourdhui() {
+        return cleanDuration(presenceAujourdhui);
+    }
 
-	public void setPresenceBadgeJour(String presenceBadgeJour) {
-		this.presenceBadgeJour = presenceBadgeJour;
-	}
+    public void setPresenceAujourdhui(String presenceAujourdhui) {
+        this.presenceAujourdhui = cleanDuration(presenceAujourdhui);
+    }
 
-	public String getDCJour() {
-		return DCJour;
-	}
+    public String getResteAfaireAujourdhui() {
+        return resteAfaireAujourdhui;
+    }
 
-	public void setDCJour(String dCJour) {
-		DCJour = dCJour;
-	}
+    public void setResteAfaireAujourdhui(String resteAfaireAujourdhui) {
+        this.resteAfaireAujourdhui = cleanDuration(resteAfaireAujourdhui);
+    }
 
+    public String getTpsRecupereAujourdhui() {
+        return tpsRecupereAujourdhui;
+    }
 
-	public String getDCCumuleVeille() {
-		return DCCumuleVeille;
-	}
+    public void setTpsRecupereAujourdhui(String tpsRecupereAujourdhui) {
+        this.tpsRecupereAujourdhui = cleanDuration(tpsRecupereAujourdhui);
+    }
 
-	public void setDCCumuleVeille(String dCCumuleVeille) {
-		DCCumuleVeille = dCCumuleVeille;
-	}
+    public String getTpsTotalCummuleAujourdhui() {
+        return tpsTotalCummuleAujourdhui;
+    }
 
-	public String getDCCumule() {
-		return DCCumule;
-	}
+    public void setTpsTotalCummuleAujourdhui(String tpsTotalCummuleAujourdhui) {
+        this.tpsTotalCummuleAujourdhui = cleanDuration(tpsTotalCummuleAujourdhui);
+    }
 
-	public void setDCCumule(String dCCumule) {
-		DCCumule = dCCumule;
-	}
+    public int getNbTentativeConnexion() {
+        return nbTentativeConnexion;
+    }
 
-	public String getDCPeriodeVeille() {
-		return DCPeriodeVeille;
-	}
+    public void setNbTentativeConnexion(int nbTentativeConnexion) {
+        this.nbTentativeConnexion = nbTentativeConnexion;
+    }
 
-	public void setDCPeriodeVeille(String dCPeriodeVeille) {
-		DCPeriodeVeille = dCPeriodeVeille;
-	}
+    public String getSimulationDepart() {
+        return simulationDepart;
+    }
 
-	public String getDCPeriodique() {
-		return DCPeriodique;
-	}
-
-	public void setDCPeriodique(String dCPeriodique) {
-		DCPeriodique = dCPeriodique;
-	}
-
-	public String[][] getMouvements() {
-		return mouvements;
-	}
-
-	public void setMouvements(String[][] mouvements) {
-		this.mouvements = mouvements;
-	}
-
-	public String getPresenceAujourdhui() {
-		return presenceAujourdhui;
-	}
-
-	public void setPresenceAujourdhui(String presenceAujourdhui) {
-		this.presenceAujourdhui = presenceAujourdhui;
-	}
-
-	public String getResteAfaireAujourdhui() {
-		return resteAfaireAujourdhui;
-	}
-
-	public void setResteAfaireAujourdhui(String resteAfaireAujourdhui) {
-		this.resteAfaireAujourdhui = resteAfaireAujourdhui;
-	}
-
-	public String getTpsRecupereAujourdhui() {
-		return tpsRecupereAujourdhui;
-	}
-
-	public void setTpsRecupereAujourdhui(String tpsRecupereAujourdhui) {
-		this.tpsRecupereAujourdhui = tpsRecupereAujourdhui;
-	}
-
-	public String getTpsTotalCummuleAujourdhui() {
-		return tpsTotalCummuleAujourdhui;
-	}
-
-	public void setTpsTotalCummuleAujourdhui(String tpsTotalCummuleAujourdhui) {
-		this.tpsTotalCummuleAujourdhui = tpsTotalCummuleAujourdhui;
-	}
-
-	public int getNbTentativeConnexion() {
-		return nbTentativeConnexion;
-	}
-
-	public void setNbTentativeConnexion(int nbTentativeConnexion) {
-		this.nbTentativeConnexion = nbTentativeConnexion;
-	}
-
-	public String getSimulationDepart() {
-		return simulationDepart;
-	}
-
-	public void setSimulationDepart(String simulationDepart) {
-		this.simulationDepart = simulationDepart;
-	}
+    public void setSimulationDepart(String simulationDepart) {
+        this.simulationDepart = cleanDuration(simulationDepart);
+    }
 
 
-	
-	
 }
