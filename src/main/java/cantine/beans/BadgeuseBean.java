@@ -13,12 +13,21 @@ public class BadgeuseBean {
     String tpsRecupereAujourdhui;
     String tpsTotalCummuleAujourdhui;
     String simulationDepart;
+    String pauseMidi;
+
+    public String getPauseMidi() {
+        return cleanDuration(pauseMidi);
+    }
+
+    public void setPauseMidi(String pauseMidi) {
+        this.pauseMidi = pauseMidi;
+    }
 
     boolean astuBadge = false;
 
     private String cleanDuration(String s) {
-        String tmp="";
-        if (s!=null) {
+        String tmp = "";
+        if (s != null) {
             tmp = s.replace("PT", "");
             if (tmp.startsWith("-")) {
                 return "-" + StringUtils.remove(tmp, "-").toLowerCase();

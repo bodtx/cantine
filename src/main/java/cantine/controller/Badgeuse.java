@@ -32,7 +32,7 @@ public class Badgeuse {
     BadgeuseBean asTuBadge() throws Exception {
         String login = userService.getUserName();
         String mdp = userService.getPassWord();
-        return badgeuseReader.asTuBadge(login, mdp);
+        return badgeuseReader.completeBadgeInfos(login, mdp);
     }
     
     @RequestMapping(value="/userName")

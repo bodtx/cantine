@@ -106,16 +106,7 @@ public class BadgeuseReader {
     }
 
     public BadgeuseBean getBadgeInfos(String login, String mdp) {
-        BadgeuseBean b = null;
-        try {
-            b = read(login, mdp);
-        } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        BadgeuseBean b = completeBadgeInfos(login,mdp);
 
         //traitement badge Infos
         updateBeanWithcalcul(b);
@@ -129,7 +120,7 @@ public class BadgeuseReader {
      * @param mdp
      * @return
      */
-    public BadgeuseBean asTuBadge(String login, String mdp) {
+    public BadgeuseBean completeBadgeInfos(String login, String mdp) {
         BadgeuseBean b = null;
         try {
             b = read(login, mdp);
@@ -141,13 +132,13 @@ public class BadgeuseReader {
             e.printStackTrace();
         }
 
-        b.setAstuBadge(true);
         return b;
     }
 
     public void updateBeanWithcalcul(BadgeuseBean b) {
 
         b.setPresenceAujourdhui(bms.getPresenceBadgeJour().toString());
+        b.setPauseMidi(bms.getTempsPauseMidi().toString());
 
         if (bms.getResteAfaireAujourdhui().isNegative()) {
             // si j'ai fait plus 7h48
@@ -164,7 +155,6 @@ public class BadgeuseReader {
             //simulation départ :  la presence + tps cummulé veille - 7h48
             b.setSimulationDepart(bms.getDcCumuleVeille().plus(bms.getPresenceBadgeJour()).minus(bms.getJOURNEEMIN()).toString());
             b.setTpsRecupereAujourdhui("");
-
         }
     }
 

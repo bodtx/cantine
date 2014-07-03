@@ -3,8 +3,11 @@ package cantine.controller;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 public class Temptation {
 
@@ -15,12 +18,30 @@ public class Temptation {
     Duration dcPeriodeVeille;
     Duration dcPeriodique;
     List<BMouv> BMouvList = new ArrayList<BMouv>();
+    Duration JOURNEEMIN = Duration.ofHours(7).plus(Duration.ofMinutes(48));
+    Duration PAUSEMIN = Duration.ofMinutes(30);
+    LocalTime DEBPAUSEMIDI = LocalTime.of(11, 00);
+    LocalTime FINPAUSEMIDI = LocalTime.of(14, 00);
+
+    public LocalTime getDEBPAUSEMIDI() {
+        return DEBPAUSEMIDI;
+    }
+
+    public LocalTime getFINPAUSEMIDI() {
+        return FINPAUSEMIDI;
+    }
+
+    public List<BMouv> getBMouvList() {
+        return BMouvList;
+    }
 
     public Duration getJOURNEEMIN() {
         return JOURNEEMIN;
     }
 
-    Duration JOURNEEMIN = Duration.ofHours(7).plus(Duration.ofMinutes(48));
+    public Duration getPAUSEMIN() {
+        return PAUSEMIN;
+    }
 
     public Duration getDcJour() {
         return dcJour;
@@ -114,9 +135,36 @@ public class Temptation {
         for (BMouv bMouv : BMouvList) {
             total = total.plus(bMouv.getDuree());
         }
-        return total;
 
+        Duration pause = getTempsPauseMidi();
+        // si on n'a pas pris le minimum il faut corriger le temps travaillé
+        if (!PAUSEMIN.minus(pause).isNegative()) {
+           total=total.minus(PAUSEMIN.minus(pause));
+        }
+        return total;
     }
+
+    public Duration getTempsPauseMidi() {
+        // temps maximum pris dans la période optionnelle
+        Duration tmpPause = Duration.of(DEBPAUSEMIDI.until(FINPAUSEMIDI, MINUTES), MINUTES);
+        for (BMouv bMouv : BMouvList) {
+            if (bMouv.getEntree().isAfter(DEBPAUSEMIDI) && bMouv.getEntree().isBefore(FINPAUSEMIDI)) {
+                if (bMouv.getSortie().isAfter(DEBPAUSEMIDI) && bMouv.getSortie().isBefore(FINPAUSEMIDI)) {
+                    // le mouvement est entirement sur la zone de pause, on l'enlève du temps de pause
+                    tmpPause = tmpPause.minus(Duration.of(bMouv.getEntree().until(bMouv.getSortie(), MINUTES), MINUTES));
+                } else {
+                    tmpPause = tmpPause.minus(Duration.of(bMouv.getEntree().until(FINPAUSEMIDI, MINUTES), MINUTES));
+                }
+            } else {
+                // entree n'est pas dans la pause
+                if (bMouv.getSortie().isAfter(DEBPAUSEMIDI) && bMouv.getSortie().isBefore(FINPAUSEMIDI)) {
+                    tmpPause = tmpPause.minus(Duration.of(DEBPAUSEMIDI.until(bMouv.getSortie(), MINUTES), MINUTES));
+                }
+            }
+        }
+        return tmpPause;
+    }
+
 
     public Duration getResteAfaireAujourdhui() {
         return JOURNEEMIN.minus(getPresenceBadgeJour());
