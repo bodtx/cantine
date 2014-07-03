@@ -23,10 +23,6 @@ myApp.config(['$routeProvider',
                     templateUrl: 'cantine.html',
                     controller: 'MenuCtrl'
                 }).
-        when('/menuDuJour', {
-                    templateUrl: 'mdj.html',
-                    controller: 'MenuDuJourCtrl'
-                }).
         when('/badgeuse', {
                     templateUrl: 'badgeuse.html',
                     controller: 'HeureCtrl'

@@ -9,6 +9,7 @@
         <strong>Warning!</strong> Tu n'as pas badgé.
     </div>
 
+
      <!--Café gratuit-->
     <div class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert">
@@ -26,10 +27,19 @@
     </div>
 
     <div class="jumbotron">
-        <h1>Veux tu manger à la cantine?</h1>
-        <p>Voici le plat du jour ... {{menuDuJour}}</p>
-        <p><a href="#/menuDuJour" class="btn btn-primary btn-lg" role="button">Menu du jour</a></p>
-        <p><a href="#/cantine" class="btn btn-primary btn-lg" role="button">Cantine</a></p>
+        <h2>Veux-tu manger à la cantine ?</h2>
+        <div class="btn-group">
+            <label class="btn btn-primary" ng-model="viande" btn-radio="menuDuJour[1]">{{menuDuJour[1]}}</label>
+            <label class="btn btn-primary" ng-model="viande" btn-radio="menuDuJour[2]">{{menuDuJour[2]}}</label>
+        </div>
+
+        <div class="btn-group">
+            <label class="btn btn-success" ng-model="accompagnements.a1" btn-checkbox>{{menuDuJour[7]}}</label>
+            <label class="btn btn-success" ng-model="accompagnements.a2" btn-checkbox>{{menuDuJour[8]}}</label>
+        </div>
+        <br/>
+        <br/>
+        <button class="btn btn-info" ng-click="mail()">Mail</button>
     </div>
 
 
