@@ -30,8 +30,17 @@ accueilControllers.controller('AccueilCtrl', ['$scope', 'asTuBadgeService', 'men
                 date : now.getTime(),
                 plats : []
             }
+            var i = 0;
+            choix.plats[i++]={"nom":$scope.viande,"accompagnement":false};
+            if($scope.accompagnements.a1){
+                choix.plats[i++]={"nom": $scope.menuDuJour[7],"accompagnement":true};
+             }
 
-            choix.plats[0] = $scope.viande;
+             if($scope.accompagnements.a2){
+                 choix.plats[i++]={"nom": $scope.menuDuJour[8],"accompagnement":true};
+              }
+
+             
 
             $.ajax({
                 type : "POST",
