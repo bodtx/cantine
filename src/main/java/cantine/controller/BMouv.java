@@ -18,10 +18,12 @@ public class BMouv {
         entree = LocalTime.parse(aEntree, DateTimeFormatter.ofPattern("H.mm"));
         if (!StringUtils.isEmpty(aSortie)) {
             sortie = LocalTime.parse(aSortie, DateTimeFormatter.ofPattern("H.mm"));
+            duree = Duration.of(entree.until(sortie, MINUTES), MINUTES);
         } else {
-            sortie = LocalTime.now();
+            sortie = null;
+            duree = null;
         }
-        duree = Duration.of(entree.until(sortie, MINUTES), MINUTES);
+
     }
 
     public LocalTime getSortie() {
@@ -33,6 +35,9 @@ public class BMouv {
     }
 
     public Duration getDuree() {
+        if (duree == null) {
+            return Duration.of(entree.until(LocalTime.now(), MINUTES), MINUTES);
+        }
         return duree;
     }
 

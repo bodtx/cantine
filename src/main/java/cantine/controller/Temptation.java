@@ -149,10 +149,16 @@ public class Temptation {
         Duration tmpPause = Duration.of(DEBPAUSEMIDI.until(FINPAUSEMIDI, MINUTES), MINUTES);
         for (BMouv bMouv : BMouvList) {
             if (bMouv.getEntree().isAfter(DEBPAUSEMIDI) && bMouv.getEntree().isBefore(FINPAUSEMIDI)) {
-                if (bMouv.getSortie().isAfter(DEBPAUSEMIDI) && bMouv.getSortie().isBefore(FINPAUSEMIDI)) {
-                    // le mouvement est entirement sur la zone de pause, on l'enlève du temps de pause
-                    tmpPause = tmpPause.minus(Duration.of(bMouv.getEntree().until(bMouv.getSortie(), MINUTES), MINUTES));
+                if (bMouv.getSortie() != null) {
+                    if (bMouv.getSortie().isAfter(DEBPAUSEMIDI) && bMouv.getSortie().isBefore(FINPAUSEMIDI)) {
+                        // le mouvement est entirement sur la zone de pause, on l'enlève du temps de pause
+                        tmpPause = tmpPause.minus(bMouv.getDuree().toMinutes(), MINUTES);
+                    } else {
+                        tmpPause = tmpPause.minus(Duration.of(bMouv.getEntree().until(FINPAUSEMIDI, MINUTES), MINUTES));
+                    }
                 } else {
+                    // on est sur le dernier mouvement donc la personne est encore en train de travailler
+                    // on suppose qu'elle va travailler sur le reste du temps de pause disponible
                     tmpPause = tmpPause.minus(Duration.of(bMouv.getEntree().until(FINPAUSEMIDI, MINUTES), MINUTES));
                 }
             } else {
