@@ -2,8 +2,14 @@
 var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 
 //accueil Hello
-accueilControllers.controller('AccueilCtrl', ['$scope', 'asTuBadgeService', 'menuDuJourService' , function ($scope, asTuBadgeService, menuDuJourService) {
+accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTuBadgeService', 'menuDuJourService' , function ($scope, userNameService, asTuBadgeService, menuDuJourService) {
 
+		var username;
+
+		userNameService.getUserName().then(function(name) {
+    		username=name;
+    	});
+    	
 	   	asTuBadgeService.asTuBadge().then(function(badgeInfo) {
        		$scope.asTuBadge = badgeInfo.astuBadge  ;
        	});
@@ -26,7 +32,7 @@ accueilControllers.controller('AccueilCtrl', ['$scope', 'asTuBadgeService', 'men
         $scope.mail = function(nom) {
             var now = new Date();
             var choix = {
-                nom : 'Aurelien', //TODO
+                nom : username, 
                 date : now.getTime(),
                 plats : []
             }
