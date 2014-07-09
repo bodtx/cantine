@@ -39,8 +39,7 @@ public class MenuReader {
             fileToString = StringUtils.replace(fileToString, "=F4", "ô");
             fileToString = StringUtils.replace(fileToString, "=EA", "ê");
             fileToString = StringUtils.replace(fileToString, "=E7", "ç");
-            menuBean.setSemaine(files[0].getName().substring(12,
-                    files[0].getName().length() - 4));
+            menuBean.setSemaine(files[0].getName().substring(0,files[0].getName().length() - 4));
             String[][] trtd = readMenu(fileToString);
             menuBean.setPlats(trtd);
         }
