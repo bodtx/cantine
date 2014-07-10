@@ -138,13 +138,17 @@ public class Temptation {
 
         Duration pause = getTempsPauseMidi();
         // si on n'a pas pris le minimum il faut corriger le temps travaillé
-        if (!PAUSEMIN.minus(pause).isNegative()) {
-           total=total.minus(PAUSEMIN.minus(pause));
+        if (pause != null && !PAUSEMIN.minus(pause).isNegative()) {
+            total = total.minus(PAUSEMIN.minus(pause));
         }
+
         return total;
     }
 
     public Duration getTempsPauseMidi() {
+        if (LocalTime.now().isBefore(FINPAUSEMIDI)) {
+            return null;
+        }
         // temps maximum pris dans la période optionnelle
         Duration tmpPause = Duration.of(DEBPAUSEMIDI.until(FINPAUSEMIDI, MINUTES), MINUTES);
         for (BMouv bMouv : BMouvList) {

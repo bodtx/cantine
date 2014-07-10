@@ -138,7 +138,9 @@ public class BadgeuseReader {
     public void updateBeanWithcalcul(BadgeuseBean b) {
 
         b.setPresenceAujourdhui(bms.getPresenceBadgeJour().toString());
-        b.setPauseMidi(bms.getTempsPauseMidi().toString());
+        if (bms.getTempsPauseMidi() != null) {
+            b.setPauseMidi(bms.getTempsPauseMidi().toString());
+        }
 
         if (bms.getResteAfaireAujourdhui().isNegative()) {
             // si j'ai fait plus 7h48
