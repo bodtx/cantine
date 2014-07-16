@@ -29,18 +29,18 @@
     <div class="jumbotron">
         <h2>Veux-tu manger à la cantine ?</h2>
         <div class="btn-group">
-            <label class="btn btn-primary" ng-model="viande" btn-radio="menuDuJour[1]">{{menuDuJour[1]}}</label>
-            <label class="btn btn-primary" ng-model="viande" btn-radio="menuDuJour[2]">{{menuDuJour[2]}}</label>
+        	<label class="btn btn-primary" ng-model="viande"  btn-radio="menuDuJour[1]"><div tooltip-html-unsafe="<a target='_blank' href='/platImage/{{menuDuJour[1]}}'><img width = '150px' src='/platImage/{{menuDuJour[1]}}'/></a>">{{menuDuJour[1]}}</div></label>
+            <label class="btn btn-primary" ng-model="viande"  btn-radio="menuDuJour[2]"><div tooltip-html-unsafe="<a target='_blank' href='/platImage/{{menuDuJour[2]}}'><img width = '150px' src='/platImage/{{menuDuJour[2]}}'/></a>">{{menuDuJour[2]}}</div></label>
         </div>
 
         <div class="btn-group">
-            <label class="btn btn-success" ng-model="accompagnements.a1" btn-checkbox>{{menuDuJour[7]}}</label>
-            <label class="btn btn-success" ng-model="accompagnements.a2" btn-checkbox>{{menuDuJour[8]}}</label>
+            <label class="btn btn-success" ng-model="accompagnements.a1" btn-checkbox><div tooltip-html-unsafe="<a target='_blank' href='/platImage/{{menuDuJour[7]}}'><img width = '150px' src='/platImage/{{menuDuJour[7]}}'/></a>">{{menuDuJour[7]}}</div></label>
+            <label class="btn btn-success" ng-model="accompagnements.a2" btn-checkbox><div tooltip-html-unsafe="<a target='_blank' href='/platImage/{{menuDuJour[8]}}'><img width = '150px' src='/platImage/{{menuDuJour[8]}}'/></a>">{{menuDuJour[8]}}</div></label>
         </div>
         <br/>
         <br/>
         <button class="btn btn-info" ng-click="mail()">Mail</button>
     </div>
-
-
+    
 </div>
+
