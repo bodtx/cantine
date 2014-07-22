@@ -5,6 +5,7 @@ var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTuBadgeService', 'menuDuJourService' , function ($scope, userNameService, asTuBadgeService, menuDuJourService) {
 
 		var username;
+		
 
 		userNameService.getUserName().then(function(name) {
     		username=name;
@@ -22,6 +23,10 @@ accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTu
                        a1: false,
                        a2: false
                       };
+                      $scope.plat1 =encodeURIComponent($scope.menuDuJour[1]).replace(/'/g, "&#39;");
+                      $scope.plat2 = encodeURIComponent($scope.menuDuJour[2]).replace(/'/g, "&#39;");
+                      $scope.accompagnement1 =encodeURIComponent($scope.menuDuJour[7]).replace(/'/g, "&#39;");
+                      $scope.accompagnement2 = encodeURIComponent($scope.menuDuJour[8]).replace(/'/g, "&#39;");
         });
 
 
