@@ -9,6 +9,8 @@ Le client est en jquery est consomme du JSON.
 
 Le mail de la cantine doit être enregistrée au format .eml dasn le user.home
 
-http://localhost:8080/menu
+les images des plats doivent être placés dans ~/img et avoir comme nom [nom du plat].jpg
 
-http://localhost:8080/index.htm
+http://localhost:9292/iLikeCirso.html
+
+
