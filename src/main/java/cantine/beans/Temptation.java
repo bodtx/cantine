@@ -157,7 +157,7 @@ public class Temptation {
                 }
             } else {
                 // entree n'est pas dans la pause
-                if (bMouv.getSortie().isAfter(DEBPAUSEMIDI) && bMouv.getSortie().isBefore(FINPAUSEMIDI)) {
+                if (bMouv.getSortie() !=null && bMouv.getSortie().isAfter(DEBPAUSEMIDI) && bMouv.getSortie().isBefore(FINPAUSEMIDI)) {
                     tmpPause = tmpPause.minus(Duration.of(DEBPAUSEMIDI.until(bMouv.getSortie(), MINUTES), MINUTES));
                 }
             }
