@@ -1,9 +1,6 @@
 package cantine.service;
 
-import cantine.beans.BadgeuseBean;
-import cantine.controller.Temptation;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.Duration;

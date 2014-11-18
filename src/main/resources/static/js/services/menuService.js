@@ -12,7 +12,7 @@ myApp.factory('menuService', function($http) {
 	}
 });
 
-// menu service
+// menu du jour service
 myApp.factory('menuDuJourService', function($http) {
 	return {
 		getMenuDuJour : function() {

@@ -6,7 +6,6 @@ import cantine.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,10 +28,11 @@ public class Badgeuse {
 
     @RequestMapping(value="/asTuBadge")
     @ResponseBody
-    BadgeuseBean asTuBadge() throws Exception {
+    boolean asTuBadge() throws Exception {
         String login = userService.getUserName();
         String mdp = userService.getPassWord();
-        return badgeuseReader.completeBadgeInfos(login, mdp);
+        BadgeuseBean b = badgeuseReader.read(login, mdp);
+        return  b.isAstuBadge();
     }
     
     @RequestMapping(value="/userName")
@@ -41,9 +41,5 @@ public class Badgeuse {
     	return userService.getUserName();
     }
 	
-//    @RequestMapping(value="/heure")
-//    @ResponseBody
-//    BadgeuseBean home(@RequestParam(value = "heure") String heure) throws Exception {
-//    }
 
 }

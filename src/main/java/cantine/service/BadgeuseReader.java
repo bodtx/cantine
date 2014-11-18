@@ -1,10 +1,9 @@
 package cantine.service;
 
 import cantine.beans.BadgeuseBean;
-import cantine.controller.Temptation;
+import cantine.beans.Temptation;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -18,6 +17,7 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +27,8 @@ public class BadgeuseReader {
 
     Temptation bms = null;
 
-    public BadgeuseBean read(String login, String mdp) throws ClientProtocolException, IOException {
+    //TODO voir les exceptions
+    public BadgeuseBean read(String login, String mdp) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(
                 "http://gtabadge.rh.recouv/webquartzacq/acq/badge.do");
@@ -39,7 +40,11 @@ public class BadgeuseReader {
         nvps.add(new BasicNameValuePair("DECALHOR", "-120"));
         nvps.add(new BasicNameValuePair("TIME", "1401711007956"));
         CloseableHttpResponse response2 = null;
-        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        try {
+            httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        }catch ( UnsupportedEncodingException e){
+            e.printStackTrace();
+        }
 
         BadgeuseBean b = new BadgeuseBean();
 
@@ -49,64 +54,73 @@ public class BadgeuseReader {
 
 
         while (!connexionok && nbTentative < 100) {
-            response2 = httpclient.execute(httpPost);
-
-            // System.out.println(response2.getStatusLine());
+            try {
+                response2 = httpclient.execute(httpPost);
 
             HttpEntity entity2 = response2.getEntity();
-            final String body = EntityUtils.toString(entity2);
-            // System.out.println(body);
+                final String body = EntityUtils.toString(entity2);
+                String[][] trtd = null;
+                Document doc = Jsoup.parse(body);
+                Elements tables = doc.getElementsByClass("acqArray");
 
+                if (tables.size() > 0) {
+                    connexionok = true;
+                    // premier tableau de la controllers
+                    Elements trs = tables.get(0).select("tr");
+                    trtd = new String[trs.size()][];
+                    for (int i = 0; i < trs.size(); i++) {
+                        Elements tds = trs.get(i).select("td");
 
-            String[][] trtd = null;
-            Document doc = Jsoup.parse(body);
-            Elements tables = doc.getElementsByClass("acqArray");
-            if (tables.size() > 0) {
-                connexionok = true;
-                // premier tableau de la controllers
-                Elements trs = tables.get(0).select("tr");
-                trtd = new String[trs.size()][];
-                for (int i = 0; i < trs.size(); i++) {
-                    Elements tds = trs.get(i).select("td");
-
-                    trtd[i] = new String[tds.size()];
-                    for (int j = 0; j < tds.size(); j++) {
-                        trtd[i][j] = tds.get(j).text();
+                        trtd[i] = new String[tds.size()];
+                        for (int j = 0; j < tds.size(); j++) {
+                            trtd[i][j] = tds.get(j).text();
+                        }
                     }
-                }
 
-                // si le nombre de mouvements est pair, il manque un badge d'entrée
-                if(trtd==null || trtd.length==0 || trtd.length%2 !=0){
-                    b.setAstuBadge(true);
-                }
-
-                // 2eme tableau de la controllers
-                Elements trs2 = tables.get(2).select("tr");
-                String[][] trtd2 = null;
-                trtd2 = new String[trs2.size()][];
-                for (int i = 0; i < trs2.size(); i++) {
-                    Elements tds2 = trs2.get(i).select("td");
-
-                    trtd2[i] = new String[tds2.size()];
-                    for (int j = 0; j < tds2.size(); j++) {
-                        trtd2[i][j] = tds2.get(j).text();
+                    // si le nombre de mouvements est pair, il manque un badge d'entrée
+                    if(trtd==null || trtd.length==0 || trtd.length%2 !=0){
+                        b.setAstuBadge(true);
                     }
-                }
-                bms = new Temptation(trtd, trtd2);
 
-                EntityUtils.consume(entity2);
-            } else {
-                nbTentative++;
+                    // 2eme tableau de la controllers
+                    Elements trs2 = tables.get(2).select("tr");
+                    String[][] trtd2 = null;
+                    trtd2 = new String[trs2.size()][];
+                    for (int i = 0; i < trs2.size(); i++) {
+                        Elements tds2 = trs2.get(i).select("td");
+
+                        trtd2[i] = new String[tds2.size()];
+                        for (int j = 0; j < tds2.size(); j++) {
+                            trtd2[i][j] = tds2.get(j).text();
+                        }
+                    }
+                    bms = new Temptation(trtd, trtd2);
+
+                    try {
+                        EntityUtils.consume(entity2);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    nbTentative++;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
         }
-        response2.close();
+        try {
+            response2.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         b.setNbTentativeConnexion(nbTentative);
+        b.setEntreeSortieList(bms.getBMouvList());
         return b;
     }
 
     public BadgeuseBean getBadgeInfos(String login, String mdp) {
-        BadgeuseBean b = completeBadgeInfos(login,mdp);
+        BadgeuseBean b = read(login, mdp);
 
         //traitement badge Infos
         updateBeanWithcalcul(b);
@@ -114,26 +128,6 @@ public class BadgeuseReader {
         return b;
     }
 
-    /**
-     * Vérifie si l'utilisateur a bien badgé
-     * @param login
-     * @param mdp
-     * @return
-     */
-    public BadgeuseBean completeBadgeInfos(String login, String mdp) {
-        BadgeuseBean b = null;
-        try {
-            b = read(login, mdp);
-        } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return b;
-    }
 
     public void updateBeanWithcalcul(BadgeuseBean b) {
 

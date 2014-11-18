@@ -1,5 +1,6 @@
-package cantine.controller;
+package cantine.beans;
 
+import cantine.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.Duration;
@@ -111,24 +112,13 @@ public class Temptation {
 
         // on gère les compteurs
 
-        dcJour = parseDuration(compteurs[1][1]);
-        dcCumuleVeille = parseDuration(compteurs[2][1]);
-        dcCumule = parseDuration(compteurs[3][1]);
-        dcPeriodeVeille = parseDuration(compteurs[4][1]);
-        dcPeriodique = parseDuration(compteurs[5][1]);
+        dcJour = DateUtils.parseDuration(compteurs[1][1]);
+        dcCumuleVeille = DateUtils.parseDuration(compteurs[2][1]);
+        dcCumule = DateUtils.parseDuration(compteurs[3][1]);
+        dcPeriodeVeille = DateUtils.parseDuration(compteurs[4][1]);
+        dcPeriodique = DateUtils.parseDuration(compteurs[5][1]);
     }
 
-    private Duration parseDuration(String s) {
-        if (s.contains("-")) {
-            s = s.replaceAll("-", "-PT");
-        } else {
-            s = "PT" + s;
-        }
-        s = s.replaceAll("\\.", "H");
-        s = s + "M";
-        return Duration.parse(s);
-
-    }
 
     public Duration getPresenceBadgeJour() {
         Duration total = Duration.ZERO;

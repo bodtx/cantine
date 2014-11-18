@@ -1,7 +1,10 @@
 package cantine.beans;
 
 
-import org.apache.commons.lang3.StringUtils;
+import cantine.utils.DateUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BadgeuseBean {
 
@@ -15,27 +18,12 @@ public class BadgeuseBean {
     String simulationDepart;
     String pauseMidi;
 
-    public String getPauseMidi() {
-        return cleanDuration(pauseMidi);
-    }
-
-    public void setPauseMidi(String pauseMidi) {
-        this.pauseMidi = pauseMidi;
-    }
-
     boolean astuBadge = false;
 
-    private String cleanDuration(String s) {
-        String tmp = "";
-        if (s != null) {
-            tmp = s.replace("PT", "");
-            if (tmp.startsWith("-")) {
-                return "-" + StringUtils.remove(tmp, "-").toLowerCase();
-            }
-        }
-        return tmp.toLowerCase();
+    List<BMouv> entreeSortieList = new ArrayList<BMouv>();
 
-    }
+
+
 
     public boolean isAstuBadge() {
         return astuBadge;
@@ -46,11 +34,11 @@ public class BadgeuseBean {
     }
 
     public String getPresenceAujourdhui() {
-        return cleanDuration(presenceAujourdhui);
+        return DateUtils.cleanDuration(presenceAujourdhui);
     }
 
     public void setPresenceAujourdhui(String presenceAujourdhui) {
-        this.presenceAujourdhui = cleanDuration(presenceAujourdhui);
+        this.presenceAujourdhui = DateUtils.cleanDuration(presenceAujourdhui);
     }
 
     public String getResteAfaireAujourdhui() {
@@ -58,7 +46,7 @@ public class BadgeuseBean {
     }
 
     public void setResteAfaireAujourdhui(String resteAfaireAujourdhui) {
-        this.resteAfaireAujourdhui = cleanDuration(resteAfaireAujourdhui);
+        this.resteAfaireAujourdhui = DateUtils.cleanDuration(resteAfaireAujourdhui);
     }
 
     public String getTpsRecupereAujourdhui() {
@@ -66,7 +54,7 @@ public class BadgeuseBean {
     }
 
     public void setTpsRecupereAujourdhui(String tpsRecupereAujourdhui) {
-        this.tpsRecupereAujourdhui = cleanDuration(tpsRecupereAujourdhui);
+        this.tpsRecupereAujourdhui = DateUtils.cleanDuration(tpsRecupereAujourdhui);
     }
 
     public String getTpsTotalCummuleAujourdhui() {
@@ -74,7 +62,7 @@ public class BadgeuseBean {
     }
 
     public void setTpsTotalCummuleAujourdhui(String tpsTotalCummuleAujourdhui) {
-        this.tpsTotalCummuleAujourdhui = cleanDuration(tpsTotalCummuleAujourdhui);
+        this.tpsTotalCummuleAujourdhui = DateUtils.cleanDuration(tpsTotalCummuleAujourdhui);
     }
 
     public int getNbTentativeConnexion() {
@@ -90,8 +78,23 @@ public class BadgeuseBean {
     }
 
     public void setSimulationDepart(String simulationDepart) {
-        this.simulationDepart = cleanDuration(simulationDepart);
+        this.simulationDepart = DateUtils.cleanDuration(simulationDepart);
+    }
+
+    public String getPauseMidi() {
+        return DateUtils.cleanDuration(pauseMidi);
+    }
+
+    public void setPauseMidi(String pauseMidi) {
+        this.pauseMidi = pauseMidi;
     }
 
 
+    public void setEntreeSortieList(List<BMouv> entreeSortieList) {
+        this.entreeSortieList = entreeSortieList;
+    }
+
+    public List<BMouv> getEntreeSortieList() {
+        return entreeSortieList;
+    }
 }

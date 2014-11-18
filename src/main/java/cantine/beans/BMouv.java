@@ -1,5 +1,6 @@
-package cantine.controller;
+package cantine.beans;
 
+import cantine.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.Duration;
@@ -41,5 +42,28 @@ public class BMouv {
         return duree;
     }
 
+    //    Méthode utilisée dans AngularJS
+    public String getEntreeToString() {
+        if(entree==null){
+            return "";
+        }
+        return getEntree().toString();
+    }
+
+    //    Méthode utilisée dans AngularJS
+    public String getSortieToString() {
+        if(sortie==null){
+            return "";
+        }
+        return getSortie().toString();
+    }
+
+    //    Méthode utilisée dans AngularJS
+    public String getDureeToString() {
+        if(duree==null){
+            return "";
+        }
+        return DateUtils.cleanDuration(getDuree().toString());
+    }
 
 }
