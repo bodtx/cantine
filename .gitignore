@@ -21,3 +21,4 @@ cantineLogger.log
 target/
 cantine.properties
 cantine.script
+.idea/
