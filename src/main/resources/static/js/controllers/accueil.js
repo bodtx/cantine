@@ -2,7 +2,7 @@
 var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 
 //accueil Hello
-accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTuBadgeService', 'menuDuJourService', 'psNextService' , function ($scope, userNameService, asTuBadgeService, menuDuJourService, psNextService) {
+accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTuBadgeService', 'menuDuJourService', 'psNextService', 'openPsNextService' , function ($scope, userNameService, asTuBadgeService, menuDuJourService, psNextService, openPsNextService) {
 
 		var username;
 		
@@ -37,6 +37,11 @@ accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTu
         psNextService.getPsNext().then(function(psNext) {
             $scope.psNext = psNext  ;
         });
+
+
+        $scope.openPsNext = function(nom) {
+            openPsNextService.openPsNext();
+        }
 
 
         // TODO refactoriser avec la methode mail de cantine

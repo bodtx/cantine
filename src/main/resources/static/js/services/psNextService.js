@@ -11,3 +11,11 @@ myApp.factory('psNextService', function($http) {
 	}
 });
 
+
+myApp.factory('openPsNextService', function($http) {
+	return {
+		openPsNext : function() {
+			return $http.get('/openPs');
+		}
+	}
+});

@@ -18,3 +18,7 @@ table.table tr.odd td.cell_selected {
 span.mvt {
     margin-left: 15px;
 }
+
+.cursor {
+    cursor: pointer;
+}
