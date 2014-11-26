@@ -10,7 +10,6 @@ public class UserService {
 
 	public String getUserName() {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SecurityContextHolder.getContext().getAuthentication().getCredentials();
 		return user.getUsername();
 	}
 	

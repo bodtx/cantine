@@ -114,6 +114,10 @@ public class BadgeuseReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        if (bms ==null) {
+            //TODO Pb si mot de passe de notre application différent du mot de passe Anais il faut envoyer une exception et afficher un message
+        }
         b.setNbTentativeConnexion(nbTentative);
         b.setEntreeSortieList(bms.getBMouvList());
         return b;
@@ -142,16 +146,18 @@ public class BadgeuseReader {
             b.setTpsRecupereAujourdhui(bms.getResteAfaireAujourdhui().abs().toString());
             //tmp recup veille plus temps fait aujourd'hui
             b.setTpsTotalCummuleAujourdhui(bms.getDcCumuleVeille().toString());
+            // rien à faire
+            b.setResteAfaireAujourdhui("");
         } else {
             // si j'ai fait moins de 7h48
             //reste à faire aujourd'hui : 7h48 - presence
             b.setResteAfaireAujourdhui(bms.getResteAfaireAujourdhui().toString());
             //tps total cummulé aujourd'hui : tps cummulé de la veille
             b.setTpsTotalCummuleAujourdhui(bms.getDcCumuleVeille().toString());
-            //simulation départ :  la presence + tps cummulé veille - 7h48
-            b.setSimulationDepart(bms.getDcCumuleVeille().plus(bms.getPresenceBadgeJour()).minus(bms.getJOURNEEMIN()).toString());
             b.setTpsRecupereAujourdhui("");
         }
+        // simulation départ :  la presence + tps cummulé veille - 7h48
+        b.setSimulationDepart(bms.getDcCumuleVeille().plus(bms.getPresenceBadgeJour()).minus(bms.getJOURNEEMIN()).toString());
     }
 
 
