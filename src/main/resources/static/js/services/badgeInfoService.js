@@ -21,3 +21,11 @@ myApp.factory('asTuBadgeService', function($http) {
 	        }
 	   }
 	});
+
+myApp.factory('openTemptationService', function($http) {
+	   	return {
+       		openTemptation : function() {
+       			return $http.get('/openTemptation');
+       		}
+       	}
+	});

@@ -6,6 +6,7 @@ import cantine.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,6 +40,14 @@ public class Badgeuse {
     @ResponseBody
     String getUserName() throws Exception {
     	return userService.getUserName();
+    }
+
+
+    @RequestMapping(value = "/openTemptation", method = RequestMethod.GET)
+    @ResponseBody
+    public void openTemptation() throws Exception {
+        Runtime runtime = Runtime.getRuntime();
+        runtime.exec(new String[] { "C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe", "https://ressources.rh.recouv/index.php?module=1140"} );
     }
 	
 

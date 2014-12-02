@@ -2,7 +2,7 @@
 var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 
 //accueil Hello
-accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTuBadgeService', 'menuDuJourService', 'psNextService', 'openPsNextService' , function ($scope, userNameService, asTuBadgeService, menuDuJourService, psNextService, openPsNextService) {
+accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTuBadgeService', 'menuDuJourService', 'psNextService', 'openPsNextService', 'openTemptationService' , function ($scope, userNameService, asTuBadgeService, menuDuJourService, psNextService, openPsNextService, openTemptationService) {
 
 		var username;
 		
@@ -41,6 +41,11 @@ accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTu
 
         $scope.openPsNext = function(nom) {
             openPsNextService.openPsNext();
+        }
+
+
+        $scope.openTemptation = function(nom) {
+            openTemptationService.openTemptation();
         }
 
 
