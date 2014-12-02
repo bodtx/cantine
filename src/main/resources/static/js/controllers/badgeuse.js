@@ -3,7 +3,7 @@ var badgeuseControllers  = angular.module('badgeuseControllers', []);
 
 //TODO utiliser les ng-show?
 //calcule badgeuse
-badgeuseControllers.controller('HeureCtrl', function($scope, badgeInfoService) {
+badgeuseControllers.controller('HeureCtrl', function($scope, badgeInfoService, openTemptationService) {
 	badgeInfoService.getBadgeInfo().then(function(badgeInfo) {
 
 		//nb clic
@@ -59,5 +59,9 @@ badgeuseControllers.controller('HeureCtrl', function($scope, badgeInfoService) {
 
 
 	});
+
+    $scope.openTemptation = function(nom) {
+        openTemptationService.openTemptation();
+    }
 
 });
