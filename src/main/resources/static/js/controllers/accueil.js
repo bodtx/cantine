@@ -15,8 +15,14 @@ accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTu
        		$scope.badgeKo = !asTuBadge  ;
        	});
 
-        //TODO faire le service pour le café gratos
-        $scope.cafeGratos = false;
+        //café gratos le mercredi
+        var today=new Date();
+        if(today.getDay()==3){
+            $scope.cafeGratos = true;
+        } else{
+            $scope.cafeGratos = false;
+        }
+
 
         menuDuJourService.getMenuDuJour().then(function(menuDujour) {
             $scope.menuDuJour = menuDujour  ;
