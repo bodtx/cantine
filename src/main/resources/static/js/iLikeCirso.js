@@ -3,11 +3,15 @@ var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menu
 
 
 // Bonjour
-myApp.controller('BjrCtrl', ['$scope', 'userNameService' , function ($scope, userNameService) {
+myApp.controller('BjrCtrl', ['$scope', 'userNameService', '$location' , function ($scope, userNameService, $location) {
 
 	userNameService.getUserName().then(function(username) {
     		$scope.hello= 'Bonjour ' + username;
     	});
+
+    $scope.isActive = function (viewLocation) {
+            return viewLocation === $location.path();
+        };
 
 }]);
 
