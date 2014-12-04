@@ -6,7 +6,7 @@ var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menu
 myApp.controller('BjrCtrl', ['$scope', 'userNameService', '$location' , function ($scope, userNameService, $location) {
 
 	userNameService.getUserName().then(function(username) {
-    		$scope.hello= 'Bonjour ' + username;
+    		$scope.hello= username;
     	});
 
     $scope.isActive = function (viewLocation) {
