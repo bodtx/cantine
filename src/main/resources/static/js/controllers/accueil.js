@@ -2,10 +2,9 @@
 var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 
 //accueil Hello
-accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTuBadgeService', 'menuDuJourService', 'psNextService', 'openPsNextService', 'openTemptationService' , function ($scope, userNameService, asTuBadgeService, menuDuJourService, psNextService, openPsNextService, openTemptationService) {
+accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userNameService', 'asTuBadgeService', 'menuDuJourService', 'psNextService', 'openPsNextService', 'openTemptationService' , function ($scope, $route, userNameService, asTuBadgeService, menuDuJourService, psNextService, openPsNextService, openTemptationService) {
 
 		var username;
-		
 
 		userNameService.getUserName().then(function(name) {
     		username=name;
@@ -22,6 +21,28 @@ accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTu
         } else{
             $scope.cafeGratos = false;
         }
+
+
+        //menu du jour
+        var now = new Date();
+
+        // passé 13h, on n'afiche plus les messages de la cantine
+        var timeLimitMenu = new Date();
+        timeLimitMenu.setHours(13);
+
+        if (now.getTime() > timeLimitMenu.getTime()) {
+            $scope.timeLimitMenu =true;
+        } else{
+            $scope.timeLimitMenu =false;
+        }
+
+        var inscritTemp= $.cookie('inscrit');
+        if(inscritTemp!=null){
+            $scope.inscrit = inscritTemp;
+        }else{
+            $scope.inscrit = false;
+        }
+
 
 
         menuDuJourService.getMenuDuJour().then(function(menuDujour) {
@@ -60,6 +81,19 @@ accueilControllers.controller('AccueilCtrl', ['$scope', 'userNameService', 'asTu
         // 1. enregiste le choix du plat
         // 2. appelle de la méthode mail en cas de succes
         $scope.mail = function(nom) {
+
+            //creation du cookie pour dire qu'on est inscrit, valable 12h
+            var date = new Date();
+            var heures = 12;
+            date.setTime(date.getTime() + (heures * 60 * 60 * 1000));
+
+            $.cookie('inscrit', "true", {
+                    expires : date
+                });
+
+             //rechargement de la page
+             $route.reload();
+
             var now = new Date();
             var choix = {
                 nom : username, 

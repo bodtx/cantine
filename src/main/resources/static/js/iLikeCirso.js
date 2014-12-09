@@ -9,6 +9,7 @@ myApp.controller('BjrCtrl', ['$scope', 'userNameService', '$location' , function
     		$scope.hello= username;
     	});
 
+    //permet de savoir quel onglet est actif
     $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
         };

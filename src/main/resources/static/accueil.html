@@ -25,7 +25,16 @@
         C'est vendredi, fais ton <span class="cursor" ng-click="openPsNext()"> <strong>PsNext</strong> </span> !!!
     </div>
 
-    <div class="jumbotron">
+
+    <!-- Inscription cantine -->
+    <div ng-show="inscrit && !timeLimitMenu" class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        Tu es inscrit à la cantine, pour annuler fais le <strong>7901</strong>.
+    </div>
+
+    <div class="jumbotron" ng-show="!inscrit && !timeLimitMenu">
         <h2>Veux-tu manger à la cantine ?</h2>
         <div class="btn-group">
         	<label class="btn btn-primary"  ng-model="viande"  btn-radio="menuDuJour[1]"><div tooltip-placement="bottom" tooltip-html-unsafe="<a target='_blank' href='/platImage/{{menuDuJour[1]}}'><img width = '150px' src='/platImage/{{plat1}}'/></a>">{{menuDuJour[1]}}</div></label>
