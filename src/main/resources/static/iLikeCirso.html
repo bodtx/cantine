@@ -17,7 +17,7 @@
 
     <!--CSS-->
     <link rel="stylesheet" href="css/common/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="css/cantine.css">
+    <link rel="stylesheet" href="css/iLikeCirso.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/common/bootstrap.css">
 
@@ -40,15 +40,14 @@
     <script src="js/services/badgeInfoService.js"></script>
     <script src="js/services/psNextService.js"></script>
 
-    <link rel="shortcut icon" href="img/urssaf.ico">
+    <link rel="shortcut icon" href="img/logoLikeCirso.png">
 
 
 </head>
 <body>
 
 <div class="bg-info" ng-controller="BjrCtrl">
-
-<nav class="navbar navbar-default" role="navigation">
+<nav id class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -75,6 +74,18 @@
 
 
 <div style="width: 80%; margin-left: auto; margin-right: auto; " ng-view></div>
+
+
+<footer class="panel-footer">
+    <ul class="panel-footer-links left">
+        <li>git</li>
+    </ul>
+     <a href="#/accueil">  <img src="img/logoLikeCirso.png" align="center" width="35"/> </a>
+
+    <ul class="panel-footer-links right">
+        <li>Team</li>
+    </ul>
+</footer>
 
 </body>
 </html>
