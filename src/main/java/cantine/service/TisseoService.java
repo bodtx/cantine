@@ -21,11 +21,6 @@ public class TisseoService {
 
     final String API_KEY = "ae93e25245ab9ba689e7461a6863b6c20";
 
-
-
-
-
-
     public Departs prochainsPassages(String login, String mdp) {
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
         nvps.add(new BasicNameValuePair("key", API_KEY));
@@ -57,6 +52,21 @@ public class TisseoService {
         departs.setDeparts(dep);
 
         return departs;
+    }
+
+    public boolean problemeTisseo(String login, String mdp) {
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+        nvps.add(new BasicNameValuePair("key", API_KEY));
+        nvps.add(new BasicNameValuePair("displayImportantOnly", "1"));
+
+        Document doc = HTTPUtils.executeHttp(login, mdp, "http://api.tisseo.fr/v1/messages.xml", nvps);
+
+        boolean problemTisseo =false;
+
+        if(doc.child(0).childNodes().size()>1){
+            problemTisseo=true;
+        }
+        return problemTisseo;
     }
 
 

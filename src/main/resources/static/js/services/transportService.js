@@ -22,3 +22,13 @@ myApp.factory('velibService', function($http) {
 	});
 
 
+myApp.factory('problemeTisseoService', function($http) {
+	   return {
+	        problemeTisseo: function() {
+	             return $http.get('problemeTisseo')
+                       .then(function(result) {
+                            return result.data;
+                        });
+	        }
+	   }
+	});

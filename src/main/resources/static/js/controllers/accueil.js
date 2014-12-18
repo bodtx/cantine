@@ -2,17 +2,23 @@
 var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 
 //accueil Hello
-accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userNameService', 'asTuBadgeService', 'menuDuJourService', 'psNextService', 'openPsNextService', 'openTemptationService' , function ($scope, $route, userNameService, asTuBadgeService, menuDuJourService, psNextService, openPsNextService, openTemptationService) {
+accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userNameService', 'asTuBadgeService', 'menuDuJourService', 'psNextService', 'openPsNextService', 'openTemptationService', 'problemeTisseoService' , function ($scope, $route, userNameService, asTuBadgeService, menuDuJourService, psNextService, openPsNextService, openTemptationService, problemeTisseoService) {
 
 		var username;
 
 		userNameService.getUserName().then(function(name) {
     		username=name;
     	});
-    	
+
+    	//as tu badgé?
 	   	asTuBadgeService.asTuBadge().then(function(asTuBadge) {
        		$scope.badgeKo = !asTuBadge  ;
        	});
+
+        //problème Tisseo
+        problemeTisseoService.problemeTisseo().then(function(problemeTisseo) {
+            $scope.problemeTisseo = problemeTisseo ;
+        });
 
         //café gratos le mercredi
         var today=new Date();

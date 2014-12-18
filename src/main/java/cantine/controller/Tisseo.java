@@ -28,6 +28,14 @@ public class Tisseo {
         return tisseoService.prochainsPassages(login, mdp);
     }
 
+    @RequestMapping(value="/problemeTisseo")
+    @ResponseBody
+    boolean problemeTisseo() throws Exception {
+        String login = userService.getUserName();
+        String mdp = userService.getPassWord();
+        return tisseoService.problemeTisseo(login, mdp);
+    }
+
     @RequestMapping(value="/velib")
     @ResponseBody
     List<StationVelib> velib() throws Exception {
