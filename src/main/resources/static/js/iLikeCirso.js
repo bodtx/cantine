@@ -1,4 +1,4 @@
-var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menuControllers', 'badgeuseControllers', 'ui.bootstrap','iLikeCirsoAnimations']);
+var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menuControllers', 'badgeuseControllers', 'ui.bootstrap','iLikeCirsoAnimations','transportControllers']);
 
 
 
@@ -25,13 +25,17 @@ myApp.config(['$routeProvider',
             controller: 'AccueilCtrl'
         }).
         when('/cantine', {
-                    templateUrl: 'cantine.html',
-                    controller: 'MenuCtrl'
-                }).
+            templateUrl: 'cantine.html',
+            controller: 'MenuCtrl'
+        }).
         when('/badgeuse', {
-                    templateUrl: 'badgeuse.html',
-                    controller: 'HeureCtrl'
-                }).
+            templateUrl: 'badgeuse.html',
+            controller: 'HeureCtrl'
+        }).
+        when('/transport', {
+            templateUrl: 'transport.html',
+            controller: 'TransportCtrl'
+        }).
         otherwise({
         redirectTo: '/accueil'
         });

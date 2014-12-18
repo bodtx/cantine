@@ -32,6 +32,7 @@
     <script src="js/controllers/accueil.js"></script>
     <script src="js/controllers/badgeuse.js"></script>
     <script src="js/controllers/cantine.js"></script>
+    <script src="js/controllers/transport.js"></script>
 
     <!-- Services-->
     <script src="js/services/userNameService.js"></script>
@@ -39,6 +40,7 @@
     <script src="js/services/menuService.js"></script>
     <script src="js/services/badgeInfoService.js"></script>
     <script src="js/services/psNextService.js"></script>
+    <script src="js/services/transportService.js"></script>
 
     <link rel="shortcut icon" href="img/logoLikeCirso.png">
 
@@ -59,12 +61,15 @@
             <ul class="nav navbar-nav">
                 <li ng-class="{ active: isActive('/badgeuse')}"><a href="#/badgeuse">Badgeuse</a></li>
                 <li ng-class="{ active: isActive('/cantine')}"><a href="#/cantine">Cantine</a></li>
+                <li ng-class="{ active: isActive('/transport')}"><a href="#/transport">Transport</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"> {{hello}}</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
             </ul>
+
+
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

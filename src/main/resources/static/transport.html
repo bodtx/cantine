@@ -1,0 +1,18 @@
+<div>
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Prochains Passages : {{stopCode}} --- {{stopName}}</div>
+    <div class="panel-body">
+        <ul class="list-group">
+            <li ng-class-odd="'list-group-item list-group-item-success'" ng-class-even="'list-group-item list-group-item-info'" ng-repeat="depart in departs">
+                <span class="mvt">{{depart.heureDepart}}</span>
+                <span class="mvt numBus" style="background:rgb{{depart.color}};">{{depart.numero}}</span>
+                <span class="mvt">{{depart.nomLigne}}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
