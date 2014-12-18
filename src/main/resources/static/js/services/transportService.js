@@ -1,4 +1,3 @@
-//badgeInfo service
 myApp.factory('prochainsPassagesService', function($http) {
 	   return {
 	        prochainsPassages: function() {
@@ -9,4 +8,17 @@ myApp.factory('prochainsPassagesService', function($http) {
 	        }
 	   }
 	});
+
+
+myApp.factory('velibService', function($http) {
+	   return {
+	        velib: function() {
+	             return $http.get('velib')
+                       .then(function(result) {
+                            return result.data;
+                        });
+	        }
+	   }
+	});
+
 

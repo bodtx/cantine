@@ -2,39 +2,17 @@ package cantine.service;
 
 import cantine.beans.Depart;
 import cantine.beans.Departs;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
+import cantine.beans.StationVelib;
+import cantine.utils.DateUtils;
+import cantine.utils.HTTPUtils;
 import org.apache.http.NameValuePair;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.parser.Parser;
-import org.jsoup.select.Elements;
 import org.jsoup.nodes.Element;
-
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,83 +21,83 @@ public class TisseoService {
 
     final String API_KEY = "ae93e25245ab9ba689e7461a6863b6c20";
 
-    public Departs prochainsPassages(String login, String mdp) throws ParseException {
-        CloseableHttpClient httpclient = createHttpClientWithProxy();
-        HttpClientContext httpContext = createHttpContext(login, mdp);
-        HttpPost httpPost = new HttpPost("http://api.tisseo.fr/v1/stops_schedules.xml");
+
+
+
+
+
+    public Departs prochainsPassages(String login, String mdp) {
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
         nvps.add(new BasicNameValuePair("key", API_KEY));
         nvps.add(new BasicNameValuePair("operatorCode", "1801"));
-        CloseableHttpResponse response2 = null;
+
+        Document doc = HTTPUtils.executeHttp(login, mdp, "http://api.tisseo.fr/v1/stops_schedules.xml", nvps);
 
         Departs departs = new Departs();
 
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        //ce qui suit est très moche :)
+        Element stop = doc.child(0).child(0);
+        String stopCode = stop.attributes().asList().get(1).getValue();
+        String stopName = stop.attributes().asList().get(2).getValue();
+        departs.setStopCode(stopCode);
+        departs.setStopName(stopName);
+
+        List<Depart> dep = new ArrayList<Depart>();
+        Elements depertures = doc.select("departure");
+        for (Element e : depertures) {
+            Depart d = new Depart();
+            d.setNumero(e.child(0).attributes().asList().get(1).getValue());
+            d.setNomLigne(e.child(0).attributes().asList().get(0).getValue());
+            d.setColor(e.child(0).attributes().asList().get(3).getValue());
+            d.setDestination(e.child(1).attributes().asList().get(0).getValue());
+            d.setDepart(DateUtils.parseDate(e.attributes().asList().get(0).getValue()));
+            dep.add(d);
         }
 
-        try {
-            response2 = httpclient.execute(httpPost, httpContext);
-            HttpEntity entity2 = response2.getEntity();
-            final String body = EntityUtils.toString(entity2);
-            Document doc = Jsoup.parse(body, "",Parser.xmlParser());
-
-            //ce qui suit est très moche :)
-            //stop
-            Element stop = doc.child(0).child(0);
-            String stopCode = stop.attributes().asList().get(1).getValue();
-            String stopName = stop.attributes().asList().get(2).getValue();
-
-            departs.setStopCode(stopCode);
-            departs.setStopName(stopName);
-
-            List<Depart> dep = new ArrayList<>();
-            //departures
-            Elements depertures = doc.select("departure");
-            for (Element e : depertures) {
-                Depart d = new Depart();
-                d.setNumero(e.child(0).attributes().asList().get(1).getValue());
-                d.setNomLigne(e.child(0).attributes().asList().get(0).getValue());
-                d.setColor(e.child(0).attributes().asList().get(3).getValue());
-                d.setDestination(e.child(1).attributes().asList().get(0).getValue());
-                d.setDepart(format.parse(e.attributes().asList().get(0).getValue()));
-                dep.add(d);
-            }
-
-            departs.setDeparts(dep);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            response2.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        departs.setDeparts(dep);
 
         return departs;
-
     }
 
 
-    private CloseableHttpClient createHttpClientWithProxy() {
-        HttpClientBuilder hcBuilder = HttpClients.custom();
-        HttpHost proxy = new HttpHost("proxy2.cer31.recouv", 8000, "http");
-        DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
-        hcBuilder.setRoutePlanner(routePlanner);
-        CloseableHttpClient httpClient = hcBuilder.build();
-        return httpClient;
+
+    public List<StationVelib> velib(String login, String mdp) {
+        List<StationVelib> result = new ArrayList<>();
+
+        //Cambard
+        Document doc = HTTPUtils.executeHttp(login, mdp, "http://www.velo.toulouse.fr/service/stationdetails/toulouse/258", null);
+        StationVelib tmp = parseStationVelib(doc, "Cambard", "258");
+        result.add(tmp);
+
+        //Vasseur
+        doc = HTTPUtils.executeHttp(login, mdp, "http://www.velo.toulouse.fr/service/stationdetails/toulouse/272", null);
+        tmp = parseStationVelib(doc, "Vasseur", "272");
+        result.add(tmp);
+
+        //Argoulets
+        doc = HTTPUtils.executeHttp(login, mdp, "http://www.velo.toulouse.fr/service/stationdetails/toulouse/215", null);
+        tmp = parseStationVelib(doc, "Argoulets", "215");
+        result.add(tmp);
+
+        return result;
+
     }
 
-    private HttpClientContext createHttpContext(String login, String mdp) {
-        CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(login, mdp));
-        HttpClientContext localContext = HttpClientContext.create();
-        localContext.setCredentialsProvider(credentialsProvider);
-        return localContext;
+    private StationVelib parseStationVelib(Document doc, String nomStation, String numeroStation) {
+        StationVelib tmp = new StationVelib();
+
+        //beurk
+        String dispo = doc.child(0).child(0).childNode(0).attributes().asList().get(0).getValue();
+        String libre = doc.child(0).child(1).childNode(0).attributes().asList().get(0).getValue();
+        String total = doc.child(0).child(2).childNode(0).attributes().asList().get(0).getValue();
+
+        tmp.setDisponible(dispo);
+        tmp.setLibre(libre);
+        tmp.setTotal(total);
+        tmp.setNumero(numeroStation);
+        tmp.setName(nomStation);
+
+        return tmp;
     }
 
 }
