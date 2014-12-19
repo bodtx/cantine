@@ -1,16 +1,19 @@
 package cantine.utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.Period;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Date;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 public class DateUtils {
 
-    static final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    static DateTimeFormatter parseFormat = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").toFormatter();
 
     public static String cleanDuration(String s) {
         String tmp = "";
@@ -22,6 +25,14 @@ public class DateUtils {
         }
         return tmp.toLowerCase();
 
+    }
+
+    public static String cleanDuration2(Duration d) {
+        PeriodFormatter formatter = new PeriodFormatterBuilder()
+                .appendMinutes()
+                .toFormatter();
+        String formatted = formatter.print(new Period(d));
+        return formatted;
     }
 
 
@@ -37,13 +48,10 @@ public class DateUtils {
 
     }
 
-    public static Date parseDate(String d){
-        Date result = new Date();
-        try {
-            result = format.parse(d);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return result;
+
+
+    public static LocalTime parseDate(String d){
+        LocalTime localTime = LocalTime.parse(d, parseFormat);
+        return localTime;
     }
 }

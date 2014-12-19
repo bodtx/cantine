@@ -6,6 +6,7 @@
     <div class="panel-body">
         <ul class="list-group">
             <li ng-class-odd="'list-group-item list-group-item-success'" ng-class-even="'list-group-item list-group-item-info'" ng-repeat="depart in departs">
+                <span class="mvt badge badgePerso">{{depart.decompteDepart}}</span>
                 <span class="mvt">{{depart.heureDepart}}</span>
                 <span class="mvt numBus" style="background:rgb{{depart.color}};">{{depart.numero}}</span>
                 <span class="mvt">{{depart.nomLigne}}</span>
@@ -29,7 +30,7 @@
             </thead>
             <tbody>
                 <tr ng-class-odd="'success'" ng-class-even="'info'" ng-repeat="velib in velibs">
-                    <td>{{velib.name}}</td>
+                    <td> {{velib.name}}</td>
                     <td>{{velib.disponible}}</td>
                     <td>{{velib.libre}}</td>
                 </tr>

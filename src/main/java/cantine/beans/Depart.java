@@ -1,6 +1,12 @@
 package cantine.beans;
 
+import cantine.utils.DateUtils;
+
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 /**
@@ -8,7 +14,7 @@ import java.util.Date;
  */
 public class Depart {
 
-    Date depart;
+    LocalTime depart;
 
     String numero;
 
@@ -18,11 +24,15 @@ public class Depart {
 
     String destination;
 
-    public Date getDepart() {
+    public LocalTime getDepart() {
         return depart;
     }
 
-    public void setDepart(Date depart) {
+    public String getHeureDepart() {
+        return depart.toString();
+    }
+
+    public void setDepart(LocalTime depart) {
         this.depart = depart;
     }
 
@@ -42,12 +52,6 @@ public class Depart {
         this.color = color;
     }
 
-    //méhode utilisée dans le front
-    public String getHeureDepart(){
-        SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
-        return formater.format(depart);
-    }
-
     public String getNomLigne() {
         return nomLigne;
     }
@@ -63,4 +67,10 @@ public class Depart {
     public void setDestination(String destination) {
         this.destination = destination;
     }
+
+
+    public String getDecompteDepart() {
+        return DateUtils.cleanDuration2(Duration.between(LocalTime.now(), depart));
+    }
+
 }

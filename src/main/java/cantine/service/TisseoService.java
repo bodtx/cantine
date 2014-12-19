@@ -39,6 +39,7 @@ public class TisseoService {
 
         List<Depart> dep = new ArrayList<Depart>();
         Elements depertures = doc.select("departure");
+
         for (Element e : depertures) {
             Depart d = new Depart();
             d.setNumero(e.child(0).attributes().asList().get(1).getValue());
