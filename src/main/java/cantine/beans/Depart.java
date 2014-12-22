@@ -7,7 +7,10 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 /**
  * Created by CER3100444 on 17/12/2014.
@@ -29,7 +32,9 @@ public class Depart {
     }
 
     public String getHeureDepart() {
-        return depart.toString();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
+        String out = depart.format(format);
+        return out;
     }
 
     public void setDepart(LocalTime depart) {
@@ -70,7 +75,7 @@ public class Depart {
 
 
     public String getDecompteDepart() {
-        return DateUtils.cleanDuration2(Duration.between(LocalTime.now(), depart));
+        return DateUtils.cleanDuration(Duration.ofMinutes(depart.until(LocalTime.now(), MINUTES)).abs().toString());
     }
 
 }
