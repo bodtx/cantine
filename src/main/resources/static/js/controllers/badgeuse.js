@@ -4,6 +4,9 @@ var badgeuseControllers  = angular.module('badgeuseControllers', []);
 //TODO utiliser les ng-show?
 //calcule badgeuse
 badgeuseControllers.controller('HeureCtrl', function($scope, badgeInfoService, openTemptationService) {
+
+
+
     $scope.loadBadgeuse = function () {
         $scope.loadingBadgeuse = "bouttonRefresh glyphicon glyphicon-refresh glyphicon-refresh-animate";
         badgeInfoService.getBadgeInfo().then(function(badgeInfo) {
@@ -72,5 +75,10 @@ badgeuseControllers.controller('HeureCtrl', function($scope, badgeInfoService, o
     $scope.openTemptation = function(nom) {
         openTemptationService.openTemptation();
     }
+
+    // refresh auto quand on revient sur la page
+    window.onfocus = function() {
+        $scope.loadBadgeuse();
+    };
 
 });

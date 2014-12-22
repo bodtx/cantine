@@ -29,4 +29,11 @@ transportControllers.controller('TransportCtrl', function($scope, prochainsPassa
     //initial load
     $scope.loadVelib();
     $scope.loadBus();
+
+    // refresh auto quand on revient sur la page
+    window.onfocus = function() {
+        $scope.loadVelib();
+        $scope.loadBus();
+    };
+
 });
