@@ -99,3 +99,8 @@ padding: 2px 4px;
 .loading {
     text-align: center;
 }
+
+.favoris {
+    padding-left: 6% !important;
+    padding-right: 6% !important;
+}
