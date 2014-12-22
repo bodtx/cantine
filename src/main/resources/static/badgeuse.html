@@ -1,7 +1,7 @@
 <div>
 
     <div class="panel panel-primary">
-        <div class="panel-heading">Compteurs du jour</div>
+        <div class="panel-heading">Compteurs du jour  <span ng-click="loadBadgeuse()" class="{{loadingBadgeuse}}"></span></div>
         <div class="panel-body">
             <div ng-show="nbTentativeConnexionVisible">{{nbTentativeConnexion}}<br><br></div>
             {{presenceAujourdhui}} <br>

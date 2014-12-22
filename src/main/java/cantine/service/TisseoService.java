@@ -39,7 +39,7 @@ public class TisseoService {
 
         List<Depart> dep = new ArrayList<Depart>();
         Elements depertures = doc.select("departure");
-
+        int nbMax =0;
         for (Element e : depertures) {
             Depart d = new Depart();
             d.setNumero(e.child(0).attributes().asList().get(1).getValue());
@@ -47,7 +47,10 @@ public class TisseoService {
             d.setColor(e.child(0).attributes().asList().get(3).getValue());
             d.setDestination(e.child(1).attributes().asList().get(0).getValue());
             d.setDepart(DateUtils.parseDate(e.attributes().asList().get(0).getValue()));
-            dep.add(d);
+            if(nbMax<5){
+                dep.add(d);
+                nbMax++;
+            }
         }
 
         departs.setDeparts(dep);

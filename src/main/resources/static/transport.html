@@ -1,8 +1,10 @@
 <div>
 
+    <div loading>
+    </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Prochains Passages : {{stopName}} --- {{stopCode}}</div>
+    <div class="panel-heading">Prochains Passages : {{stopName}} --- {{stopCode}}  <span ng-click="loadBus()" class="{{loadingBus}}"></span></div>
     <div class="panel-body">
         <ul class="list-group">
             <li ng-class-odd="'list-group-item list-group-item-success'" ng-class-even="'list-group-item list-group-item-info'" ng-repeat="depart in departs">
@@ -17,7 +19,7 @@
 
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Vélouse</div>
+    <div class="panel-heading">Vélouse <span ng-click="loadVelib()" class="{{loadingVelouse}}"></span></div>
     <div class="panel-body">
 
         <table class="table">
