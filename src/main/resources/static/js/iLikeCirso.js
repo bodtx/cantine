@@ -1,4 +1,4 @@
-var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menuControllers', 'badgeuseControllers', 'ui.bootstrap','iLikeCirsoAnimations','transportControllers']);
+var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menuControllers', 'badgeuseControllers', 'ui.bootstrap','iLikeCirsoAnimations','transportControllers', 'settingControllers']);
 
 myApp.directive('loading',   ['$http' ,function ($http)
     {
@@ -19,9 +19,9 @@ myApp.directive('loading',   ['$http' ,function ($http)
     }]);
 
 // Bonjour
-myApp.controller('BjrCtrl', ['$scope', 'userNameService', '$location' , function ($scope, userNameService, $location) {
+myApp.controller('BjrCtrl', ['$scope', 'userService', '$location' , function ($scope, userService, $location) {
 
-	userNameService.getUserName().then(function(username) {
+	userService.getUserName().then(function(username) {
     		$scope.hello= username;
     	});
 
@@ -51,6 +51,10 @@ myApp.config(['$routeProvider',
         when('/transport', {
             templateUrl: 'transport.html',
             controller: 'TransportCtrl'
+        }).
+        when('/setting', {
+            templateUrl: 'setting.html',
+            controller: 'SettingCtrl'
         }).
         otherwise({
         redirectTo: '/accueil'

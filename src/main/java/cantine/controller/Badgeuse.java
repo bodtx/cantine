@@ -1,6 +1,7 @@
 package cantine.controller;
 
 import cantine.beans.BadgeuseBean;
+import cantine.db.Setting;
 import cantine.service.BadgeuseReader;
 import cantine.service.UserService;
 
@@ -36,12 +37,6 @@ public class Badgeuse {
         return  b.isAstuBadge();
     }
     
-    @RequestMapping(value="/userName")
-    @ResponseBody
-    String getUserName() throws Exception {
-    	return userService.getUserName();
-    }
-
 
     @RequestMapping(value = "/openTemptation", method = RequestMethod.GET)
     @ResponseBody
