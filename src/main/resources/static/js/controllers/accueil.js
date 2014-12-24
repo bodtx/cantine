@@ -4,7 +4,7 @@ var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 
 
 //accueil Hello
-accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 'badgeInfoService', 'menuDuJourService', 'psNextService', 'openPsNextService', 'problemeTisseoService' , 'sharedProperties', function ($scope, $route, userService, badgeInfoService, menuDuJourService, psNextService, openPsNextService, problemeTisseoService, sharedProperties) {
+accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 'badgeInfoService', 'menuService', 'psNextService', 'openPsNextService', 'problemeTisseoService' , 'sharedProperties', function ($scope, $route, userService, badgeInfoService, menuService, psNextService, openPsNextService, problemeTisseoService, sharedProperties) {
 
     	//as tu badgé?
 	   	badgeInfoService.asTuBadge().then(function(asTuBadge) {
@@ -47,7 +47,7 @@ accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 
 
 
 
-        menuDuJourService.getMenuDuJour().then(function(menuDujour) {
+        menuService.getMenuDuJour().then(function(menuDujour) {
             $scope.menuDuJour = menuDujour  ;
                     $scope.viande = '';
 

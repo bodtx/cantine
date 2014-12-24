@@ -1,27 +1,24 @@
 // menu service
 myApp.factory('menuService', function($http) {
-	return {
-		getMenu : function() {
-			// return the promise directly.
-			return $http.get('/menu').then(function(result) {
-				// resolve the promise as the data
-				csrf = result.headers("X-CSRF-TOKEN");
-				return result.data;
-			});
-		}
-	}
+
+    var menuService ={};
+
+    menuService.getMenu = function() {
+        return $http.get('/menu').then(function(result) {
+            csrf = result.headers("X-CSRF-TOKEN");
+            return result.data;
+        });
+    };
+
+	menuService.getMenuDuJour = function() {
+        return $http.get('/menuDuJour').then(function(result) {
+            csrf = result.headers("X-CSRF-TOKEN");
+            return result.data;
+        });
+    };
+
+    return menuService;
+
 });
 
-// menu du jour service
-myApp.factory('menuDuJourService', function($http) {
-	return {
-		getMenuDuJour : function() {
-			// return the promise directly.
-			return $http.get('/menuDuJour').then(function(result) {
-				// resolve the promise as the data
-				csrf = result.headers("X-CSRF-TOKEN");
-				return result.data;
-			});
-		}
-	}
-});
+
