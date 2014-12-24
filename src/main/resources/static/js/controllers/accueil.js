@@ -1,16 +1,10 @@
 
 var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 
-//contient le CER de l'uilisateur.
-//vaiable qui peut être utilisée dans toute l'appli
-var cer;
+
 
 //accueil Hello
-accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 'asTuBadgeService', 'menuDuJourService', 'psNextService', 'openPsNextService', 'openTemptationService', 'problemeTisseoService' , function ($scope, $route, userService, asTuBadgeService, menuDuJourService, psNextService, openPsNextService, openTemptationService, problemeTisseoService) {
-
-		userService.getCer().then(function(result) {
-    		cer=result;
-    	});
+accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 'asTuBadgeService', 'menuDuJourService', 'psNextService', 'openPsNextService', 'openTemptationService', 'problemeTisseoService' , 'sharedProperties', function ($scope, $route, userService, asTuBadgeService, menuDuJourService, psNextService, openPsNextService, openTemptationService, problemeTisseoService, sharedProperties) {
 
     	//as tu badgé?
 	   	asTuBadgeService.asTuBadge().then(function(asTuBadge) {
@@ -104,7 +98,7 @@ accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 
 
             var now = new Date();
             var choix = {
-                nom : cer,
+                nom : sharedProperties.getCer(),
                 date : now.getTime(),
                 plats : []
             }
