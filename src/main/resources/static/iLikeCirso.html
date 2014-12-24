@@ -53,12 +53,10 @@
 <div class="bg-info" ng-controller="BjrCtrl">
 <nav id class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <a class="navbar-brand" href="#/accueil">I <span class="glyphicon glyphicon-heart"></span> Cirso</a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li ng-class="{ active: isActive('/badgeuse')}"><a href="#/badgeuse">Badgeuse</a></li>
@@ -67,13 +65,13 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">{{user.name}}</a></li>
-                <li><a href="#/setting"><span class="glyphicon glyphicon-cog"></span></a></li>
+                <li ng-class="{ active: isActive('/setting')}"><a href="#/setting"><span class="glyphicon glyphicon-cog"></span></a></li>
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
             </ul>
 
 
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+    </div>
 </nav>
 
 
