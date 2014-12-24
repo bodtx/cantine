@@ -3,7 +3,7 @@ var badgeuseControllers  = angular.module('badgeuseControllers', []);
 
 //TODO utiliser les ng-show?
 //calcule badgeuse
-badgeuseControllers.controller('HeureCtrl', function($scope, badgeInfoService, openTemptationService) {
+badgeuseControllers.controller('HeureCtrl', function($scope, badgeInfoService) {
 
 
 
@@ -73,7 +73,7 @@ badgeuseControllers.controller('HeureCtrl', function($scope, badgeInfoService, o
     $scope.loadBadgeuse();
 
     $scope.openTemptation = function(nom) {
-        openTemptationService.openTemptation();
+        badgeInfoService.openTemptation();
     }
 
     // refresh auto quand on revient sur la page

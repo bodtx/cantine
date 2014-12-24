@@ -4,10 +4,10 @@ var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 
 
 //accueil Hello
-accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 'asTuBadgeService', 'menuDuJourService', 'psNextService', 'openPsNextService', 'openTemptationService', 'problemeTisseoService' , 'sharedProperties', function ($scope, $route, userService, asTuBadgeService, menuDuJourService, psNextService, openPsNextService, openTemptationService, problemeTisseoService, sharedProperties) {
+accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 'badgeInfoService', 'menuDuJourService', 'psNextService', 'openPsNextService', 'problemeTisseoService' , 'sharedProperties', function ($scope, $route, userService, badgeInfoService, menuDuJourService, psNextService, openPsNextService, problemeTisseoService, sharedProperties) {
 
     	//as tu badgé?
-	   	asTuBadgeService.asTuBadge().then(function(asTuBadge) {
+	   	badgeInfoService.asTuBadge().then(function(asTuBadge) {
        		$scope.badgeKo = !asTuBadge  ;
        	});
 
@@ -74,7 +74,7 @@ accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 
 
 
         $scope.openTemptation = function(nom) {
-            openTemptationService.openTemptation();
+            badgeInfoService.openTemptation();
         }
 
 
