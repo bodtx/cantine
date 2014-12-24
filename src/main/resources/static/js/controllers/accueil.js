@@ -4,7 +4,7 @@ var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 
 
 //accueil Hello
-accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 'badgeInfoService', 'menuService', 'psNextService', 'problemeTisseoService' , 'sharedProperties', function ($scope, $route, userService, badgeInfoService, menuService, psNextService, problemeTisseoService, sharedProperties) {
+accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 'badgeInfoService', 'menuService', 'psNextService', 'transportService' , 'sharedProperties', function ($scope, $route, userService, badgeInfoService, menuService, psNextService, transportService, sharedProperties) {
 
     	//as tu badgé?
 	   	badgeInfoService.asTuBadge().then(function(asTuBadge) {
@@ -12,7 +12,7 @@ accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 
        	});
 
         //problème Tisseo
-        problemeTisseoService.problemeTisseo().then(function(problemeTisseo) {
+        transportService.problemeTisseo().then(function(problemeTisseo) {
             $scope.problemeTisseo = problemeTisseo ;
         });
 

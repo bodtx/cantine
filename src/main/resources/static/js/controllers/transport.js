@@ -1,10 +1,10 @@
 
 var transportControllers  = angular.module('transportControllers', []);
 
-transportControllers.controller('TransportCtrl', function($scope, prochainsPassagesService, velibService) {
+transportControllers.controller('TransportCtrl', function($scope, transportService) {
 	$scope.loadBus = function () {
         $scope.loadingBus = "bouttonRefresh glyphicon glyphicon-refresh glyphicon-refresh-animate";
-        prochainsPassagesService.prochainsPassages().then(function(prochainsPassages) {
+        transportService.prochainsPassages().then(function(prochainsPassages) {
 
             $scope.stopCode = prochainsPassages.stopCode;
 
@@ -20,7 +20,7 @@ transportControllers.controller('TransportCtrl', function($scope, prochainsPassa
 
     $scope.loadVelib = function () {
         $scope.loadingVelouse = "bouttonRefresh glyphicon glyphicon-refresh glyphicon-refresh-animate";
-        velibService.velib().then(function(velibs) {
+        transportService.velib().then(function(velibs) {
             $scope.velibs = velibs;
             $scope.loadingVelouse = "bouttonRefresh glyphicon glyphicon-refresh";
         });
