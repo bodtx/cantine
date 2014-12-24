@@ -4,7 +4,7 @@ var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 
 
 //accueil Hello
-accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 'badgeInfoService', 'menuService', 'psNextService', 'transportService' , 'sharedProperties', function ($scope, $route, userService, badgeInfoService, menuService, psNextService, transportService, sharedProperties) {
+accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 'badgeInfoService', 'menuService', 'psNextService', 'transportService' , '$rootScope', function ($scope, $route, userService, badgeInfoService, menuService, psNextService, transportService, $rootScope) {
 
     	//as tu badgé?
 	   	badgeInfoService.asTuBadge().then(function(asTuBadge) {
@@ -98,7 +98,7 @@ accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 
 
             var now = new Date();
             var choix = {
-                nom : sharedProperties.getCer(),
+                nom : $rootScope.user.cer,
                 date : now.getTime(),
                 plats : []
             }

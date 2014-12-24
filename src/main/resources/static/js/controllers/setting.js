@@ -2,7 +2,7 @@
 var settingControllers = angular.module('settingControllers',[]);
 
 //accueil Hello
-settingControllers.controller('SettingCtrl', ['$scope', 'settingService', function ($scope, settingService) {
+settingControllers.controller('SettingCtrl', ['$scope', '$rootScope', 'settingService', function ($scope, $rootScope, settingService) {
 
 
     settingService.getSetting().then(function(setting) {
@@ -13,7 +13,7 @@ settingControllers.controller('SettingCtrl', ['$scope', 'settingService', functi
     $scope.saveSetting = function(setting) {
         settingService.saveSetting(setting).then(function(result) {
             $scope.nom = setting.nom ;
-            $scope.hello= setting.nom ;
+            $rootScope.user.name = setting.nom;
         });
     };
 

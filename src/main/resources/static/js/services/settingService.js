@@ -1,10 +1,10 @@
 //Setting service
-myApp.factory('settingService', function($http, sharedProperties) {
+myApp.factory('settingService', function($http, $rootScope) {
 
     var settingService ={};
 
     settingService.getSetting = function() {
-         return $http.get('getSetting', {params: { cer: sharedProperties.getCer() }})
+         return $http.get('getSetting', {params: { cer: $rootScope.user.cer }})
                    .then(function(result) {
                         return result.data;
                     });

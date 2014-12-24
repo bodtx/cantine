@@ -18,33 +18,23 @@ myApp.directive('loading',   ['$http' ,function ($http)
 
     }]);
 
-//Service de variables partagées
-myApp.service('sharedProperties', function () {
-    //contient le CER de l'uilisateur.
-    var cer = '';
 
-    return {
-        getCer: function () {
-            return cer;
-        },
-        setCer: function(value) {
-            cer = value;
-        }
-    };
-});
+myApp.run(function($rootScope, userService) {
+    $rootScope.user = {};
 
-
-
-// Bonjour
-myApp.controller('BjrCtrl', ['$scope', 'userService', '$location' ,'sharedProperties', function ($scope, userService, $location, sharedProperties) {
-
-    userService.getCer().then(function(result) {
-        sharedProperties.setCer(result);
+    userService.getUserName().then(function(result) {
+        $rootScope.user.name = result;
     });
 
-	userService.getUserName().then(function(username) {
-    		$scope.hello= username;
-    	});
+    userService.getCer().then(function(result) {
+        $rootScope.user.cer = result;
+    });
+
+});
+
+// Bonjour
+myApp.controller('BjrCtrl', ['$scope', '$location', function ($scope, $location ) {
+
 
     //permet de savoir quel onglet est actif
     $scope.isActive = function (viewLocation) {
