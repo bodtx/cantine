@@ -83,6 +83,7 @@ padding: 2px 4px;
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
+    -moz-animation: spin3 .7s infinite linear;
 }
 
 @-webkit-keyframes spin2 {
@@ -93,6 +94,11 @@ padding: 2px 4px;
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
+}
+
+@-moz-keyframes spin3 {
+    from { -moz-transform: scale(1) rotate(0deg);}
+    to { -moz-transform: scale(1) rotate(360deg);}
 }
 
 
