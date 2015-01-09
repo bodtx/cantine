@@ -7,48 +7,48 @@
   display: none !important;
 }
 
-table.table tr.even td.cell_selected {
-	background-color: #B0BED9;
-}
 
-table.table tr.odd td.cell_selected {
-	background-color: #9FAFD1;
-}
 
-span.mvt {
+/* Commun */
+/* span dans les tableaux*/
+span.marge {
     margin-left: 20px;
-}
-
-.badgePerso {
-    float: left !important;
-    background-color: #3C71A3 !important;
-    min-width: 50px !important;
 }
 
 .cursor {
     cursor: pointer;
 }
 
-a.navbar-brand:hover {
-   background: url(../img/icon_header_home.png) no-repeat center;
-   background-color: #f8f8f8 !important;
-   color: rgba(0, 0, 0, 0) !important;
+.navbarSansMarge {
+    margin-bottom : 0px !important;
 }
 
+.backgroundPage {
+    background-color: #eee;
+}
+
+.corpsPage {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+/* footer */
 .panel-footer {
     text-align: center;
-    margin-top: 40px;
     background-color: #FFFFFF !important;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
 }
 
-.right {
+.element-footer-right {
     float: right;
 }
 
-.left {
+.element-footer-left {
     float: left;
 }
 
@@ -64,17 +64,7 @@ a.navbar-brand:hover {
 margin-left: 15px;
 }
 
-
-.numBus {
-border-radius: 3px 3px 3px 3px;
-color: #FFFFFF;
-display: inline;
-font-weight: bold;
-margin: 1px 3px;
-padding: 2px 4px;
-}
-
-
+/* refresh */
 .bouttonRefresh {
     cursor: pointer;
     float: right;
@@ -102,11 +92,52 @@ padding: 2px 4px;
 }
 
 
-.loading {
-    text-align: center;
+
+/* Page Accueil */
+a.navbar-brand:hover {
+   background: url(../img/icon_header_home.png) no-repeat center;
+   background-color: #f8f8f8 !important;
+   color: rgba(0, 0, 0, 0) !important;
 }
 
 .favoris {
     padding-left: 6% !important;
     padding-right: 6% !important;
 }
+
+.alert-center{
+    width: 70%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+/* Onglet Cantine */
+table.table tr.even td.cell_selected {
+	background-color: #B0BED9;
+}
+
+table.table tr.odd td.cell_selected {
+	background-color: #9FAFD1;
+}
+
+
+
+/* Onglet Transport */
+.badgePerso {
+    float: left !important;
+    background-color: #3C71A3 !important;
+    min-width: 50px !important;
+}
+
+.numBus {
+border-radius: 3px 3px 3px 3px;
+color: #FFFFFF;
+display: inline;
+font-weight: bold;
+margin: 1px 3px;
+padding: 2px 4px;
+}
+

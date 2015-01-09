@@ -23,10 +23,10 @@
         <div class="panel-body">
             <ul class="list-group">
                 <li ng-class-odd="'list-group-item list-group-item-success'" ng-class-even="'list-group-item list-group-item-info'" ng-repeat="mvt in mouvements">
-                    <span class="mvt">Mouvement {{$index + 1}} :</span>
-                    <span class="mvt">Entrée à {{mvt.entreeToString}}</span>
-                    <span ng-show="{{!$last}}" class="mvt">Sortie à {{mvt.sortieToString}}</span>
-                    <span ng-show="{{!$last}}" class="mvt">Durée de {{mvt.dureeToString}}</span>
+                    <span class="marge">Mouvement {{$index + 1}} :</span>
+                    <span class="marge">Entrée à {{mvt.entreeToString}}</span>
+                    <span ng-show="{{!$last}}" class="marge">Sortie à {{mvt.sortieToString}}</span>
+                    <span ng-show="{{!$last}}" class="marge">Durée de {{mvt.dureeToString}}</span>
                 </li>
             </ul>
         </div>
