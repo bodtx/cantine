@@ -61,7 +61,7 @@ span.marge {
 }
 
 .panel-footer-links li+li {
-margin-left: 15px;
+    margin-left: 15px;
 }
 
 /* refresh */
@@ -141,3 +141,23 @@ margin: 1px 3px;
 padding: 2px 4px;
 }
 
+
+/* Setting */
+
+
+.profil {
+    padding-top : 20px;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.alerte {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.alerte table tbody tr:first-child td{
+    border-top: 0px !important;
+}

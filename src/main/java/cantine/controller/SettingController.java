@@ -23,7 +23,6 @@ public class SettingController {
 	@RequestMapping(value = "/saveSetting", method = RequestMethod.POST)
 	@Transactional
 	public void saveSetting(@RequestBody Setting setting) throws Exception {
-        setting.setCer(userService.getUserName());
         settingRepo.save(setting);
 	}
 

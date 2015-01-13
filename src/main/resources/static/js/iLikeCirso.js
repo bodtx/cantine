@@ -19,8 +19,9 @@ myApp.directive('loading',   ['$http' ,function ($http)
     }]);
 
 
-myApp.run(function($rootScope, userService) {
+myApp.run(function($rootScope, userService, settingService) {
     $rootScope.user = {};
+    $rootScope.setting = {};
 
     userService.getUserName().then(function(result) {
         $rootScope.user.name = result;
@@ -28,7 +29,14 @@ myApp.run(function($rootScope, userService) {
 
     userService.getCer().then(function(result) {
         $rootScope.user.cer = result;
+
+        settingService.getSetting().then(function(setting) {
+            $rootScope.setting = setting ;
+        });
     });
+
+
+
 
 });
 

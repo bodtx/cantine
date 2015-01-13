@@ -1,33 +1,33 @@
 <div>
 
     <!-- Probleme Tisseo -->
-    <div ng-show="problemeTisseo" class="alert alert-danger alert-dismissible alert-center" role="alert" ng-cloak>
-        <button type="button" class="close" data-dismiss="alert">
+    <div ng-show="setting.tisseo && !tisseoClos && problemeTisseo" class="alert alert-danger alert-dismissible alert-center" role="alert" ng-cloak>
+        <button type="button" class="close" data-dismiss="alert" ng-click="closeAlert('tisseoClos')">
             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
         </button>
         <strong>Attention!</strong> Problème <a href="http://www.tisseo.fr/" target="_blank"><strong>Tisseo</strong></a>.
     </div>
 
     <!-- As tu badgé -->
-    <div ng-show="badgeKo" class="alert alert-danger alert-dismissible alert-center" role="alert" ng-cloak>
-        <button type="button" class="close" data-dismiss="alert">
+    <div ng-show="setting.asTubadge && !asTubadgeClos && badgeKo" class="alert alert-danger alert-dismissible alert-center" role="alert" ng-cloak>
+        <button type="button" class="close" data-dismiss="alert" ng-click="closeAlert('asTubadgeClos')">
             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
         </button>
-        <strong>Warning!</strong> Tu n'as pas badgé. <span class="cursor" ng-click="openTemptation()"> <strong>Temptation</strong> </span> !!!
+        <strong>Warning!</strong> Tu n'as pas badgé. <span class="cursor"> <strong>Temptation</strong> </span> !!!
     </div>
 
 
      <!--Café gratuit-->
-    <div ng-show="cafeGratos" class="alert alert-success alert-dismissible alert-center" role="alert" ng-cloak>
-        <button type="button" class="close" data-dismiss="alert">
+    <div ng-show="setting.cafe && !cafeClos && cafeGratos" class="alert alert-success alert-dismissible alert-center" role="alert" ng-cloak>
+        <button type="button" class="close" data-dismiss="alert" ng-click="closeAlert('cafeClos')">
             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
         </button>
         <strong>C'est mercredi.</strong> T'as un café gratos !!!
     </div>
 
      <!--PsNext-->
-    <div ng-show="psNext" class="alert alert-warning alert-dismissible alert-center" role="alert" ng-cloak>
-        <button type="button" class="close" data-dismiss="alert">
+    <div ng-show="setting.psNext && !psNextClos && psNext" class="alert alert-warning alert-dismissible alert-center" role="alert" ng-cloak>
+        <button type="button" class="close" data-dismiss="alert" ng-click="closeAlert('psNextClos')">
             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
         </button>
         C'est vendredi, fais ton <strong>PsNext</strong> !!!
@@ -35,8 +35,8 @@
 
 
     <!-- Inscription cantine -->
-    <div ng-show="inscrit && !timeLimitMenu" class="alert alert-info alert-dismissible alert-center" role="alert">
-        <button type="button" class="close" data-dismiss="alert">
+    <div ng-show="setting.inscritCantine && inscrit &&!inscritCantineClos && !timeLimitMenu" class="alert alert-info alert-dismissible alert-center" role="alert">
+        <button type="button" class="close" data-dismiss="alert" ng-click="closeAlert('inscritCantineClos')">
             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
         </button>
         Tu es inscrit à la cantine, pour annuler fais le <strong>7901</strong>.

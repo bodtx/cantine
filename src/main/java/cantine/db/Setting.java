@@ -16,6 +16,62 @@ public class Setting implements Serializable {
     @Column(nullable = false)
     private String nom;
 
+    @Column
+    private Boolean tisseo = false;
+
+    @Column
+    private Boolean asTubadge = false;
+
+    @Column
+    private Boolean cafe = false;
+
+    @Column
+    private Boolean psNext = false;
+
+    @Column
+    private Boolean inscritCantine = false;
+
+
+    public Boolean getTisseo() {
+        return tisseo;
+    }
+
+    public void setTisseo(Boolean tisseo) {
+        this.tisseo = tisseo;
+    }
+
+    public Boolean getAsTubadge() {
+        return asTubadge;
+    }
+
+    public void setAsTubadge(Boolean asTubadge) {
+        this.asTubadge = asTubadge;
+    }
+
+    public Boolean getPsNext() {
+        return psNext;
+    }
+
+    public void setPsNext(Boolean psNext) {
+        this.psNext = psNext;
+    }
+
+    public Boolean getInscritCantine() {
+        return inscritCantine;
+    }
+
+    public void setInscritCantine(Boolean inscritCantine) {
+        this.inscritCantine = inscritCantine;
+    }
+
+    public Boolean getCafe() {
+        return cafe;
+    }
+
+    public void setCafe(Boolean cafe) {
+        this.cafe = cafe;
+    }
+
     public String getCer() {
         return cer;
     }

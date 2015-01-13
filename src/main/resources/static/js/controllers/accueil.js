@@ -6,17 +6,24 @@ var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 //accueil Hello
 accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 'badgeInfoService', 'menuService', 'psNextService', 'transportService' , '$rootScope', function ($scope, $route, userService, badgeInfoService, menuService, psNextService, transportService, $rootScope) {
 
-    	//as tu badgé?
-	   	badgeInfoService.asTuBadge().then(function(asTuBadge) {
-       		$scope.badgeKo = !asTuBadge  ;
-       	});
-
         //problème Tisseo
+        $scope.tisseoClos = getAlerteCookie('tisseoClos');
+
         transportService.problemeTisseo().then(function(problemeTisseo) {
             $scope.problemeTisseo = problemeTisseo ;
         });
 
+
+        //as tu badgé?
+        $scope.asTubadgeClos = getAlerteCookie('asTubadgeClos');
+        badgeInfoService.asTuBadge().then(function(asTuBadge) {
+            $scope.badgeKo = !asTuBadge  ;
+        });
+
+
         //café gratos le mercredi
+        $scope.cafeClos = getAlerteCookie('cafeClos');
+
         var today=new Date();
         if(today.getDay()==3){
             $scope.cafeGratos = true;
@@ -24,13 +31,29 @@ accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 
             $scope.cafeGratos = false;
         }
 
+        //psNext
+        $scope.psNextClos = getAlerteCookie('psNextClos');
+        psNextService.getPsNext().then(function(psNext) {
+            $scope.psNext = psNext  ;
+        });
 
-        //menu du jour
+//        $scope.openPsNext = function() {
+//            psNextService.openPsNext();
+//        }
+
+//        $scope.openTemptation = function() {
+//            badgeInfoService.openTemptation();
+//        }
+
+
+        //inscription cantine
+        $scope.inscritCantineClos = getAlerteCookie('inscritCantineClos');
+
         var now = new Date();
 
         // passé 13h, on n'afiche plus les messages de la cantine
         var timeLimitMenu = new Date();
-        timeLimitMenu.setHours(13);
+        timeLimitMenu.setHours(12);
 
         if (now.getTime() > timeLimitMenu.getTime()) {
             $scope.timeLimitMenu =true;
@@ -61,21 +84,6 @@ accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 
                       $scope.accompagnement1 =encodeURIComponent($scope.menuDuJour[7]).replace(/'/g, "&#39;");
                       $scope.accompagnement2 = encodeURIComponent($scope.menuDuJour[8]).replace(/'/g, "&#39;");
         });
-
-
-        psNextService.getPsNext().then(function(psNext) {
-            $scope.psNext = psNext  ;
-        });
-
-
-        $scope.openPsNext = function(nom) {
-            psNextService.openPsNext();
-        }
-
-
-        $scope.openTemptation = function(nom) {
-            badgeInfoService.openTemptation();
-        }
 
 
         // TODO refactoriser avec la methode mail de cantine
@@ -154,6 +162,26 @@ accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 
             window.location.href = sMailTo;
         }
 
+        //creation du cookie pour dire qu'on a fermé l'alerte
+        $scope.closeAlert = function(a) {
+            var date = new Date();
+            var heures = 12;
+            date.setTime(date.getTime() + (heures * 60 * 60 * 1000));
+
+            $.cookie(a, "true", {
+                    expires : date
+                });
+        }
+
+        // recuperation de l'eventuel cookie d'une alerte
+        function getAlerteCookie(alerteCookie) {
+            var tmp= $.cookie(alerteCookie);
+            if(tmp!=null){
+                return tmp;
+            }else{
+                return false;
+            }
+        }
 
 }]);
 

@@ -6,14 +6,15 @@ settingControllers.controller('SettingCtrl', ['$scope', '$rootScope', 'settingSe
 
 
     settingService.getSetting().then(function(setting) {
-        $scope.nom = setting.nom ;
+        $scope.setting = setting ;
     });
 
 
     $scope.saveSetting = function(setting) {
+        setting.cer = $rootScope.user.cer;
         settingService.saveSetting(setting).then(function(result) {
-            $scope.nom = setting.nom ;
             $rootScope.user.name = setting.nom;
+            $rootScope.setting = setting;
         });
     };
 
