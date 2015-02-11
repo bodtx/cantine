@@ -18,7 +18,9 @@ settingControllers.controller('SettingCtrl', ['$scope', '$rootScope', 'settingSe
         });
     };
 
-
+    $scope.isCafeActive = function (day, cafeJour) {
+        return day === cafeJour;
+    };
 
 }]);
 

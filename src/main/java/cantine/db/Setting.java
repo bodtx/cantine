@@ -29,8 +29,18 @@ public class Setting implements Serializable {
     private Boolean psNext = false;
 
     @Column
-    private Boolean inscritCantine = false;
+    private Boolean cantine = false;
 
+    @Column
+    private Integer cafeJour=0;
+
+    public Integer getCafeJour() {
+        return cafeJour;
+    }
+
+    public void setCafeJour(Integer cafeJour) {
+        this.cafeJour = cafeJour;
+    }
 
     public Boolean getTisseo() {
         return tisseo;
@@ -56,14 +66,6 @@ public class Setting implements Serializable {
         this.psNext = psNext;
     }
 
-    public Boolean getInscritCantine() {
-        return inscritCantine;
-    }
-
-    public void setInscritCantine(Boolean inscritCantine) {
-        this.inscritCantine = inscritCantine;
-    }
-
     public Boolean getCafe() {
         return cafe;
     }
@@ -86,6 +88,14 @@ public class Setting implements Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public Boolean getCantine() {
+        return cantine;
+    }
+
+    public void setCantine(Boolean cantine) {
+        this.cantine = cantine;
     }
 
     @Override

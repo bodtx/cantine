@@ -21,14 +21,16 @@ accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 
         });
 
 
-        //café gratos le mercredi
+        //café gratos
         $scope.cafeClos = getAlerteCookie('cafeClos');
 
-        var today=new Date();
-        if(today.getDay()==3){
-            $scope.cafeGratos = true;
-        } else{
-            $scope.cafeGratos = false;
+        $scope.cafeGratos = false;
+        if($rootScope.setting.cafe){
+            var today=new Date();
+            //decalage d'un jour entre java et javascript
+            if(today.getDay()==$rootScope.setting.cafeJour -1){
+                $scope.cafeGratos = true;
+            }
         }
 
         //psNext

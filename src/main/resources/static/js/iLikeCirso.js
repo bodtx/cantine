@@ -3,15 +3,21 @@ var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menu
 myApp.directive('loading',   ['$http' ,function ($http)
     {
         return {
-                restrict: 'AE',
+                restrict: 'A',
                 replace:true,
-                template: '<div class="loading"><img src="../img/loader.gif" width="20" height="20" /></div>',
-                link: function (scope, element, attr) {
-                      scope.$watch('loading', function (val) {
-                          if (val)
-                              $(element).show();
-                          else
-                              $(element).hide();
+                template: '<div><div class="loadingAround glyphicon-refresh-animate"><img src="img/logoLikeCirsoAround.png" align="center" width="35"/></div><div class="loadingCenter"><img src="img/logoLikeCirsoCenter.png" align="center" width="35"/></div></div>',
+                link: function (scope, elm, attr) {
+                      scope.isLoading = function () {
+                          return $http.pendingRequests.length > 0;
+                      };
+
+                      scope.$watch(scope.isLoading, function (v)
+                      {
+                          if(v){
+                              elm.show();
+                          }else{
+                              elm.hide();
+                          }
                       });
                 }
               }

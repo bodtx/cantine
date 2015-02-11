@@ -9,6 +9,8 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DateUtils {
 
@@ -48,10 +50,14 @@ public class DateUtils {
 
     }
 
-
-
     public static LocalTime parseDate(String d){
         LocalTime localTime = LocalTime.parse(d, parseFormat);
         return localTime;
+    }
+
+    public static int getDay(){
+        Calendar cal = Calendar.getInstance();
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        return day;
     }
 }

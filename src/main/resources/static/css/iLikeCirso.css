@@ -64,6 +64,17 @@ span.marge {
     margin-left: 15px;
 }
 
+/* Loading */
+.loadingAround {
+    position:absolute;
+    z-index:2;
+}
+
+.loadingCenter {
+    position:absolute;
+    z-index:4;
+}
+
 /* refresh */
 .bouttonRefresh {
     cursor: pointer;

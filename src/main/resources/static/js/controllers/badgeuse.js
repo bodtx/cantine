@@ -1,7 +1,6 @@
 
 var badgeuseControllers  = angular.module('badgeuseControllers', []);
 
-//TODO utiliser les ng-show?
 //calcule badgeuse
 badgeuseControllers.controller('HeureCtrl', function($scope, badgeInfoService) {
 

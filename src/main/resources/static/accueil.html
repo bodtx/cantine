@@ -22,7 +22,7 @@
         <button type="button" class="close" data-dismiss="alert" ng-click="closeAlert('cafeClos')">
             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
         </button>
-        <strong>C'est mercredi.</strong> T'as un café gratos !!!
+        T'as un café gratos !!!
     </div>
 
      <!--PsNext-->
@@ -35,14 +35,14 @@
 
 
     <!-- Inscription cantine -->
-    <div ng-show="setting.inscritCantine && inscrit &&!inscritCantineClos && !timeLimitMenu" class="alert alert-info alert-dismissible alert-center" role="alert">
+    <div ng-show="setting.cantine && inscrit &&!inscritCantineClos && !timeLimitMenu" class="alert alert-info alert-dismissible alert-center" role="alert">
         <button type="button" class="close" data-dismiss="alert" ng-click="closeAlert('inscritCantineClos')">
             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
         </button>
         Tu es inscrit à la cantine, pour annuler fais le <strong>7901</strong>.
     </div>
 
-    <div class="jumbotron" ng-show="!inscrit && !timeLimitMenu">
+    <div class="jumbotron" ng-show="setting.cantine && !inscrit && !timeLimitMenu">
         <h2>Veux-tu manger à la cantine ?</h2>
         <div class="btn-group">
         	<label class="btn btn-primary"  ng-model="viande"  btn-radio="menuDuJour[1]"><div tooltip-placement="bottom" tooltip-html-unsafe="<a target='_blank' href='/platImage/{{menuDuJour[1]}}'><img width = '150px' src='/platImage/{{plat1}}'/></a>">{{menuDuJour[1]}}</div></label>
