@@ -1,13 +1,9 @@
 package cantine.controller;
 
 import cantine.db.Setting;
-import cantine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 @RestController
 public class SettingController {
@@ -15,10 +11,6 @@ public class SettingController {
 
 	@Autowired
 	SettingRestRepository settingRepo;
-
-    @Autowired
-    UserService userService;
-
 
 	@RequestMapping(value = "/saveSetting", method = RequestMethod.POST)
 	@Transactional

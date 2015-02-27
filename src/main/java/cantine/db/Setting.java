@@ -34,6 +34,9 @@ public class Setting implements Serializable {
     @Column
     private Integer cafeJour=0;
 
+    @Column
+    private String email;
+
     public Integer getCafeJour() {
         return cafeJour;
     }
@@ -96,6 +99,14 @@ public class Setting implements Serializable {
 
     public void setCantine(Boolean cantine) {
         this.cantine = cantine;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
