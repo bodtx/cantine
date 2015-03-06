@@ -1,3 +1,3 @@
 //TODO mettre des animations partout
 
-angular.module('iLikeCirsoAnimations', ['ngAnimate']);
+//angular.module('iLikeCirsoAnimations', ['ngAnimate']);
