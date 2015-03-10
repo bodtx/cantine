@@ -1,4 +1,4 @@
-var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menuControllers', 'badgeuseControllers', 'ui.bootstrap','iLikeCirsoAnimations','transportControllers', 'settingControllers']);
+var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menuControllers', 'badgeuseControllers', 'ui.bootstrap', 'transportControllers', 'settingControllers', 'fayotControllers']);
 
 myApp.directive('loading',   ['$http' ,function ($http)
     {
@@ -80,6 +80,10 @@ myApp.config(['$routeProvider',
         when('/setting', {
             templateUrl: 'setting.html',
             controller: 'SettingCtrl'
+        }).
+        when('/fayot', {
+            templateUrl: 'fayot.html',
+            controller: 'FayotCtrl'
         }).
         otherwise({
         redirectTo: '/accueil'

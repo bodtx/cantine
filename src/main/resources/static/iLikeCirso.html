@@ -6,13 +6,13 @@
 
     <!--Framework-->
     <script src="js/common/angular.js"></script>
-    <script src="js/common/angular-animate.js"></script>
     <script src="js/common/angular-route.js"></script>
     <script src="js/common/jquery-2.1.1.js"></script>
     <script src="js/common/jquery.dataTables.js"></script>
     <script src="js/common/jquery.cookie.js"></script>
-    <script src="js/common/ui-bootstrap-tpls-0.11.0.min.js"></script>
+    <script src="js/common/ui-bootstrap-tpls-0.12.0.js"></script>
     <script src="js/common/alert.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEJZXZnI871BY0qFLB30w-MDZkWCbFVsg"></script>
 
 
     <!--CSS-->
@@ -33,6 +33,7 @@
     <script src="js/controllers/badgeuse.js"></script>
     <script src="js/controllers/cantine.js"></script>
     <script src="js/controllers/transport.js"></script>
+    <script src="js/controllers/fayot.js"></script>
     <script src="js/controllers/setting.js"></script>
 
     <!-- Services-->
@@ -43,6 +44,7 @@
     <script src="js/services/psNextService.js"></script>
     <script src="js/services/transportService.js"></script>
     <script src="js/services/settingService.js"></script>
+    <script src="js/services/fayotService.js"></script>
 
     <link rel="shortcut icon" href="img/logoLikeCirso.png">
 
@@ -62,6 +64,7 @@
                 <li ng-class="{ active: isActive('/badgeuse')}"><a href="#/badgeuse">Badgeuse</a></li>
                 <li ng-class="{ active: isActive('/cantine')}"><a href="#/cantine">Cantine</a></li>
                 <li ng-class="{ active: isActive('/transport')}"><a href="#/transport">Transport</a></li>
+                <li ng-class="{ active: isActive('/fayot')}"><a href="#/fayot">Fayot</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">{{user.name}}</a></li>

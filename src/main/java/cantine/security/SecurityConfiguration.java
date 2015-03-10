@@ -50,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // CSRF for everything else that is not an API call or an allowedMethod
                 return true;
             }
-        });;
+        });
         
                 http.formLogin().failureUrl("/login?error")
                 .defaultSuccessUrl("/")

@@ -10,16 +10,25 @@
             <form class="form-horizontal" name="profilForm">
 
                 <div class="input-group profil">
-                        <span class="input-group-addon" id="basic-addon1"><i
-                                class="glyphicon glyphicon-user"></i></span>
+                        <span class="input-group-addon" id="basic-addon1">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </span>
                     <input id="pseudo" type="text" class="form-control" placeholder="Pseudo"
                            aria-describedby="basic-addon1" ng-model="setting.nom">
                 </div>
 
                 <div class="input-group profil">
                     <span class="input-group-addon" id="basic-addon2">@</span>
-                    <input id="Email" type="email" class="form-control" placeholder="Email" ng-model="setting.email"
-                           aria-describedby="basic-addon2" ng-model="setting.nom">
+                    <input id="Email" type="email" class="form-control" placeholder="Email"
+                           aria-describedby="basic-addon2" ng-model="setting.email">
+                </div>
+
+                <div class="input-group profil">
+                    <span class="input-group-addon" id="basic-addon3">
+                        <i class="glyphicon glyphicon-envelope"></i>
+                    </span>
+                    <input id="Adresse" type="text" class="form-control" placeholder="Adresse"
+                           aria-describedby="basic-addon3" ng-model="setting.adresse">
                 </div>
 
 
@@ -61,19 +70,24 @@
                             <td><input type="checkbox" ng-model="setting.cafe"></td>
                             <td>
                                 <div ng-show="setting.cafe" class="btn-group btn-group-xs">
-                                    <label class="btn btn-info" ng-class="{ active: isCafeActive(2, setting.cafeJour)}" ng-model="setting.cafeJour" btn-radio="'2'">
+                                    <label class="btn btn-info" ng-class="{ active: isCafeActive(2, setting.cafeJour)}"
+                                           ng-model="setting.cafeJour" btn-radio="'2'">
                                         Lundi
                                     </label>
-                                    <label class="btn btn-info" ng-class="{ active: isCafeActive(3, setting.cafeJour)}" ng-model="setting.cafeJour" btn-radio="'3'">
+                                    <label class="btn btn-info" ng-class="{ active: isCafeActive(3, setting.cafeJour)}"
+                                           ng-model="setting.cafeJour" btn-radio="'3'">
                                         Mardi
                                     </label>
-                                    <label class="btn btn-info" ng-class="{ active: isCafeActive(4, setting.cafeJour)}" ng-model="setting.cafeJour" btn-radio="'4'">
+                                    <label class="btn btn-info" ng-class="{ active: isCafeActive(4, setting.cafeJour)}"
+                                           ng-model="setting.cafeJour" btn-radio="'4'">
                                         Mercredi
                                     </label>
-                                    <label class="btn btn-info" ng-class="{ active: isCafeActive(5, setting.cafeJour)}" ng-model="setting.cafeJour" btn-radio="'5'">
+                                    <label class="btn btn-info" ng-class="{ active: isCafeActive(5, setting.cafeJour)}"
+                                           ng-model="setting.cafeJour" btn-radio="'5'">
                                         Jeudi
                                     </label>
-                                    <label class="btn btn-info" ng-class="{ active: isCafeActive(6, setting.cafeJour)}" ng-model="setting.cafeJour" btn-radio="'6'">
+                                    <label class="btn btn-info" ng-class="{ active: isCafeActive(6, setting.cafeJour)}"
+                                           ng-model="setting.cafeJour" btn-radio="'6'">
                                         Vendredi
                                     </label>
                                 </div>

@@ -37,6 +37,16 @@ public class Setting implements Serializable {
     @Column
     private String email;
 
+    private String adresse;
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
     public Integer getCafeJour() {
         return cafeJour;
     }

@@ -152,6 +152,12 @@ margin: 1px 3px;
 padding: 2px 4px;
 }
 
+#map-canvas {
+position : inherit !important;
+height: 500px;
+margin: auto;
+}
+
 
 /* Setting */
 
@@ -171,4 +177,17 @@ padding: 2px 4px;
 
 .alerte table tbody tr:first-child td{
     border-top: 0px !important;
+}
+
+
+/* Fayot */
+#slides_control > div > img{
+  margin:auto;
+  width: 400px;
+}
+#slides_control {
+    height: 200px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }

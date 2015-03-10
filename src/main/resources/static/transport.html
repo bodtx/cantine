@@ -1,7 +1,11 @@
 <div>
-
-    <!--<div loading>-->
-
+    <button class="btn btn-info" ng-click="isCollapsed = !isCollapsed">Etat du trafic</button>
+    <hr>
+    <div collapse="isCollapsed">
+        <div class="well well-lg">
+            <div id="map-canvas"></div>
+        </div>
+    </div>
 
 <div class="panel panel-primary">
     <div class="panel-heading">Prochains Passages : {{stopName}} --- {{stopCode}}  <span ng-click="loadBus()" class="{{loadingBus}}"></span></div>
@@ -17,7 +21,6 @@
     </div>
 </div>
 
-    <!--</div>-->
 
 
 <div class="panel panel-primary">

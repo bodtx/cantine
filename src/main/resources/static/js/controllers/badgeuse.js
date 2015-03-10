@@ -2,8 +2,7 @@
 var badgeuseControllers  = angular.module('badgeuseControllers', []);
 
 //calcule badgeuse
-badgeuseControllers.controller('HeureCtrl', function($scope, badgeInfoService) {
-
+badgeuseControllers.controller('HeureCtrl', function($scope, $rootScope, badgeInfoService, fayotService) {
 
 
     $scope.loadBadgeuse = function () {
@@ -63,6 +62,11 @@ badgeuseControllers.controller('HeureCtrl', function($scope, badgeInfoService) {
 
             $scope.loadingBadgeuse = "bouttonRefresh glyphicon glyphicon-refresh";
 
+            //sauvegarde du fayot
+            var fayot = {};
+            fayot.cer=$rootScope.user.cer;
+            fayot.credit=badgeInfo.tpsTotalCummuleAujourdhui;
+            fayotService.saveFayot(fayot);
 
         });
 
