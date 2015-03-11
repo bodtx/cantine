@@ -32,8 +32,6 @@ public class Fayot implements Serializable {
         this.cer = cer;
     }
 
-
-
     @Override
     public int hashCode() {
         final int prime = 31;

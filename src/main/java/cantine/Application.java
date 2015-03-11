@@ -12,7 +12,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
 
 @Configuration
 @EnableJpaRepositories
-@Import(RepositoryRestMvcConfiguration.class)
+@Import(MyRepositoryRestMvcConfiguration.class)
 @EnableAutoConfiguration
 @ComponentScan
 public class Application extends SpringBootServletInitializer {
