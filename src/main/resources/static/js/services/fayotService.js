@@ -19,7 +19,6 @@ myApp.factory('fayotService', function($http, $rootScope) {
     };
 
     fayotService.getFayots = function() {
-//    var  headers = {"headers" : { Accept : "application/json", "Content-Type" : "application/json"}};
          return $http.get('getFayots').then(function(result) {
             return result.data;
         });
