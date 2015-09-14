@@ -4,7 +4,14 @@ var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
 
 
 //accueil Hello
-accueilControllers.controller('AccueilCtrl', ['$scope','$route', 'userService', 'badgeInfoService', 'menuService', 'psNextService', 'transportService' , '$rootScope', function ($scope, $route, userService, badgeInfoService, menuService, psNextService, transportService, $rootScope) {
+accueilControllers.controller('AccueilCtrl', ['$scope','$route', '$rootScope', '$injector',  function ($scope, $route, $rootScope, $injector) {
+
+        //injection des services
+        var userService = $injector.get('userService');
+        var badgeInfoService = $injector.get('badgeInfoService');
+        var menuService = $injector.get('menuService');
+        var psNextService = $injector.get('psNextService');
+        var transportService = $injector.get('transportService');
 
         //problème Tisseo
         $scope.tisseoClos = getAlerteCookie('tisseoClos');

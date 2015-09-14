@@ -6,7 +6,11 @@ var csrf;
 var menuControllers  = angular.module('menuControllers', []);
 
 // conroller qui affiche le menu
-menuControllers.controller('MenuCtrl', function($scope, menuService, copainService) {
+menuControllers.controller('MenuCtrl', ['$scope','$injector',function($scope,$injector) {
+
+    //injection des services
+    var menuService = $injector.get('menuService');
+    var copainService = $injector.get('copainService');
 
     copainService.getCopains().then(function(copains) {
         $scope.personnes = copains;
@@ -214,4 +218,4 @@ menuControllers.controller('MenuCtrl', function($scope, menuService, copainServi
 
 			});
 
-});
+}]);

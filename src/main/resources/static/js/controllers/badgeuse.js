@@ -2,8 +2,11 @@
 var badgeuseControllers  = angular.module('badgeuseControllers', []);
 
 //calcule badgeuse
-badgeuseControllers.controller('HeureCtrl', function($scope, $rootScope, badgeInfoService, fayotService) {
+badgeuseControllers.controller('HeureCtrl', ['$scope', '$rootScope','$injector',function($scope, $rootScope, $injector) {
 
+    //injection des services
+    var badgeInfoService = $injector.get('badgeInfoService');
+    var fayotService = $injector.get('fayotService');
 
     $scope.loadBadgeuse = function () {
         $scope.loadingBadgeuse = "bouttonRefresh glyphicon glyphicon-refresh glyphicon-refresh-animate";
@@ -84,4 +87,4 @@ badgeuseControllers.controller('HeureCtrl', function($scope, $rootScope, badgeIn
         $scope.loadBadgeuse();
     };
 
-});
+}]);

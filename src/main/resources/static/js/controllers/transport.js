@@ -1,7 +1,11 @@
 
 var transportControllers  = angular.module('transportControllers', []);
 
-transportControllers.controller('TransportCtrl', function($scope, $rootScope,  transportService) {
+transportControllers.controller('TransportCtrl', ['$scope', '$rootScope', '$injector', function($scope, $rootScope, $injector) {
+
+	//injection des services
+    var transportService = $injector.get('transportService');
+
 	$scope.loadBus = function () {
         $scope.loadingBus = "bouttonRefresh glyphicon glyphicon-refresh glyphicon-refresh-animate";
         transportService.prochainsPassages().then(function(prochainsPassages) {
@@ -82,4 +86,4 @@ transportControllers.controller('TransportCtrl', function($scope, $rootScope,  t
         $scope.loadMap();
     };
 
-});
+}]);

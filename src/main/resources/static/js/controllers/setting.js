@@ -2,8 +2,9 @@
 var settingControllers = angular.module('settingControllers',[]);
 
 //accueil Hello
-settingControllers.controller('SettingCtrl', ['$scope', '$rootScope', 'settingService', function ($scope, $rootScope, settingService) {
+settingControllers.controller('SettingCtrl', ['$scope', '$rootScope', '$injector', function ($scope, $rootScope, $injector) {
 
+    var settingService = $injector.get('settingService');
 
     settingService.getSetting().then(function(setting) {
         $scope.setting = setting ;
