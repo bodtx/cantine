@@ -26,6 +26,11 @@ public class SettingController {
     }
 
 
+    @RequestMapping(value = "/saveAvatar", method = RequestMethod.GET)
+    @Transactional
+    public void saveAvatar() throws Exception {
+       System.out.println("toto");
+    }
 
 
 }

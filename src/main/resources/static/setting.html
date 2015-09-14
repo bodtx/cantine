@@ -31,6 +31,81 @@
                            aria-describedby="basic-addon3" ng-model="setting.adresse">
                 </div>
 
+                <div flow-init flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" flow-files-submitted="$flow.upload()">
+                    <div class="input-group profil">
+
+                         <span class="thumbnail"  ng-show="!$flow.files.length">
+                            <img style="max-width:100px; max-height:100px" src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image">
+                        </span>
+
+                        <span class="thumbnail"  ng-show="$flow.files.length">
+                            <img style="max-width:100px; max-height:100px" src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" ng-show="$flow.files[$flow.files.length-1].isUploading()" />
+                            <img style="max-width:100px; max-height:100px" flow-img="$flow.files[$flow.files.length-1]" ng-show="!$flow.files[$flow.files.length-1].isUploading()"/>
+                        </span>
+
+                        <button style="margin-left:20px " class="btn" flow-btn flow-attrs="{accept:'image/*'}">
+                            <i style="max-width:100px; max-height:100px" class="glyphicon glyphicon-camera"></i>
+                        </button>
+
+                        <button style="margin-left:20px " class="btn btn-danger"  ng-show="$flow.files.length"  ng-click="$flow.cancel()">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </button>
+
+                    </div>
+
+                    <!--Details de l'upload
+                    <table class="table table-hover table-bordered table-striped" flow-transfers>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Relative Path</th>
+                            <th>Unique Identifier</th>
+                            <th>#Chunks</th>
+                            <th>Progress</th>
+                            <th>Paused</th>
+                            <th>Uploading</th>
+                            <th>Completed</th>
+                            <th>Settings</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="file in transfers">
+                            <td>{{$index+1}}</td>
+                            <td>{{file.name}}</td>
+                            <td>{{file.size}}</td>
+                            <td>{{file.relativePath}}</td>
+                            <td>{{file.uniqueIdentifier}}</td>
+                            <td>{{file.chunks.length}}</td>
+                            <td>{{file.progress()}}</td>
+                            <td>{{file.paused}}</td>
+                            <td>{{file.isUploading()}}</td>
+                            <td>{{file.isComplete()}}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-mini btn-warning" ng-click="file.pause()" ng-hide="file.paused">
+                                        Pause
+                                    </a>
+                                    <a class="btn btn-mini btn-warning" ng-click="file.resume()" ng-show="file.paused">
+                                        Resume
+                                    </a>
+                                    <a class="btn btn-mini btn-danger" ng-click="file.cancel()">
+                                        Cancel
+                                    </a>
+                                    <a class="btn btn-mini btn-info" ng-click="file.retry()" ng-show="file.error">
+                                        Retry
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                -->
+
+                </div>
+
 
                 <div class="input-group profil">
                     <button ng-disabled="!profilForm.$valid" class="btn btn-primary"

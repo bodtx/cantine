@@ -22,15 +22,15 @@ public class Tisseo {
 
     @RequestMapping(value="/prochainsPassages")
     @ResponseBody
-    Departs prochainsPassages() throws Exception {
+    public Departs prochainsPassages() throws Exception {
     	String login = userService.getUserName();
-    	String mdp = userService.getPassWord();
+        String mdp = userService.getPassWord();
         return tisseoService.prochainsPassages(login, mdp);
     }
 
     @RequestMapping(value="/problemeTisseo")
     @ResponseBody
-    boolean problemeTisseo() throws Exception {
+    public boolean problemeTisseo() throws Exception {
         String login = userService.getUserName();
         String mdp = userService.getPassWord();
         return tisseoService.problemeTisseo(login, mdp);
@@ -38,7 +38,7 @@ public class Tisseo {
 
     @RequestMapping(value="/velib")
     @ResponseBody
-    List<StationVelib> velib() throws Exception {
+    public List<StationVelib> velib() throws Exception {
         String login = userService.getUserName();
         String mdp = userService.getPassWord();
         return tisseoService.velib(login, mdp);
