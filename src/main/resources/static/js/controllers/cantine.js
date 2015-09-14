@@ -3,10 +3,10 @@ var csrf;
 
 
 
-var menuControllers  = angular.module('menuControllers', []);
+var cantineModule  = angular.module('cantineModule', []);
 
 // conroller qui affiche le menu
-menuControllers.controller('MenuCtrl', ['$scope','$injector',function($scope,$injector) {
+cantineModule.controller('MenuCtrl', ['$scope','$injector',function($scope,$injector) {
 
     //injection des services
     var menuService = $injector.get('menuService');

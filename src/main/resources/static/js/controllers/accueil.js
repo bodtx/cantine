@@ -1,10 +1,10 @@
 
-var accueilControllers = angular.module('accueilControllers',['ui.bootstrap']);
+var accueilModule = angular.module('accueilModule',['ui.bootstrap']);
 
 
 
 //accueil Hello
-accueilControllers.controller('AccueilCtrl', ['$scope','$route', '$rootScope', '$injector',  function ($scope, $route, $rootScope, $injector) {
+accueilModule.controller('AccueilCtrl', ['$scope','$route', '$rootScope', '$injector',  function ($scope, $route, $rootScope, $injector) {
 
         //injection des services
         var userService = $injector.get('userService');

@@ -1,7 +1,7 @@
 
-var transportControllers  = angular.module('transportControllers', []);
+var transportModule  = angular.module('transportModule', []);
 
-transportControllers.controller('TransportCtrl', ['$scope', '$rootScope', '$injector', function($scope, $rootScope, $injector) {
+transportModule.controller('TransportCtrl', ['$scope', '$rootScope', '$injector', function($scope, $rootScope, $injector) {
 
 	//injection des services
     var transportService = $injector.get('transportService');

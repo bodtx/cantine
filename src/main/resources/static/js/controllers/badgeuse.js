@@ -1,8 +1,8 @@
 
-var badgeuseControllers  = angular.module('badgeuseControllers', []);
+var badgeuseModule  = angular.module('badgeuseModule', []);
 
 //calcule badgeuse
-badgeuseControllers.controller('HeureCtrl', ['$scope', '$rootScope','$injector',function($scope, $rootScope, $injector) {
+badgeuseModule.controller('HeureCtrl', ['$scope', '$rootScope','$injector',function($scope, $rootScope, $injector) {
 
     //injection des services
     var badgeInfoService = $injector.get('badgeInfoService');

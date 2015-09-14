@@ -1,7 +1,7 @@
 
-var fayotControllers  = angular.module('fayotControllers', []);
+var fayotModule  = angular.module('fayotModule', []);
 
-fayotControllers.controller('FayotCtrl',['$scope', '$injector', function($scope, $injector) {
+fayotModule.controller('FayotCtrl',['$scope', '$injector', function($scope, $injector) {
 
     //injection des services
     var fayotService = $injector.get('fayotService');

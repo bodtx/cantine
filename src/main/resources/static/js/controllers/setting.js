@@ -1,8 +1,8 @@
 
-var settingControllers = angular.module('settingControllers',[]);
+var settingModule = angular.module('settingModule',[]);
 
 //accueil Hello
-settingControllers.controller('SettingCtrl', ['$scope', '$rootScope', '$injector', function ($scope, $rootScope, $injector) {
+settingModule.controller('SettingCtrl', ['$scope', '$rootScope', '$injector', function ($scope, $rootScope, $injector) {
 
     var settingService = $injector.get('settingService');
 

@@ -1,4 +1,7 @@
-var myApp = angular.module('ILikeCirso', ['ngRoute', 'accueilControllers', 'menuControllers', 'badgeuseControllers', 'ui.bootstrap', 'transportControllers', 'settingControllers', 'fayotControllers']);
+//ajout des modules et des librairies
+var myApp = angular.module('ILikeCirso', ['ngRoute', 'ui.bootstrap' , 'flow', 'accueilModule', 'cantineModule', 'badgeuseModule', 'transportModule', 'settingModule', 'fayotModule', 'avatarModule']);
+
+
 
 myApp.directive('loading',   ['$http' ,function ($http)
     {
@@ -41,9 +44,6 @@ myApp.run(function($rootScope, userService, settingService) {
         });
     });
 
-
-
-
 });
 
 // Bonjour
@@ -85,7 +85,27 @@ myApp.config(['$routeProvider',
             templateUrl: 'fayot.html',
             controller: 'FayotCtrl'
         }).
+        when('/avatar', {
+            templateUrl: 'avatar.html',
+            controller: 'AvatarCtrl'
+        }).
         otherwise({
         redirectTo: '/accueil'
         });
-    }]);
+    }],
+
+    ['flowFactoryProvider', function (flowFactoryProvider) {
+      flowFactoryProvider.defaults = {
+        target: '#/avatar',
+        permanentErrors: [404, 500, 501],
+        chunkRetryInterval: 5000,
+        simultaneousUploads: 1,
+        singleFile: true
+      };
+      flowFactoryProvider.on('catchAll', function (event) {
+        console.log('catchAll', arguments);
+      });
+    }]
+
+
+    );
