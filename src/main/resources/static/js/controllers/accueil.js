@@ -13,12 +13,12 @@ accueilModule.controller('AccueilCtrl', ['$scope','$route', '$rootScope', '$inje
         var psNextService = $injector.get('psNextService');
         var transportService = $injector.get('transportService');
 
-        //problème Tisseo
-        $scope.tisseoClos = getAlerteCookie('tisseoClos');
+//        problème Tisseo
+//        $scope.tisseoClos = getAlerteCookie('tisseoClos');
 
-        transportService.problemeTisseo().then(function(problemeTisseo) {
-            $scope.problemeTisseo = problemeTisseo ;
-        });
+//        transportService.problemeTisseo().then(function(problemeTisseo) {
+//            $scope.problemeTisseo = problemeTisseo ;
+//        });
 
 
         //as tu badgé?
@@ -45,14 +45,6 @@ accueilModule.controller('AccueilCtrl', ['$scope','$route', '$rootScope', '$inje
         psNextService.getPsNext().then(function(psNext) {
             $scope.psNext = psNext  ;
         });
-
-//        $scope.openPsNext = function() {
-//            psNextService.openPsNext();
-//        }
-
-//        $scope.openTemptation = function() {
-//            badgeInfoService.openTemptation();
-//        }
 
 
         //inscription cantine
