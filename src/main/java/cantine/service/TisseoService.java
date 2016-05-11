@@ -19,7 +19,7 @@ import java.util.List;
 public class TisseoService {
 
 
-    final String API_KEY = "ae93e25245ab9ba689e7461a6863b6c20";
+    final String API_KEY = "";
 
     public Departs prochainsPassages(String login, String mdp) {
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
