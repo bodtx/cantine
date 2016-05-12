@@ -22,9 +22,11 @@ accueilModule.controller('AccueilCtrl', ['$scope','$route', '$rootScope', '$inje
 
 
         //as tu badgé?
-        $scope.asTubadgeClos = getAlerteCookie('asTubadgeClos');
         badgeInfoService.asTuBadge().then(function(asTuBadge) {
-            $scope.badgeKo = !asTuBadge  ;
+        $scope.erreurBadge = false;
+        if(asTuBadge=="false"){
+            $scope.erreurBadge = true;
+        }
         });
 
 

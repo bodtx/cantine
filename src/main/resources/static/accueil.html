@@ -9,11 +9,11 @@
     </div>
 
     <!-- As tu badgé -->
-    <div ng-show="!asTubadgeClos && badgeKo" class="alert alert-danger alert-dismissible alert-center" role="alert" ng-cloak>
-        <button type="button" class="close" data-dismiss="alert" ng-click="closeAlert('asTubadgeClos')">
+    <div ng-show="erreurBadge" class="alert alert-danger alert-dismissible alert-center" role="alert" ng-cloak>
+        <button type="button" class="close" data-dismiss="alert">
             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
         </button>
-        <strong>Warning!</strong> Tu n'as pas badgé. <span class="cursor"> <strong>Temptation</strong> </span> !!!
+        <strong>Warning!</strong> Tu n'as pas badgé. <strong>Temptation</strong> !!!
     </div>
 
 
