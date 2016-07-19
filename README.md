@@ -16,4 +16,6 @@ Lancer l'appli:  nohup java -Xms64m  -jar cantine-0.0.1-SNAPSHOT.jar --server.po
 ouvrir:
 http://localhost:9292/iLikeCirso.html
 
+pour changer son mdp il faut se mettre en point d'arret et chopper le nouveau mp encodé par spring security et le mettre dans import.sql
+
 
