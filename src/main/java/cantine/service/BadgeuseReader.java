@@ -76,9 +76,11 @@ public class BadgeuseReader {
 					}
 
 					// si le nombre de mouvements est pair, il manque un badge d'entrée
-					if (trtd == null || trtd.length == 0 || trtd.length % 2 != 0) {
-						b.setAstuBadge(true);
-					}
+					if (trtd == null || trtd.length == 0 || trtd.length % 2 == 0) {
+							b.setAstuBadge(false);
+					}else{
+                        b.setAstuBadge(true);
+                    }
 
 					// 2eme tableau de la controllers
 					Elements trs2 = tables.get(2).select("tr");

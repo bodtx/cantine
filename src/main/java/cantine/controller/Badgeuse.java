@@ -22,7 +22,7 @@ public class Badgeuse {
 
     @RequestMapping(value="/badgeInfo")
     @ResponseBody
-    BadgeuseBean badgeInfo() throws Exception {
+    public BadgeuseBean badgeInfo() throws Exception {
     	String login = userService.getUserName();
     	String mdp = userService.getPassWord();
     	return badgeuseReader.getBadgeInfos(login, mdp);
@@ -30,7 +30,7 @@ public class Badgeuse {
 
     @RequestMapping(value="/asTuBadge")
     @ResponseBody
-    boolean asTuBadge() throws Exception {
+    public boolean asTuBadge() throws Exception {
         String login = userService.getUserName();
         String mdp = userService.getPassWord();
         BadgeuseBean b = badgeuseReader.read(login, mdp);
